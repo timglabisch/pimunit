@@ -29,3 +29,6 @@ Zend_Controller_Action_HelperBroker::addHelper ( $pimcoreViewHelper );
 // run plugins
 Pimcore_API_Plugin_Broker::getInstance ()->preDispatch ();
 
+// set timezone
+#date_default_timezone_set(Zend_Registry::get("pimcore_config_system")->general->timezone);
+
