@@ -5,9 +5,23 @@ class Pimcore_Test_Tool
     public static function getSoapClient()
     {
         ini_set("soap.wsdl_cache_enabled", "0");
-        $conf = Zend_Registry::get("pimcore_config_test");
+        $conf = Zend_Registry::get("pimcore_config_system");
 
-        $user = User::getById($conf->user);
+        $user = User::getByName('soap');
+
+        if(!$user)
+        {
+            $user = User::create(array(
+                "parentId" => 0,
+                "username" => "admin",
+                "password" => Pimcore_Tool_Authentication::getPasswordHash("admin", "admin"),
+                "hasCredentials" => true,
+                "active" => true
+            ));
+            $user->setAdmin(true);
+            $user->save();
+        }
+
         if (!$user instanceof User) {
             throw new Exception("invalid user id");
         }
@@ -359,13 +373,9 @@ class Pimcore_Test_Tool
      */
     public static function resetRegistry()
     {
-
-        $conf = Zend_Registry::get('pimcore_config_test');
         Zend_Registry::_unsetInstance();
-        Zend_Registry::set('pimcore_config_test', $conf);
         Pimcore::initConfiguration();
         Pimcore::initPlugins();
-
     }
 
 }
