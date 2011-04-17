@@ -56,12 +56,16 @@ class Element_ClassTest extends Pimcore_Test_Case_Db {
     /**
      * makes sure, that the creation of objects with duplicate paths is not possible
      * @expectedException Zend_Db_Statement_Exception
-     * @depends testClassCreate
      */
     public function testDuplicateClassName() {
 
         $class = Object_Class::create();
-        $class->setName("unittest");
+        $class->setName("testDuplicateClassName");
+        $class->setUserOwner(1);
+        $class->save();
+
+        $class = Object_Class::create();
+        $class->setName("testDuplicateClassName");
         $class->setUserOwner(1);
         $class->save();
 
