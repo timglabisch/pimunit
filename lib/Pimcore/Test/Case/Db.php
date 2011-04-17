@@ -1,5 +1,5 @@
 <?
-class Pimcore_Test_Case_Db extends PHPUnit_Framework_TestCase {
+class Pimcore_Test_Case_Db extends Pimcore_Test_Case_Abstract {
 
     var $dbname = null;
 
