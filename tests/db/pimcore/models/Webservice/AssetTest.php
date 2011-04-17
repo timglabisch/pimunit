@@ -8,7 +8,7 @@ class Webservice_AssetTest extends Pimcore_Test_Case_Db {
      */
     protected function getListCondition() {
 
-        $conf = Zend_Registry::get("pimcore_config_test");
+        $conf = Zend_Registry::get("pimcore_config_system");
         return $conf->webservice->asset->condition;
 
     }
@@ -17,6 +17,9 @@ class Webservice_AssetTest extends Pimcore_Test_Case_Db {
      * @return Zend_Soap_Client
      */
     protected function getSoapClient() {
+
+        $this->markTestSkipped();
+
         return Pimcore_Test_Tool::getSoapClient();
     }
 
