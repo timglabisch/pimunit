@@ -3,6 +3,9 @@
 @ini_set("display_errors", "On");
 @ini_set("display_startup_errors", "On");
 
+// define own contstants
+define('PIMUNIT_ROOT', __DIR__);
+
 // pimcore constants
 define('PIMCORE_CONFIGURATION_SYSTEM', __DIR__ . '/fixtures/website/var/config/system.xml' );
 define('PIMCORE_ADMIN', true);
