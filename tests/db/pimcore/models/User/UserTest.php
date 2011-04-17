@@ -26,6 +26,8 @@ class User_UserTest extends Pimcore_Test_Case_Db {
      */
     public function testCreateUser() {
 
+        $this->testCreateUserGroup();
+
         $group = User::getByName("unitTestUserGroup");
         $user = new User();
         $user->setUsername("unitTestUser");
@@ -69,9 +71,10 @@ class User_UserTest extends Pimcore_Test_Case_Db {
     }
 
     /**
-     * @depends testCreateUser
+     * @depends testCreateUser, testCreateUserGroup
      */
     public function testModifyUserToAdmin() {
+
         $user = User::getByName("unitTestUser");
         $user->setUsername("newUnitTestUser");
         $user->setFirstname("firstname");
