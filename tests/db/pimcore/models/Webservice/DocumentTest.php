@@ -8,6 +8,8 @@ class Webservice_DocumentTest extends Pimcore_Test_Case_Db
      */
     protected function getSoapClient()
     {
+        $this->markTestSkipped();
+
         return Pimcore_Test_Tool::getSoapClient();
     }
 
@@ -17,7 +19,7 @@ class Webservice_DocumentTest extends Pimcore_Test_Case_Db
     protected function getListCondition()
     {
 
-        $conf = Zend_Registry::get("pimcore_config_test");
+        $conf = Zend_Registry::get("pimcore_config_system");
         return $conf->webservice->document->condition;
 
     }
