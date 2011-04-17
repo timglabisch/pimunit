@@ -230,13 +230,13 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
         //create unequal assets
          $asset1 = Asset_Image::create(1, array(
             "filename" => uniqid() . rand(10, 99) . ".jpg",
-            "data" => file_get_contents(TESTS_PATH . "/resources/assets/images/image1" . ".jpg"),
+            "data" => file_get_contents($this->getFixture('/pimcore/assets/images/image1.jpg')),
             "userOwner" => 1
         ));
 
          $asset2 = Asset_Image::create(1, array(
             "filename" => uniqid() . rand(10, 99) . ".jpg",
-            "data" => file_get_contents(TESTS_PATH . "/resources/assets/images/image2" . ".jpg"),
+            "data" => file_get_contents($this->getFixture('/pimcore/assets/images/image2.jpg')),
             "userOwner" => 1
         ));
 

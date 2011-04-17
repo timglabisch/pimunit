@@ -517,7 +517,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
     {
         $asset = Asset_Image::create(1, array(
                                              "filename" => uniqid() . rand(10, 99) . ".jpg",
-                                             "data" => file_get_contents(TESTS_PATH . "/resources/assets/images/image" . rand(1, 4) . ".jpg"),
+                                             "data" => file_get_contents($this->getFixture("/pimcore/assets/images/image" . rand(1, 4) . ".jpg")),
                                              "userOwner" => 1
                                         ));
         return $asset;
@@ -531,7 +531,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
     {
         $asset = Asset_Video::create(1, array(
                                              "filename" => uniqid() . rand(10, 99) . ".wmv",
-                                             "data" => file_get_contents(TESTS_PATH . "/resources/assets/video/recyclebin.wmv"),
+                                             "data" => file_get_contents($this->getFixture('/pimcore/assets/video/recyclebin.wmv')),
                                              "userOwner" => 1
                                         ));
         return $asset;

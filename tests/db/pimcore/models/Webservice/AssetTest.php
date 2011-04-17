@@ -185,7 +185,7 @@ class Webservice_AssetTest extends Pimcore_Test_Case_Db {
 
         //update asset file and set custom settings
         $refetchAsset->setCustomSettings(array("customSettingTest"=>"This is a test"));
-        $refetchAsset->setData(file_get_contents(TESTS_PATH . "/resources/assets/images/image5.jpg"));
+        $refetchAsset->setData(file_get_contents($this->getFixture('/pimcore/assets/images/image5.jpg')));
         $apiAsset = Webservice_Data_Mapper::map($refetchAsset, "Webservice_Data_Asset_File_In", "in");
         $success = $client->updateAssetFile($apiAsset);
         $this->assertTrue($success);
