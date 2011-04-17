@@ -16,10 +16,8 @@ $pimcore->initAutoloader();
 $pimcore->initLogger();
 $pimcore->initPlugins();
 
-// add test Namespace
-$includePaths = array(get_include_path(), __DIR__ . '/lib');
-set_include_path(implode(PATH_SEPARATOR, $includePaths));
-$autoloader = Zend_Loader_Autoloader::getInstance();
+// allow autololoading in pimcore namespace
+set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.'/lib');
 
 // set custom view renderer
 $pimcoreViewHelper = new Pimcore_Controller_Action_Helper_ViewRenderer ( );
