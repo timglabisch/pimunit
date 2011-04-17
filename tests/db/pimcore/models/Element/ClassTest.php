@@ -12,7 +12,7 @@ class Element_ClassTest extends Pimcore_Test_Case_Db {
         $fieldCollection = new Object_Fieldcollection_Definition();
         $fieldCollection->setKey("collectionA");
 
-        $conf = new Zend_Config_Xml(TESTS_PATH . "/resources/objects/field-collection-import.xml");
+        $conf = new Zend_Config_Xml($this->getFixture('/pimcore/objects/field-collection-import.xml'));
         $importData = $conf->toArray();
 
         $layout = Object_Class_Service::generateLayoutTreeFromArray($importData["layoutDefinitions"]);
@@ -29,7 +29,7 @@ class Element_ClassTest extends Pimcore_Test_Case_Db {
      */
     public function testClassCreate() {
 
-        $conf = new Zend_Config_Xml(TESTS_PATH . "/resources/objects/class-import.xml");
+        $conf = new Zend_Config_Xml($this->getFixture('/pimcore/objects/class-import.xml'));
         $importData = $conf->toArray();
 
         $layout = Object_Class_Service::generateLayoutTreeFromArray($importData["layoutDefinitions"]);
