@@ -6,10 +6,7 @@ class Webservice_ObjectTest extends Pimcore_Test_Case_Db {
      * @return Zend_Soap_Client
      */
     protected function getSoapClient() {
-
-        $this->markTestSkipped();
-
-        return Test_Tool::getSoapClient();
+        return Pimcore_Test_Tool::getSoapClient();
     }
 
     /**
@@ -89,7 +86,7 @@ class Webservice_ObjectTest extends Pimcore_Test_Case_Db {
         //remove childs, this can not be set through WS
         $localObject->setChilds(null);
 
-        $this->assertTrue(Test_Tool::objectsAreEqual($localObject, $refetchObject,true));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($localObject, $refetchObject,true));
 
 
         //update object
@@ -99,11 +96,11 @@ class Webservice_ObjectTest extends Pimcore_Test_Case_Db {
         $this->assertTrue($success);
 
         $id = $refetchObject->getId();
-        Test_Tool::resetRegistry();
+        Pimcore_Test_Tool::resetRegistry();
         $localObject = Object_Abstract::getById($id);
         $localObject->setChilds(null);
 
-        $this->assertTrue(Test_Tool::objectsAreEqual($localObject, $refetchObject, true));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($localObject, $refetchObject, true));
 
         //delete our test copy
         $success = $client->deleteObject($refetchObject->getId());
@@ -186,7 +183,7 @@ class Webservice_ObjectTest extends Pimcore_Test_Case_Db {
         //remove childs, this can not be set through WS
         $localObject->setChilds(null);
 
-        $this->assertTrue(Test_Tool::objectsAreEqual($localObject, $refetchObject,true));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($localObject, $refetchObject,true));
 
 
         //update object
@@ -197,11 +194,11 @@ class Webservice_ObjectTest extends Pimcore_Test_Case_Db {
         $this->assertTrue($success);
 
         $id = $refetchObject->getId();
-        Test_Tool::resetRegistry();
+        Pimcore_Test_Tool::resetRegistry();
         $localObject = Object_Abstract::getById($id);
         $localObject->setChilds(null);
 
-        $this->assertTrue(Test_Tool::objectsAreEqual($localObject, $refetchObject, true));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($localObject, $refetchObject, true));
 
         //delete our test copy
         $success = $client->deleteObject($refetchObject->getId());

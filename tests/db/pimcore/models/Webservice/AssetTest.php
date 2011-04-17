@@ -17,10 +17,7 @@ class Webservice_AssetTest extends Pimcore_Test_Case_Db {
      * @return Zend_Soap_Client
      */
     protected function getSoapClient() {
-
-        $this->markTestSkipped();
-
-        return Test_Tool::getSoapClient();
+        return Pimcore_Test_Tool::getSoapClient();
     }
 
     public function testAssetFolder() {
@@ -89,7 +86,7 @@ class Webservice_AssetTest extends Pimcore_Test_Case_Db {
         $original->getProperties();
 
 
-        $this->assertTrue(Test_Tool::assetsAreEqual($original, $refetchAsset,true));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($original, $refetchAsset,true));
 
         //update asset file and set custom settings
         $refetchAsset->setCustomSettings(array("customSettingTest"=>"This is a test"));
@@ -107,10 +104,10 @@ class Webservice_AssetTest extends Pimcore_Test_Case_Db {
         $this->assertTrue(is_array($cs));
         $this->assertTrue($cs["customSettingTest"] == "This is a test");
 
-        Test_Tool::resetRegistry();
+        Pimcore_Test_Tool::resetRegistry();
         //compare to original
         $original = Asset_Folder::getById($id);
-        $this->assertTrue(Test_Tool::assetsAreEqual($original, $refetchAsset,true));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($original, $refetchAsset,true));
 
 
         //delete our test copy
@@ -183,7 +180,7 @@ class Webservice_AssetTest extends Pimcore_Test_Case_Db {
 
         //compare to original
         $original = Asset::getById($id);
-        $this->assertTrue(Test_Tool::assetsAreEqual($original, $refetchAsset,true));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($original, $refetchAsset,true));
 
 
         //update asset file and set custom settings
@@ -204,10 +201,10 @@ class Webservice_AssetTest extends Pimcore_Test_Case_Db {
         $this->assertTrue(is_array($cs));
         $this->assertTrue($cs["customSettingTest"] == "This is a test");
 
-        Test_Tool::resetRegistry();
+        Pimcore_Test_Tool::resetRegistry();
         //compare to original
         $original = Asset::getById($id);
-        $this->assertTrue(Test_Tool::assetsAreEqual($original, $refetchAsset,true));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($original, $refetchAsset,true));
 
 
         //delete our test copy

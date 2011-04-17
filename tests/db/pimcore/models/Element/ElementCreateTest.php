@@ -41,7 +41,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
         $refetch = Object_Folder::getById($folder->getId());
         //$this->assertTrue($refetch instanceof Object_Folder);
 
-        $this->assertTrue(Test_Tool::objectsAreEqual($folder, $refetch, false));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($folder, $refetch, false));
 
     }
 
@@ -108,7 +108,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
 
         $refetch = Asset_Folder::getById($asset->getId());
 
-        $this->assertTrue(Test_Tool::assetsAreEqual($asset, $refetch, false));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($asset, $refetch, false));
     }
 
     /**
@@ -155,7 +155,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
 
         //$this->assertTrue($refetch instanceof Asset_Image);
 
-        $this->assertTrue(Test_Tool::assetsAreEqual($asset, $refetch, false));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($asset, $refetch, false));
 
 
     }
@@ -195,7 +195,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
         $refetch = Document_Folder::getById($document->getId());
         //$this->assertTrue($refetch instanceof Document_Folder);
 
-        $this->assertTrue(Test_Tool::documentsAreEqual($document, $refetch, false));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($document, $refetch, false));
 
     }
 
@@ -244,7 +244,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
         $refetch = Document_Page::getById($document->getId());
         //$this->assertTrue($refetch instanceof Document_Page);
 
-        $this->assertTrue(Test_Tool::documentsAreEqual($document, $refetch, false));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($document, $refetch, false));
 
     }
 
@@ -267,7 +267,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
 
         //todo data
 
-        $this->assertTrue(Test_Tool::documentsAreEqual($document, $refetch, false));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($document, $refetch, false));
     }
 
     /**
@@ -295,7 +295,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
 
         $document->setValues($data);
         $document->save();
-        $this->assertTrue(Test_Tool::documentsAreEqual($document, $refetch, false));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($document, $refetch, false));
     }
 
     /**
@@ -469,7 +469,7 @@ class Element_ElementCreateTest extends Pimcore_Test_Case_Db
         $refetch = Object_Abstract::getById($object->getId());
 
         $this->assertFalse($refetch->isPublished());
-        $this->assertTrue(Test_Tool::objectsAreEqual($object, $refetch, false));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($object, $refetch, false));
 
 
         return $object;

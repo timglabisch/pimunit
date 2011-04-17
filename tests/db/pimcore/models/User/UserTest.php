@@ -26,8 +26,6 @@ class User_UserTest extends Pimcore_Test_Case_Db {
      */
     public function testCreateUser() {
 
-         $this->markTestSkipped();
-
         $group = User::getByName("unitTestUserGroup");
         $user = new User();
         $user->setUsername("unitTestUser");

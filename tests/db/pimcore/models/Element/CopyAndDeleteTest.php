@@ -41,8 +41,8 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
         Object_Service::loadAllObjectFields($childs[0]);
         Object_Service::loadAllObjectFields($childs[1]);
 
-        $this->assertTrue(Test_Tool::objectsAreEqual($parent, $childs[0], true));
-        $this->assertTrue(Test_Tool::objectsAreEqual($parent, $childs[1], true));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($parent, $childs[0], true));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($parent, $childs[1], true));
 
         //copy recursivley
         $rootNode = Object_Abstract::getById(1);
@@ -54,7 +54,7 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
         Object_Service::loadAllObjectFields($copy);
 
         $this->assertTrue(count($copy->getChilds()) == 2);
-        $this->assertTrue(Test_Tool::objectsAreEqual($parent, $copy, true));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($parent, $copy, true));
 
 
         //create empty object
@@ -66,12 +66,12 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
         $emptyObject->setKey(uniqid() . rand(10, 99));
         $emptyObject->save();
 
-        $this->assertFalse(Test_Tool::objectsAreEqual($emptyObject, $copy, true));
+        $this->assertFalse(Pimcore_Test_Tool::objectsAreEqual($emptyObject, $copy, true));
 
         //copy contents
         $emptyObject = $service->copyContents($emptyObject, $copy);
 
-        $this->assertTrue(Test_Tool::objectsAreEqual($emptyObject, $copy, true));
+        $this->assertTrue(Pimcore_Test_Tool::objectsAreEqual($emptyObject, $copy, true));
 
         //todo copy contents must fail if types differ
 
@@ -126,8 +126,8 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
 
         $childs = $parent->getChilds();
 
-        $this->assertTrue(Test_Tool::documentsAreEqual($parent, $childs[0], true));
-        $this->assertTrue(Test_Tool::documentsAreEqual($parent, $childs[1], true));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($parent, $childs[0], true));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($parent, $childs[1], true));
 
         //copy recursivley
         $rootNode = Document::getById(1);
@@ -138,7 +138,7 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
 
         $this->assertTrue(count($copy->getChilds()) == 2);
 
-        $this->assertTrue(Test_Tool::documentsAreEqual($parent, $copy, true));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($parent, $copy, true));
 
 
         //create empty document
@@ -148,12 +148,12 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
         ));
 
 
-        $this->assertFalse(Test_Tool::documentsAreEqual($emptyDoc, $copy, true));
+        $this->assertFalse(Pimcore_Test_Tool::documentsAreEqual($emptyDoc, $copy, true));
 
         //copy contents
         $emptyDoc = $service->copyContents($emptyDoc, $copy);
 
-        $this->assertTrue(Test_Tool::documentsAreEqual($emptyDoc, $copy, true));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($emptyDoc, $copy, true));
 
         //todo copy contents must fail if types differ
 
@@ -207,7 +207,7 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
         $this->assertTrue(count($parent->getChilds()) == 1);
 
         $childs = $parent->getChilds();
-        $this->assertTrue(Test_Tool::assetsAreEqual($parent, $childs[0], true));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($parent, $childs[0], true));
 
         //copy as child no. 2
         $service->copyAsChild($parent, $image);
@@ -224,7 +224,7 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
 
         $this->assertTrue(count($copy->getChilds()) == 2);
 
-        $this->assertTrue(Test_Tool::assetsAreEqual($parent, $copy, true));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($parent, $copy, true));
 
 
         //create unequal assets
@@ -241,12 +241,12 @@ class Element_CopyAndDeleteTest extends Pimcore_Test_Case_Db {
         ));
 
 
-        $this->assertFalse(Test_Tool::assetsAreEqual($asset1, $asset2, true));
+        $this->assertFalse(Pimcore_Test_Tool::assetsAreEqual($asset1, $asset2, true));
 
         //copy contents
         $asset1 = $service->copyContents($asset1, $asset2);
 
-        $this->assertTrue(Test_Tool::assetsAreEqual($asset1, $asset2, true));
+        $this->assertTrue(Pimcore_Test_Tool::assetsAreEqual($asset1, $asset2, true));
 
         //todo copy contents must fail if types differ
 

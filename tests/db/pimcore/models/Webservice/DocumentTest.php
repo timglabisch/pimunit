@@ -8,9 +8,7 @@ class Webservice_DocumentTest extends Pimcore_Test_Case_Db
      */
     protected function getSoapClient()
     {
-        $this->markTestSkipped();
-
-        return Test_Tool::getSoapClient();
+        return Pimcore_Test_Tool::getSoapClient();
     }
 
     /**
@@ -129,7 +127,7 @@ class Webservice_DocumentTest extends Pimcore_Test_Case_Db
         $localDocument->childs = null;
 
 
-        $this->assertTrue(Test_Tool::documentsAreEqual($localDocument, $refetchDocument, true));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($localDocument, $refetchDocument, true));
 
 
         //update document
@@ -147,7 +145,7 @@ class Webservice_DocumentTest extends Pimcore_Test_Case_Db
         $localDocument = $localClass::getById($documentId);
         $localDocument->getProperties();
         $localDocument->childs = null;
-        $this->assertTrue(Test_Tool::documentsAreEqual($localDocument, $refetchDocument, true));
+        $this->assertTrue(Pimcore_Test_Tool::documentsAreEqual($localDocument, $refetchDocument, true));
 
         //delete our test copy
         $success = $client->deleteDocument($refetchDocument->getId());

@@ -4,10 +4,8 @@ class Element_LazyLoadingTest extends Pimcore_Test_Case_Db {
 
     public function testLazyLoading() {
 
-        $this->markTestSkipped();
-
          //reset registry
-        Test_Tool::resetRegistry();
+        Pimcore_Test_Tool::resetRegistry();
 
         //find an object with data
         $objectList = new Object_List();
