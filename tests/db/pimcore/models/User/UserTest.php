@@ -22,10 +22,9 @@ class User_UserTest extends Pimcore_Test_Case_Db {
 
     /**
      * create a user
-     * @depends testCreateUserGroup
+     * depends testCreateUserGroup, testCreateUser
      */
     public function testCreateUser() {
-
         $this->testCreateUserGroup();
 
         $group = User::getByName("unitTestUserGroup");
@@ -60,6 +59,7 @@ class User_UserTest extends Pimcore_Test_Case_Db {
 
     /**
      * @depends testDuplicateUserNames
+     * TODO trash?
      */
     public function testCleanupDuplicate() {
 
@@ -71,10 +71,12 @@ class User_UserTest extends Pimcore_Test_Case_Db {
     }
 
     /**
-     * @depends testCreateUser, testCreateUserGroup
+     * depends testCreateUserGroup
      */
     public function testModifyUserToAdmin() {
 
+        $this->testCreateUser();
+       
         $user = User::getByName("unitTestUser");
         $user->setUsername("newUnitTestUser");
         $user->setFirstname("firstname");
@@ -108,10 +110,13 @@ class User_UserTest extends Pimcore_Test_Case_Db {
 
     /**
      * change general user permissions
-     * @depends testModifyUserToAdmin
+     * depends testModifyUserToAdmin
      * @var User $user
      */
     public function testPermissionChanges() {
+
+        $this->testModifyUserToAdmin();
+
         $userGroup = User::getByName("unitTestUserGroup");
         $username = $userGroup->getUsername();
         $userGroup->setAdmin(false);
