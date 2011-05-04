@@ -4,7 +4,7 @@
 			<pluginName>Pimunit</pluginName>
 			<pluginDescription><![CDATA[PHPUnit for Pimcore]]></pluginDescription>
             <pluginNiceName>Pimunit</pluginNiceName>
-            <pluginIcon>/plugins/Pimunit/static/img/commenting-logo.png</pluginIcon>
+            <pluginIcon>/plugins/Pimunit/static/img/pimunit.png</pluginIcon>
 			<pluginServer>plugins.anymotion.org</pluginServer>
 			<pluginVersion>0.0.1</pluginVersion>
             <pluginRevision>1</pluginRevision>
