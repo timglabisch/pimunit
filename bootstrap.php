@@ -5,8 +5,8 @@
 
 // define own contstants
 define('PIMUNIT_ROOT', __DIR__);
-define('PIMUNIT_WEBSITE_PATH', PIMUNIT_ROOT.'/fixtures/website');
-define('PIMCORE_CONFIGURATION_SYSTEM', __DIR__ . '/fixtures/website/var/config/system.xml' );
+define('PIMUNIT_WEBSITE_PATH', PIMUNIT_ROOT.'/tests/fixtures/website');
+define('PIMCORE_CONFIGURATION_SYSTEM', __DIR__ . '/tests/fixtures/website/var/config/system.xml' );
 define("PIMCORE_ASSET_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/assets");
 define("PIMCORE_VERSION_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/versions");
 define("PIMCORE_WEBDAV_TEMP", PIMUNIT_WEBSITE_PATH . "/var/webdav");

@@ -1,4 +1,4 @@
-glob:fixtures/website/var/config/system.xml
-glob:fixtures/website/var/config/*.*
-glob:fixtures/website/var/log/*.*
-glob:fixtures/website/var/system/*.*
+glob:tests/fixtures/website/var/config/system.xml
+glob:tests/fixtures/website/var/config/*.*
+glob:tests/fixtures/website/var/log/*.*
+glob:tests/fixtures/website/var/system/*.*
