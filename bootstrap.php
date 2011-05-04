@@ -23,7 +23,7 @@ define("PIMCORE_SYSTEM_TEMP_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/system");
 define('PIMCORE_ADMIN', true);
 
 // load pimcore
-require_once __DIR__ . '/../pimcore/config/startup.php';
+require_once __DIR__ . '/../../pimcore/config/startup.php';
 $pimcore = new Pimcore( );
 $pimcore->initConfiguration();
 $pimcore->setSystemRequirements();
