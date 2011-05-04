@@ -30,6 +30,10 @@ class Pimcore_Test_Case_Db extends Pimcore_Test_Case_Abstract {
     {
         parent::setUp();
 
+        // clear cache
+        $cleanup = new Pimcore_Test_Cleanup();
+        $cleanup->cleanUp();
+
         // drop the old database
         $initQuery = array(
             'DROP DATABASE '.$this->getDbName(),
