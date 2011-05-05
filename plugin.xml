@@ -12,7 +12,10 @@
             <pluginIframeSrc></pluginIframeSrc>
             <pluginClassName>Pimunit_Plugin</pluginClassName>
 			<pluginIncludePaths>
-				<path>/lib</path>
+				<path>/Pimunit/lib</path>
 			</pluginIncludePaths>
+            <pluginNamespaces>
+                <namespace>Pimunit</namespace>
+            </pluginNamespaces>
 		</plugin>
 </zend-config>
