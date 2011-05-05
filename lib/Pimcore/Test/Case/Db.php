@@ -42,19 +42,25 @@ abstract class Pimcore_Test_Case_Db extends Pimcore_Test_Case_Abstract {
 
     public function setUpFiles()
     {
+       // $this->flushIOCache();
         $cleanup = new Pimcore_Test_Cleanup();
         $cleanup->cleanUp();
+    }
+
+    public function flushIOCache()
+    {
+        Pimcore_Model_Cache::write();
     }
 
     public function setUp()
     {
         parent::setUp();
 
-        // clear cache
-        $this->setUpFiles();
-
         // clear database
         $this->setUpDatabase();
+
+        // clear cache
+        $this->setUpFiles();
     }
 
 }
