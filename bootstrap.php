@@ -1,4 +1,5 @@
 <?
+
 // php configuration
 @ini_set("display_errors", "On");
 @ini_set("display_startup_errors", "On");
@@ -21,6 +22,11 @@ define("PIMCORE_SYSTEM_TEMP_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/system");
 
 // pimcore constants
 define('PIMCORE_ADMIN', true);
+
+// disable the writing the Cache at the end of the Request
+register_shutdown_function(function () {
+    die();
+});
 
 // load pimcore
 require_once __DIR__ . '/../../pimcore/config/startup.php';
@@ -46,4 +52,5 @@ Pimcore_API_Plugin_Broker::getInstance ()->preDispatch ();
 
 // disable cache
 //Pimcore_Model_Cache::disable();
+
 
