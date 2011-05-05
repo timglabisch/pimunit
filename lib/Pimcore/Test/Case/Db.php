@@ -3,19 +3,20 @@ abstract class Pimcore_Test_Case_Db extends Pimcore_Test_Case_Abstract {
 
     var $dbname = null;
 
-    protected function getDbName()
+    public function getDbName()
     {
         if($this->dbname == null)
-        {
-             // check the Database suffix
-            $this->dbname = Zend_Registry::get ( "pimcore_config_system" )->database->params->dbname;
-
-            // assert that the database suffix is _test !
-            if (substr ( $this->dbname, strlen ( $this->dbname ) - 5 ) != '_test')
-               die( 'the testdatabase must have \'_test\' as suffix!' );
-        }
-
+            $this->setDbName(Zend_Registry::get ( "pimcore_config_system" )->database->params->dbname);
+        
         return $this->dbname;
+    }
+
+    public function setDbName($dbname)
+    {
+        if (substr ( $dbname, strlen ( $dbname ) - 5 ) != '_test')
+            throw new Pimcore_Test_Case_Db_Exception( 'the testdatabase must have \'_test\' as suffix!' );
+
+        $this->dbname = $dbname;
     }
 
     /**
@@ -26,14 +27,8 @@ abstract class Pimcore_Test_Case_Db extends Pimcore_Test_Case_Abstract {
         return Pimcore_Resource_Mysql::get();
     }
 
-    public function setUp()
+    public function setUpDatabase()
     {
-        parent::setUp();
-
-        // clear cache
-        $cleanup = new Pimcore_Test_Cleanup();
-        $cleanup->cleanUp();
-
         // drop the old database
         $initQuery = array(
             'DROP DATABASE '.$this->getDbName(),
@@ -43,6 +38,23 @@ abstract class Pimcore_Test_Case_Db extends Pimcore_Test_Case_Abstract {
         );
 
         $this->getDb()->exec(implode(';', $initQuery));
+    }
+
+    public function setUpFiles()
+    {
+        $cleanup = new Pimcore_Test_Cleanup();
+        $cleanup->cleanUp();
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        // clear cache
+        $this->setUpFiles();
+
+        // clear database
+        $this->setUpDatabase();
     }
 
 }
