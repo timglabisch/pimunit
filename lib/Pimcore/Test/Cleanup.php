@@ -3,7 +3,6 @@
 class Pimcore_Test_Cleanup {
 
     public function rrmdir($dir) {
-  
         if (is_dir($dir)) {
             $objects = scandir($dir);
             foreach ($objects as $object) {
@@ -30,6 +29,7 @@ class Pimcore_Test_Cleanup {
                         PIMCORE_RECYCLEBIN_DIRECTORY,
                         PIMCORE_SYSTEM_TEMP_DIRECTORY,
                     );
+
         array_map(array($this, 'rrmdir'), $dirs);
         array_map('mkdir', $dirs);
         array_map('mkdir', array(
@@ -37,7 +37,5 @@ class Pimcore_Test_Cleanup {
                         PIMCORE_VERSION_DIRECTORY.'/document',
                         PIMCORE_VERSION_DIRECTORY.'/object'
                           ));
-
-
     }
 }

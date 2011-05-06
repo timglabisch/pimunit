@@ -1,12 +1,13 @@
 <?
+
 // php configuration
 @ini_set("display_errors", "On");
 @ini_set("display_startup_errors", "On");
 
 // define own contstants
 define('PIMUNIT_ROOT', __DIR__);
-define('PIMUNIT_WEBSITE_PATH', PIMUNIT_ROOT.'/fixtures/website');
-define('PIMCORE_CONFIGURATION_SYSTEM', __DIR__ . '/fixtures/website/var/config/system.xml' );
+define('PIMUNIT_WEBSITE_PATH', PIMUNIT_ROOT.'/tests/fixtures/website');
+define('PIMCORE_CONFIGURATION_SYSTEM', __DIR__ . '/tests/fixtures/website/var/config/system.xml' );
 define("PIMCORE_ASSET_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/assets");
 define("PIMCORE_VERSION_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/versions");
 define("PIMCORE_WEBDAV_TEMP", PIMUNIT_WEBSITE_PATH . "/var/webdav");
@@ -22,8 +23,13 @@ define("PIMCORE_SYSTEM_TEMP_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/system");
 // pimcore constants
 define('PIMCORE_ADMIN', true);
 
+// disable the writing the Cache at the end of the Request
+register_shutdown_function(function () {
+    die();
+});
+
 // load pimcore
-require_once __DIR__ . '/../pimcore/config/startup.php';
+require_once __DIR__ . '/../../pimcore/config/startup.php';
 $pimcore = new Pimcore( );
 $pimcore->initConfiguration();
 $pimcore->setSystemRequirements();
@@ -46,4 +52,5 @@ Pimcore_API_Plugin_Broker::getInstance ()->preDispatch ();
 
 // disable cache
 //Pimcore_Model_Cache::disable();
+
 
