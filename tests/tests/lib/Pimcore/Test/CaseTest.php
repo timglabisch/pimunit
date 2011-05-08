@@ -95,27 +95,6 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
     }
 
     /**
-     * @expectedException Pimcore_Test_Case_Db_Exception
-     * @group memory
-     */
-    public function testSetDbNameWrongSuffix()
-    {
-        $this->markTestSkipped();
-        $this->getObject()->setDbName('wayne');
-    }
-
-    /**
-     * @group memory
-     */
-    public function testSetDbName()
-    {
-        $this->markTestSkipped();
-        $o =  $this->getObject();
-        $o->setDbName('wayne_test');
-        $this->assertEquals($o->getDbName(), 'wayne_test');
-    }
-
-    /**
      * @group memory
      */
     public function testGroupMemory()
