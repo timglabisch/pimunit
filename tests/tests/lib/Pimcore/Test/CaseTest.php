@@ -1,13 +1,22 @@
 <?php
 
-class Pimcore_Test_Case_DbTest extends Pimcore_Test_Case_Db {
+class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
 
     /**
-     * @return Pimcore_Test_Case_Db
+     * @return Pimcore_Test_Case_Abstract
      */
     private function getObject()
     {
-        return $this->getMockForAbstractClass('Pimcore_Test_Case_Db');
+        return $this->getMockForAbstractClass('Pimcore_Test_Case');
+    }
+
+    /**
+     * @group memory
+     */
+    public function testGetFixture()
+    {
+        $content = file_get_contents($this->getObject()->getFixture('where_i_am'));
+        $this->assertEquals($content, 'pimunit');
     }
 
     protected function countDocuments()
@@ -60,7 +69,7 @@ class Pimcore_Test_Case_DbTest extends Pimcore_Test_Case_Db {
     public function testSetUpFilesByDocument()
     {
         $this->setUpFiles();
-        
+
         $this->assertEquals($this->countCache(), 0);
         $this->setUpFiles();
 
