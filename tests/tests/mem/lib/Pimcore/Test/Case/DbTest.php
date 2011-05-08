@@ -12,12 +12,16 @@ class Pimcore_Test_Case_MemTest extends Pimcore_Test_Case_Mem {
 
     /**
      * @expectedException Pimcore_Test_Case_Db_Exception
+     * @group memory
      */
     public function testSetDbNameWrongSuffix()
     {
         $this->getObject()->setDbName('wayne');
     }
 
+    /**
+     * @group memory
+     */
     public function testSetDbName()
     {
         $o =  $this->getObject();

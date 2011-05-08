@@ -16,6 +16,9 @@ class Pimcore_Test_Case_DbTest extends Pimcore_Test_Case_Db {
         return count($res);
     }
 
+    /**
+     * @group db
+     */
     public function testSetUpDatabaseByDocument()
     {
         $this->assertEquals($this->countDocuments(), 1);
@@ -51,6 +54,9 @@ class Pimcore_Test_Case_DbTest extends Pimcore_Test_Case_Db {
         return count($files);
     }
 
+    /**
+     * @group db
+     */
     public function testSetUpFilesByDocument()
     {
         $this->setUpFiles();
