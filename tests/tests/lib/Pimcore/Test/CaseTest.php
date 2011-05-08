@@ -113,4 +113,28 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
         $this->assertEquals($o->getDbName(), 'wayne_test');
     }
 
+    /**
+     * @group memory
+     */
+    public function testGroupMemory()
+    {
+        $this->assertTrue($this->isMemoryTest());
+        $this->assertFalse($this->isDbTest());
+    }
+
+    /**
+     * @group db
+     */
+    public function testGroupDb()
+    {
+        $this->assertFalse($this->isMemoryTest());
+        $this->assertTrue($this->isDbTest());
+    }
+
+    public function testGroupAll()
+    {
+        $this->assertTrue($this->isMemoryTest());
+        $this->assertTrue($this->isDbTest());
+    }
+
 }

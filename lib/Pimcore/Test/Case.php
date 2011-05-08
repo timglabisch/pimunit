@@ -17,11 +17,11 @@ abstract class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
     public function isMemoryTest()
     {
         $annotations = $this->getAnnotations();
-
+       
         if(!isset($annotations['method']['group']))
             return true;
 
-        if(in_array('memory',$annotations['method']['group']));
+        if(in_array('memory',$annotations['method']['group']))
             return true;
 
         return false;
@@ -34,7 +34,7 @@ abstract class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
         if(!isset($annotations['method']['group']))
             return true;
 
-        if(in_array('db',$annotations['method']['group']));
+        if(in_array('db',$annotations['method']['group']))
             return true;
 
         return false;
