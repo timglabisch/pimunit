@@ -40,13 +40,6 @@ $pimcore->initPlugins();
 // allow autololoading in pimcore namespace
 set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.'/lib');
 
-// set custom view renderer
-$pimcoreViewHelper = new Pimcore_Controller_Action_Helper_ViewRenderer ( );
-Zend_Controller_Action_HelperBroker::addHelper ( $pimcoreViewHelper );
-                
-// run plugins
-Pimcore_API_Plugin_Broker::getInstance ()->preDispatch ();
-
 // set timezone
 #date_default_timezone_set(Zend_Registry::get("pimcore_config_system")->general->timezone);
 
