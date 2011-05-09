@@ -40,3 +40,6 @@ $pimcore->initPlugins();
 // allow autololoading in pimcore namespace
 set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.'/lib');
 
+// load external libs
+require_once PIMUNIT_ROOT.'/lib/Yaml/sfYamlParser.php';
+

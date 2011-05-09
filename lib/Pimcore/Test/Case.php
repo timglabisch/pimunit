@@ -53,4 +53,17 @@ abstract class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
         parent::setUp();
     }
 
+    public function tearDown()
+    {
+        foreach($this->getSetups() as $setup)
+        {
+            $setup->setTest($this);
+
+            if($setup->getIsEnable())
+                $setup->tearDown();
+        }
+
+        parent::tearDown();
+    }
+
 }

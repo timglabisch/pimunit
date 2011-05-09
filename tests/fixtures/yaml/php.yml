@@ -1,0 +1,2 @@
+key: <?php echo file_get_contents('1.0/VERSION')."\n" ?>
+foo: bar
