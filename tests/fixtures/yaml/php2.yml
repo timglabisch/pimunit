@@ -1,0 +1,13 @@
+Fixture1:
+  Document_Page:
+    key : Testdokument3
+    title : Testdokument3
+    path: test3
+    parentId : 1
+
+Fixture2:
+  Document_Page:
+    key : Testdokument4
+    title : Testdokument4
+    path: test4
+    parentId : 1

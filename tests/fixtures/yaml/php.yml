@@ -1,2 +1,13 @@
-key: <?php echo file_get_contents('1.0/VERSION')."\n" ?>
-foo: bar
+Fixture1:
+  Document_Page:
+    key : Testdokument
+    title : Testdokument
+    path: test
+    parentId : 1
+
+Fixture2:
+  Document_Page:
+    key : Testdokument2
+    title : Testdokument2
+    path: test2
+    parentId : 1

@@ -23,7 +23,8 @@ abstract class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
 
         return array(
             new Pimcore_Test_Setup_Db(),
-            new Pimcore_Test_Setup_Memory()
+            new Pimcore_Test_Setup_Memory(),
+            new Pimcore_Test_Setup_Fixture()
         );
     }
 
