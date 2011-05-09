@@ -40,10 +40,3 @@ $pimcore->initPlugins();
 // allow autololoading in pimcore namespace
 set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.'/lib');
 
-// set timezone
-#date_default_timezone_set(Zend_Registry::get("pimcore_config_system")->general->timezone);
-
-// disable cache
-//Pimcore_Model_Cache::disable();
-
-
