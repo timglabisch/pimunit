@@ -49,7 +49,7 @@ class Pimcore_Test_Setup_Db extends Pimcore_Test_Setup_Db_Abstract implements Pi
 
     public function tearDown()
     {
-        
+        $this->setUp();
     }
 
 }
