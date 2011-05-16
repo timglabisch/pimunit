@@ -6,7 +6,7 @@ class Pimcore_Test_Setup_Memory extends Pimcore_Test_Setup_Memory_Abstract imple
     private $test;
     private $isEnable = null;
 
-    public function setTest(PHPUnit_Framework_TestCase $test)
+    public function setTest(Pimcore_Test_Case $test)
     {
         $this->test = $test;
         return $this;
