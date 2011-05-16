@@ -1,5 +1,5 @@
 <?php
-class Pimcore_Test_Setup_FixtureTest extends Pimcore_Test_Case
+class Pimcore_Test_Setup_Fixture_AbstractTest extends Pimcore_Test_Case
 {
 
     public function testGetClasses()
