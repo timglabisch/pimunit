@@ -35,6 +35,7 @@ $pimcore->initConfiguration();
 $pimcore->setSystemRequirements();
 $pimcore->initAutoloader();
 $pimcore->initLogger();
+$pimcore->initModules();
 $pimcore->initPlugins();
 
 // allow autololoading in pimcore namespace
