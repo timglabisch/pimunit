@@ -6,25 +6,28 @@
 
 // define own contstants
 define('PIMUNIT_ROOT', __DIR__);
-define('PIMUNIT_WEBSITE_PATH', PIMUNIT_ROOT.'/tests/fixtures/website');
+define('PIMUNIT_ROOT_PROC', PIMUNIT_ROOT.'/var/tmp/'.getmypid().'/');
+define('PIMUNIT_WEBSITE_PATH', PIMUNIT_ROOT_PROC.'/var/tmp/website');
 define('PIMCORE_CONFIGURATION_SYSTEM', __DIR__ . '/tests/fixtures/website/var/config/system.xml' );
-define("PIMCORE_ASSET_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/assets");
-define("PIMCORE_VERSION_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/versions");
-define("PIMCORE_WEBDAV_TEMP", PIMUNIT_WEBSITE_PATH . "/var/webdav");
-define("PIMCORE_LOG_DEBUG", PIMUNIT_WEBSITE_PATH . "/var/log/debug.log");
-define("PIMCORE_LOG_MAIL_TEMP", PIMUNIT_WEBSITE_PATH . "/var/log/mail");
-define("PIMCORE_TEMPORARY_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/tmp");
-define("PIMCORE_CACHE_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/cache");
-define("PIMCORE_CLASS_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/classes");
-define("PIMCORE_BACKUP_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/backup");
-define("PIMCORE_RECYCLEBIN_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/recyclebin");
-define("PIMCORE_SYSTEM_TEMP_DIRECTORY", PIMUNIT_WEBSITE_PATH . "/var/system");
+define("PIMCORE_ASSET_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/assets");
+define("PIMCORE_VERSION_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/versions");
+define("PIMCORE_WEBDAV_TEMP", PIMUNIT_ROOT_PROC . "/var/webdav");
+define("PIMCORE_LOG_DEBUG", PIMUNIT_ROOT_PROC . "/var/log/debug.log");
+define("PIMCORE_LOG_MAIL_TEMP", PIMUNIT_ROOT_PROC . "/var/log/mail");
+define("PIMCORE_TEMPORARY_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/tmp");
+define("PIMCORE_CACHE_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/cache");
+define("PIMCORE_CLASS_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/classes");
+define("PIMCORE_BACKUP_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/backup");
+define("PIMCORE_RECYCLEBIN_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/recyclebin");
+define("PIMCORE_SYSTEM_TEMP_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/system");
 
 // pimcore constants
 define('PIMCORE_ADMIN', true);
 
 // disable the writing the Cache at the end of the Request
 register_shutdown_function(function () {
+    $cleanup = new Pimcore_Test_Cleanup();
+    $cleanup->rrmdir(PIMUNIT_ROOT_PROC);
     die();
 });
 
