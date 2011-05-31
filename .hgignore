@@ -2,3 +2,4 @@ glob:tests/fixtures/website/var/config/system.xml
 glob:tests/fixtures/website/var/config/*.*
 glob:tests/fixtures/website/var/log/*.*
 glob:tests/fixtures/website/var/system/*.*
+glob:var/tmp/*

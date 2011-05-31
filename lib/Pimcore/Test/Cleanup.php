@@ -39,7 +39,8 @@ class Pimcore_Test_Cleanup {
                             PIMCORE_BACKUP_DIRECTORY,
                             PIMCORE_RECYCLEBIN_DIRECTORY,
                             PIMCORE_SYSTEM_TEMP_DIRECTORY,
-                            PIMCORE_SYSTEM_TEMP_DIRECTORY.'/update'
+                            PIMCORE_SYSTEM_TEMP_DIRECTORY.'/update',
+                            PIMUNIT_ROOT_PROC . '/var/config/',
                        );
 
         foreach($dirs as $dir)

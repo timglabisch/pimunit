@@ -8,7 +8,7 @@
 define('PIMUNIT_ROOT', __DIR__);
 define('PIMUNIT_ROOT_PROC', PIMUNIT_ROOT.'/var/tmp/'.getmypid().'/');
 define('PIMUNIT_WEBSITE_PATH', PIMUNIT_ROOT_PROC.'/var/tmp/website');
-define('PIMCORE_CONFIGURATION_SYSTEM', __DIR__ . '/tests/fixtures/website/var/config/system.xml' );
+define('PIMCORE_CONFIGURATION_SYSTEM', PIMUNIT_ROOT . '/../../website/var/config/system.xml' );
 define("PIMCORE_ASSET_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/assets");
 define("PIMCORE_VERSION_DIRECTORY", PIMUNIT_ROOT_PROC . "/var/versions");
 define("PIMCORE_WEBDAV_TEMP", PIMUNIT_ROOT_PROC . "/var/webdav");
@@ -28,6 +28,11 @@ define('PIMCORE_ADMIN', true);
 register_shutdown_function(function () {
     $cleanup = new Pimcore_Test_Cleanup();
     $cleanup->rrmdir(PIMUNIT_ROOT_PROC);
+
+    $dbClass = Zend_Registry::get("pimcore_config_system")->database->params;
+    $db = new PDO('mysql:host='.$dbClass->host, $dbClass->username, $dbClass->password);
+    $db->exec('DROP DATABASE '.$dbClass->dbname.';');
+
     die();
 });
 
@@ -43,6 +48,17 @@ $pimcore->initPlugins();
 
 // allow autololoading in pimcore namespace
 set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.'/lib');
+
+$dbClass = Zend_Registry::get("pimcore_config_system")->database->params;
+
+$reflector = new ReflectionProperty(get_class($dbClass), '_allowModifications');
+$reflector->setAccessible(true);
+$reflector->setValue($dbClass, true);
+$dbClass->dbname = 'pimunit_'.str_replace('-','_',$dbClass->dbname).'1_'.getmypid().'_test';
+
+$db = new PDO('mysql:host='.$dbClass->host, $dbClass->username, $dbClass->password);
+$db->exec('CREATE DATABASE '.$dbClass->dbname.' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;');
+unset($db);
 
 // load external libs
 require_once PIMUNIT_ROOT.'/lib/Yaml/sfYamlParser.php';

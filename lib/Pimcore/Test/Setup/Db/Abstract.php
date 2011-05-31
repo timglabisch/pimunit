@@ -21,8 +21,7 @@ abstract class Pimcore_Test_Setup_Db_Abstract {
     /**
      * @return mixed|Zend_Db_Adapter_Abstract
      */
-    protected function getDb()
-    {
+    protected function getDb() {
         return Pimcore_Resource_Mysql::get();
     }
 
@@ -30,7 +29,7 @@ abstract class Pimcore_Test_Setup_Db_Abstract {
     {
         // drop the old database
         $initQuery = array(
-            'DROP DATABASE '.$this->getDbName(),
+            'DROP DATABASE IF EXISTS '.$this->getDbName(),
             'CREATE DATABASE '.$this->getDbName().' CHARACTER SET utf8',
             'USE '.$this->getDbName(),
             file_get_contents(PIMCORE_PATH . '/modules/install/mysql/install.sql')
