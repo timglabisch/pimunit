@@ -45,6 +45,7 @@ class Pimcore_Test_Cleanup {
 
         foreach($dirs as $dir)
             mkdir($dir, 0777, true);
+
        
     }
 }

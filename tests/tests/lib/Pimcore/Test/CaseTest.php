@@ -52,7 +52,7 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
         $files = array();
         $ignoreFiles = array('.dummy', '..', '.');
 
-        $cacheFiles = scandir($this->getFixture('website/var/cache/'));
+        $cacheFiles = scandir(PIMCORE_CACHE_DIRECTORY);
 
         foreach($cacheFiles as $file)
         {
