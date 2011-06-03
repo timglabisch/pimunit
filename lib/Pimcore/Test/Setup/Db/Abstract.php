@@ -36,6 +36,10 @@ abstract class Pimcore_Test_Setup_Db_Abstract {
         );
 
         $this->getDb()->exec(implode(';', $initQuery));
+
+         if(Pimcore_Version::$revision >= 1154) {
+            $this->getDb()->exec(file_get_contents(__DIR__.'/Sql/1157.sql'));
+        }
     }
 
     public function setUpFiles()
