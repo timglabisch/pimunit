@@ -109,6 +109,8 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
         $mockMem->expects($this->once())
                ->method('setUp');
 
+        $old_startups = $this->getSetups();
+
         $this->setSetups(
             array(
                 $mockDb,
@@ -117,6 +119,8 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
         );
 
         $this->setUp();
+
+        $this->setSetups($old_startups);
     }
 
     /**
@@ -146,6 +150,8 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
         $mockMem2->expects($this->never())
                ->method('setUp');
 
+        $old_startups = $this->getSetups();
+
         $this->setSetups(
             array(
                 $mockDb,
@@ -155,5 +161,7 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
         );
 
         $this->setUp();
+
+        $this->setSetups($old_startups);
     }
 }
