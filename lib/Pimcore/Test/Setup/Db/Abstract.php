@@ -1,6 +1,6 @@
 <?php
 
-abstract class Pimcore_Test_Setup_Db_Abstract {
+class Pimcore_Test_Setup_Db_Abstract {
 
     public function getDbName()
     {

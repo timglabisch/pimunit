@@ -2,20 +2,13 @@
 
 class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
 
-    /**
-     * @return Pimcore_Test_Case_Abstract
-     */
-    private function getObject()
-    {
-        return $this->getMockForAbstractClass('Pimcore_Test_Case');
-    }
 
     /**
      * @group memory
      */
     public function testGetFixture()
     {
-        $content = file_get_contents($this->getObject()->getFixture('where_i_am'));
+        $content = file_get_contents($this->getFixture('where_i_am'));
         $this->assertEquals($content, 'pimunit');
     }
 

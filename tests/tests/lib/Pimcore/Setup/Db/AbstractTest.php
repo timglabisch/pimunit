@@ -7,7 +7,7 @@ class Pimcore_Test_Setup_DbTest extends Pimcore_Test_Case
      */
     public function getObject()
     {
-        return $this->getMockForAbstractClass('Pimcore_Test_Setup_Db_Abstract');
+        return new Pimcore_Test_Setup_Db_Abstract();
     }
     
     /**
