@@ -2,11 +2,11 @@
 <zend-config xmlns:zf="http://framework.zend.com/xml/zend-config-xml/1.0/">
 		<plugin>
 			<pluginName>Pimunit</pluginName>
-			<pluginDescription><![CDATA[PHPUnit for Pimcore, requires PHPUnit < 3.5.10]]></pluginDescription>
+			<pluginDescription><![CDATA[PHPUnit for Pimcore]]></pluginDescription>
             <pluginNiceName>Pimunit (alpha, for Pimcore 1.4.0)</pluginNiceName>
             <pluginIcon>/plugins/Pimunit/static/img/pimunit.png</pluginIcon>
 			<pluginServer>plugins.anymotion.org</pluginServer>
-			<pluginVersion>0.2rc2</pluginVersion>
+			<pluginVersion>0.3</pluginVersion>
             <pluginRevision>1</pluginRevision>
             <pluginBuildTimestamp>1300977922</pluginBuildTimestamp>
             <pluginIframeSrc></pluginIframeSrc>
