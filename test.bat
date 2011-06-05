@@ -1,1 +1,1 @@
-phpunit --bootstrap bootstrap.php --verbose  tests/tests/
+phpunit --bootstrap bootstrap.php --verbose tests/tests/
