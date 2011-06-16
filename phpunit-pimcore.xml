@@ -1,0 +1,7 @@
+<phpunit backupGlobals="true" backupStaticAttributes="false" bootstrap="../plugins/Pimunit/bootstrap.php" colors="false" syntaxCheck="true" strict="false" verbose="false">
+	<testsuites>
+		<testsuite name="Pimunit">
+			<directory>tests/tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
