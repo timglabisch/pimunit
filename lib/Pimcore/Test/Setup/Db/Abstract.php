@@ -5,7 +5,10 @@ class Pimcore_Test_Setup_Db_Abstract {
     public function getDbName()
     {
         if($this->dbname == null)
-            $this->setDbName(Zend_Registry::get ( "pimcore_config_system" )->database->params->dbname);
+        {
+            $config = Pimcore_Resource_Mysql::get()->getConfig();
+            $this->setDbName($config['dbname']);
+        }
 
         return $this->dbname;
     }

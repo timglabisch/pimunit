@@ -26,13 +26,11 @@ define('PIMCORE_ADMIN', true);
 
 // disable the writing the Cache at the end of the Request
 register_shutdown_function(function () {
+
+    Pimcore_Resource_Mysql::get()->deleteMockDb();
+
     $cleanup = new Pimcore_Test_Cleanup();
     $cleanup->rrmdir(PIMUNIT_ROOT_PROC);
-
-    $dbClass = Zend_Registry::get("pimcore_config_system")->database->params;
-    $db = new PDO('mysql:host='.$dbClass->host, $dbClass->username, $dbClass->password);
-    $db->exec('DROP DATABASE '.$dbClass->dbname.';');
-
     die();
 });
 
@@ -49,16 +47,12 @@ $pimcore->initPlugins();
 // allow autololoading in pimcore namespace
 set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.'/lib');
 
-$dbClass = Zend_Registry::get("pimcore_config_system")->database->params;
-
+// Change the Database Driver
+$dbClass = Zend_Registry::get("pimcore_config_system")->database;
 $reflector = new ReflectionProperty(get_class($dbClass), '_allowModifications');
 $reflector->setAccessible(true);
 $reflector->setValue($dbClass, true);
-$dbClass->dbname = 'pimunit_'.str_replace('-','_',$dbClass->dbname).'1_'.getmypid().'_test';
-
-$db = new PDO('mysql:host='.$dbClass->host, $dbClass->username, $dbClass->password);
-$db->exec('CREATE DATABASE '.$dbClass->dbname.' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;');
-unset($db);
+Zend_Registry::get("pimcore_config_system")->database->adapter = 'Pimunit';
 
 // load external libs
 require_once PIMUNIT_ROOT.'/lib/Yaml/sfYamlParser.php';
