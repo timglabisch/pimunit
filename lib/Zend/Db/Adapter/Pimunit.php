@@ -6,7 +6,13 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
      * make sure that this function is called as shutdown method
      */
     public function deleteMockDb() {
+        $this->verifIsMockDb();
         $this->exec('DROP DATABASE '.$this->_config['dbname']);
+    }
+
+    public function verifIsMockDb() {
+        if (substr ( $this->_config['dbname'], strlen ( $this->_config['dbname'] ) - 5 ) != '_test')
+            throw new Exception('isn\'t Mock Database');
     }
 
     public function __construct($config) {
@@ -23,6 +29,8 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
 
         unset($db);
         parent::__construct($config);
+
+        $this->verifIsMockDb();
     }
 
 }
