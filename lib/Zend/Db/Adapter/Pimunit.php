@@ -20,7 +20,7 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
         if(!isset($config['dbname']))
             throw new Exception('no Database?');
 
-        $config['dbname'] =  str_replace('-','_', $config['dbname'].'_'.getmypid().'_test');
+        $config['dbname'] =  'pimunit_'.str_replace('-','_', $config['dbname'].'_'.getmypid().'_test');
 
         $db = new PDO('mysql:host='.$config['host'], $config['username'], $config['password']);
         $q = 'CREATE DATABASE '.$config['dbname'].' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;';
