@@ -44,8 +44,15 @@ $pimcore->initLogger();
 $pimcore->initModules();
 $pimcore->initPlugins();
 
+// + include paths
+
+$includePaths = array(
+    __DIR__.'/lib',
+    PIMUNIT_ROOT . '/../../website/var/classes'
+);
+
 // allow autololoading in pimcore namespace
-set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.'/lib');
+set_include_path(get_include_path().PATH_SEPARATOR.implode(PATH_SEPARATOR, $includePaths));
 
 // Change the Database Driver
 $dbClass = Zend_Registry::get("pimcore_config_system")->database;
