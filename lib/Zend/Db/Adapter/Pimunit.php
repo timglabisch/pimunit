@@ -72,6 +72,10 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
         ');
 
         $iterator = new FilesystemIterator($classes);
+
+        if(!count($iterator))
+            return;
+
         foreach ($iterator as $fileinfo) {
             if($fileinfo->isDir())
                 continue;
