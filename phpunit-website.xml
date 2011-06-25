@@ -1,4 +1,4 @@
-<phpunit backupGlobals="true" backupStaticAttributes="false" bootstrap="../plugins/Pimunit/bootstrap.php" colors="false" syntaxCheck="true" strict="false" verbose="false">
+<phpunit backupGlobals="true" backupStaticAttributes="false" bootstrap="C:\ZendCe\Apache2\htdocs\pimcore-1.4\plugins\Pimunit/bootstrap.php" colors="false" syntaxCheck="true" strict="false" verbose="false">
 	<testsuites>
 		<testsuite name="Pimunit">
 			<directory>tests/tests</directory>

@@ -2,6 +2,7 @@
 
 class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
 
+    private $originalConfig;
     /**
      * make sure that this function is called as shutdown method
      */
@@ -17,6 +18,8 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
 
     public function __construct($config) {
 
+        $this->setOriginalConfig($config);
+
         if(!isset($config['dbname']))
             throw new Exception('no Database?');
 
@@ -31,6 +34,76 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
         parent::__construct($config);
 
         $this->verifIsMockDb();
+    }
+
+    public function initPimcore() {
+        $this->installPimcore();
+        $this->restoreClasses();
+    }
+
+    public function installPimcore() {
+
+        // drop the old database
+        $initQuery = array(
+            'DROP DATABASE IF EXISTS '.$this->_config['dbname'],
+            'CREATE DATABASE '.$this->_config['dbname'].' CHARACTER SET utf8',
+            'USE '.$this->_config['dbname'],
+            file_get_contents(PIMCORE_PATH . '/modules/install/mysql/install.sql')
+        );
+
+        $this->getConnection()->exec(implode(';', $initQuery));
+
+         if(Pimcore_Version::$revision >= 1154) {
+            $this->getConnection()->exec(file_get_contents(__DIR__.'/Sql/1157.sql'));
+        }
+    }
+
+    public function restoreClasses() {
+        // add custom classes
+        $classes = __DIR__.'/../../../../../../website/var/classes';
+
+        // get original db name
+        $origConfig = $this->getOriginalConfig();
+        $origDb = $origConfig['dbname'];
+
+        $this->getConnection()->exec('
+            DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`classes`;
+            CREATE TABLE `'.$this->_config['dbname'].'`.`classes` SELECT * FROM `'.$origDb.'`.`classes`;
+        ');
+
+        $iterator = new FilesystemIterator($classes);
+        foreach ($iterator as $fileinfo) {
+            if($fileinfo->isDir())
+                continue;
+
+            $classId = explode('_',basename($fileinfo->getFilename(), '.psf'));
+            $classId = $classId[1];
+
+            $this->getConnection()->exec($q = '
+                DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_query_'.$classId.'`;
+                CREATE TABLE `'.$this->_config['dbname'].'`.`object_query_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_query_'.$classId.'` LIMIT 0;
+
+                DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_store_'.$classId.'`;
+                CREATE TABLE `'.$this->_config['dbname'].'`.`object_store_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_store_'.$classId.'` LIMIT 0;
+
+                DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_query_'.$classId.'`;
+                CREATE TABLE `'.$this->_config['dbname'].'`.`object_query_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_relations_'.$classId.'` LIMIT 0;
+
+                DROP VIEW IF EXISTS `'.$this->_config['dbname'].'`.`object_'.$classId.'`;
+                CREATE VIEW `'.$this->_config['dbname'].'`.`object_'.$classId.'` AS SELECT * FROM `'.$origDb.'`.`object_'.$classId.'`;
+            ');
+
+        }
+    }
+
+    public function setOriginalConfig($originalConfig)
+    {
+        $this->originalConfig = $originalConfig;
+    }
+
+    public function getOriginalConfig()
+    {
+        return $this->originalConfig;
     }
 
 }
