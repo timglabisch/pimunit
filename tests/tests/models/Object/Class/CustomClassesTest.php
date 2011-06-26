@@ -7,6 +7,7 @@ class Models_Object_Class_CustomClassesTest extends Pimcore_Test_Case {
      */
     public function testSaveGetCustomObect() {
 
+        copy($this->getFixture('website/var/classes/definition_1.psf'),PIMCORE_CLASS_DIRECTORY.'/definition_1.psf');
         $this->getDb()->exec(file_get_contents($this->getFixture('website/var/classes/testclass.sql')));
 
         $o = new Object_Test();
