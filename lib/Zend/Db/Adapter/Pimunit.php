@@ -113,8 +113,8 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
                 DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_store_'.$classId.'`;
                 CREATE TABLE `'.$this->_config['dbname'].'`.`object_store_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_store_'.$classId.'` LIMIT 0;
 
-                DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_query_'.$classId.'`;
-                CREATE TABLE `'.$this->_config['dbname'].'`.`object_query_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_relations_'.$classId.'` LIMIT 0;
+                DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_relations_'.$classId.'`;
+                CREATE TABLE `'.$this->_config['dbname'].'`.`object_relations_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_relations_'.$classId.'` LIMIT 0;
 
                 DROP VIEW IF EXISTS `'.$this->_config['dbname'].'`.`object_'.$classId.'`;
                 CREATE VIEW `'.$this->_config['dbname'].'`.`object_'.$classId.'` AS SELECT * FROM `'.$origDb.'`.`object_'.$classId.'`;
