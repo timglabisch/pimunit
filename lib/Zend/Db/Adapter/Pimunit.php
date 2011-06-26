@@ -42,7 +42,7 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
 
         $config['dbname'] =  'pimunit_'.str_replace('-','_', $config['dbname'].'_'.getmypid().'_test');
         $q = 'CREATE DATABASE '.$config['dbname'].' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;';
-        $this->exec($q);
+        $this->getConnection()->exec($q);
 
         parent::__construct($config);
         $this->verifIsMockDb();
