@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<di:bindings xmlns="http://www.w3.org/2001/XMLSchema-instance"
+      di:schemaLocation="http://anydi/mapping.xsd"
+      xmlns:di="mapping.xsd">
+
+    <bind interface="Pimunit_iStartup" to="Pimunit_Startup_Standard" shared="true"/>
+    <bind interface="Pimunit_Startup_iConstants" to="Pimunit_Startup_Constants_Standard" shared="true"/>
+
+</di:bindings>

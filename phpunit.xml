@@ -1,4 +1,4 @@
-<phpunit backupGlobals="true" backupStaticAttributes="false" bootstrap="bootstrap.php" colors="false" syntaxCheck="true" strict="false" verbose="false">
+<phpunit backupGlobals="false" backupStaticAttributes="false" bootstrap="bootstrap.php" colors="false" syntaxCheck="true" strict="false" verbose="false">
 	<testsuites>
 		<testsuite name="Pimunit">
 			<directory>tests/tests</directory>

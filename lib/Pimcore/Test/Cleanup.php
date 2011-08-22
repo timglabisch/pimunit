@@ -31,7 +31,7 @@ class Pimcore_Test_Cleanup {
                             PIMCORE_WEBDAV_TEMP,
                             PIMCORE_LOG_DEBUG,
                             PIMCORE_LOG_MAIL_TEMP,
-                            PIMCORE_TEMPORARY_DIRECTORY,
+                          //  PIMCORE_TEMPORARY_DIRECTORY,
                             PIMCORE_CACHE_DIRECTORY,
                             PIMCORE_CLASS_DIRECTORY,
                             PIMCORE_CLASS_DIRECTORY.'/Object',
@@ -42,6 +42,7 @@ class Pimcore_Test_Cleanup {
                             PIMCORE_SYSTEM_TEMP_DIRECTORY.'/update',
                             PIMUNIT_ROOT_PROC . '/var/config/',
                        );
+
 
         foreach($dirs as $dir)
             mkdir($dir, 0777, true);
