@@ -17,6 +17,7 @@ array_map(function($v) { include_once  $v; }, glob(__DIR__.'/diCircular/*.php'))
 array_map(function($v) { include_once  $v; }, glob(__DIR__.'/diCircularNested/*.php'));
 array_map(function($v) { include_once  $v; }, glob(__DIR__.'/diPropertyParseException/*.php'));
 array_map(function($v) { include_once  $v; }, glob(__DIR__.'/diTestIgnoreAnnotation/*.php'));
+array_map(function($v) { include_once  $v; }, glob(__DIR__.'/diRunable/*.php'));
 
 class DITest extends \PHPUnit_Framework_TestCase {
 
@@ -303,5 +304,32 @@ class DITest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($di->get('istd')->author());
         $this->assertTrue($di->get('istd')->doctrine());
     }
+
+    public function testRunable() {
+        ob_start();
+        $di = new di();
+        $di->run(new \diRunable_Basic());
+
+        $this->assertEquals(ob_get_contents(), 'ok!');
+        ob_end_clean();
+    }
+
+    public function testRunableInjection() {
+        $di = new di();
+        $di->bind('istd')->to('std1');
+        $di->bind('istd')->to('std2')->concern('std2');
+        $di->bind('iostd')->to('ostd1');
+        $di->bind('iostd')->to('ostd2')->concern('std2');
+
+        $runable = new \diRunable_Inject();
+
+        $di->run($runable);
+
+        $this->assertInstanceOf('std1', $runable->std);
+        $this->assertInstanceOf('std2', $runable->std2);
+        $this->assertInstanceOf('ostd1', $runable->getIostd());
+        $this->assertInstanceOf('ostd2', $runable->getIostd2());
+    }
+
 
 }

@@ -5,6 +5,7 @@ require_once __DIR__.'/DI/binder.php';
 require_once __DIR__.'/DI/ReflectionAnnotation.php';
 require_once __DIR__ . '/iDi.php';
 require_once __DIR__.'/DI/exception.php';
+require_once __DIR__.'/DI/iRunable.php';
 
 class di implements iDi {
 
@@ -20,7 +21,6 @@ class di implements iDi {
     }
 
     private function createInstance(\ReflectionClass $reflection, $args=array()) {
-
         if(!$reflection->hasMethod('__construct'))
             return $reflection->newInstance();
 
@@ -69,7 +69,6 @@ class di implements iDi {
     }
 
     public function get($interface, $concern='', $args=array()) {
-
         $binding = $this->getBinderRepository()->getBinding($interface, $concern);
 
         return $this->getByBinding($binding, $args);
@@ -154,6 +153,17 @@ class di implements iDi {
             $this->binderRepository = new di\binder\repository();
         
         return $this->binderRepository;
+    }
+
+    function run(di\iRunable $runable) {
+        $reflection = new \ReflectionClass(get_class($runable));
+
+        $this->injectSetters($runable, $reflection);
+        $this->injectProperties($runable, $reflection);
+
+        $runable->run();
+
+        return $runable;
     }
 
 }
