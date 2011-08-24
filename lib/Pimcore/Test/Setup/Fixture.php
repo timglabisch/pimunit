@@ -6,6 +6,9 @@ class Pimcore_Test_Setup_Fixture extends Pimcore_Test_Setup_Fixture_Abstract imp
     private $test;
     private $isEnable = null;
 
+    /** @var Pimcore_Test_Isetup !inject db */
+    public $db;
+
     public function setTest(Pimcore_Test_Case $test)
     {
         $this->test = $test;
@@ -33,9 +36,8 @@ class Pimcore_Test_Setup_Fixture extends Pimcore_Test_Setup_Fixture_Abstract imp
         if(!isset($annotations['method']['fixture']))
             return false;
 
-        $db = new Pimcore_Test_Setup_Db();
-        $db->setTest($this->getTest());
-        if(!$db->getIsEnable())
+       $this->db->setTest($this->getTest());
+        if(!$this->db->getIsEnable())
             throw new Pimcore_Test_Setup_Exception_Dependency('@fixture must also implement @db');
 
         return true;
