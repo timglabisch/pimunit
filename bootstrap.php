@@ -45,10 +45,10 @@ class Pimunit_Bootstrap implements di\iRunable {
     }
 
     protected function initShutdownFunction() {
-        register_shutdown_function(function () {
+        $di = $this->di;
+        register_shutdown_function(function () use ($di) {
             Pimcore_Resource_Mysql::get()->deleteMockDb();
-            $cleanup = new Pimcore_Test_Cleanup();
-            $cleanup->rrmdir(PIMUNIT_ROOT_PROC);
+            $di->get('Pimcore_Test_Icleanup')->rrmdir($di->get('Pimunit_Startup_iConstants')->getPimunitProc());
             die();
         });
     }
