@@ -108,3 +108,4 @@ class Pimunit_Bootstrap implements di\iRunable {
 
 $di->run(new Pimunit_Bootstrap());
 
+Pimcore_Test_Case::$di = $di->get('\de\any\iDi');

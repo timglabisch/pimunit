@@ -1,5 +1,8 @@
 <?
-abstract class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
+class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
+
+    /** @var \de\any\iDi */
+    public static $di;
 
     private $setups = null;
 
@@ -22,9 +25,9 @@ abstract class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
             return $this->setups;
 
         return array(
-            new Pimcore_Test_Setup_Db(),
-            new Pimcore_Test_Setup_Memory(),
-            new Pimcore_Test_Setup_Fixture()
+            self::$di->get('Pimcore_Test_Isetup', 'db'),
+            self::$di->get('Pimcore_Test_Isetup', 'memory'),
+            self::$di->get('Pimcore_Test_Isetup', 'fixture')
         );
     }
 

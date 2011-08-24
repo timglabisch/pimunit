@@ -5,5 +5,8 @@
 
     <bind interface="Pimunit_iStartup" to="Pimunit_Startup_Standard" shared="true"/>
     <bind interface="Pimunit_Startup_iConstants" to="Pimunit_Startup_Constants_Standard" shared="true"/>
+    <bind interface="Pimcore_Test_Isetup" to="Pimcore_Test_Setup_Db" concern="db" shared="false"/>
+    <bind interface="Pimcore_Test_Isetup" to="Pimcore_Test_Setup_Memory" concern="memory" shared="false"/>
+    <bind interface="Pimcore_Test_Isetup" to="Pimcore_Test_Setup_Fixture" concern="fixture" shared="false"/>
 
 </di:bindings>
