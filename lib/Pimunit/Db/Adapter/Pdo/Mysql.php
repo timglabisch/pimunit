@@ -1,6 +1,6 @@
 <?php
 
-class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
+class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
 
     private $originalConfig;
     private $dbConnection;
@@ -84,7 +84,7 @@ class Zend_Db_Adapter_Pimunit extends Zend_Db_Adapter_Pdo_Mysql {
         $sql = '';
 
         // add custom classes
-        $classes = __DIR__.'/../../../../../../website/var/classes';
+        $classes = __DIR__.'/../../../../../../../website/var/classes';
 
         // get original db name
         $origConfig = $this->getOriginalConfig();

@@ -47,6 +47,7 @@ class Pimunit_Bootstrap implements di\iRunable {
     protected function initShutdownFunction() {
         $di = $this->di;
         register_shutdown_function(function () use ($di) {
+                die();
             Pimcore_Resource_Mysql::get()->deleteMockDb();
             $di->get('Pimcore_Test_Icleanup')->rrmdir($di->get('Pimunit_Startup_iConstants')->getPimunitProc());
             die();
@@ -98,11 +99,13 @@ class Pimunit_Bootstrap implements di\iRunable {
     }
 
     protected function changeDatabaseDriver() {
-        $dbClass = Zend_Registry::get("pimcore_config_system")->database;
+        $dbClass = Zend_Registry::get("pimcore_config_system")->database->params;
         $reflector = new ReflectionProperty(get_class($dbClass), '_allowModifications');
         $reflector->setAccessible(true);
         $reflector->setValue($dbClass, true);
-        Zend_Registry::get("pimcore_config_system")->database->adapter = 'Pimunit';
+
+        Zend_Registry::get("pimcore_config_system")->database->params->adapterNamespace = 'Pimunit_Db_Adapter';
+
     }
 }
 
