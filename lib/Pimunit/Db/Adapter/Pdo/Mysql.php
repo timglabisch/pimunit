@@ -5,6 +5,7 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
     private $originalConfig;
     private $dbConnection;
 
+    /** @return \PDO */
     public function getConnection() {
 
         if(!$this->dbConnection)
@@ -43,7 +44,7 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
         $db = new PDO('mysql:host='.$config['host'], $config['username'], $config['password']);
         $q = 'CREATE DATABASE '.$config['dbname'].' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;';
         $db->exec($q);
-        unset($db);
+        $this->rootdb = $db;
 
         parent::__construct($config);
         $this->verifIsMockDb();
@@ -95,33 +96,30 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
             CREATE TABLE `'.$this->_config['dbname'].'`.`classes` SELECT * FROM `'.$origDb.'`.`classes`;
         ';
 
-        $iterator = new FilesystemIterator($classes);
+        // insert objects
+        $tables = $this->rootdb->prepare('
+            SELECT TABLE_NAME FROM
+            INFORMATION_SCHEMA.TABLES
+            WHERE
+            TABLE_SCHEMA = "'.$origDb.'"
+            AND TABLE_TYPE = "BASE TABLE"
+            AND
+            (
+                TABLE_NAME REGEXP \'object\_.+\_[0-9]+$\'
+            )
+        ');
+        $tables->execute();
 
-        if(!count($iterator))
-            return;
+        $tables = $tables->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($iterator as $fileinfo) {
-            if($fileinfo->isDir())
-                continue;
+        if(count($tables))
+            foreach ($tables as $table) {
 
-            $classId = explode('_',basename($fileinfo->getFilename(), '.psf'));
-            $classId = $classId[1];
-
-            $sql .= '
-                DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_query_'.$classId.'`;
-                CREATE TABLE `'.$this->_config['dbname'].'`.`object_query_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_query_'.$classId.'` LIMIT 0;
-
-                DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_store_'.$classId.'`;
-                CREATE TABLE `'.$this->_config['dbname'].'`.`object_store_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_store_'.$classId.'` LIMIT 0;
-
-                DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`object_relations_'.$classId.'`;
-                CREATE TABLE `'.$this->_config['dbname'].'`.`object_relations_'.$classId.'` SELECT * FROM `'.$origDb.'`.`object_relations_'.$classId.'` LIMIT 0;
-
-                DROP VIEW IF EXISTS `'.$this->_config['dbname'].'`.`object_'.$classId.'`;
-                CREATE VIEW `'.$this->_config['dbname'].'`.`object_'.$classId.'` AS SELECT * FROM `'.$origDb.'`.`object_'.$classId.'`;
-            ';
-
-        }
+                $sql .= '
+                    DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`'.$table['TABLE_NAME'].'`;
+                    CREATE TABLE `'.$this->_config['dbname'].'`.`'.$table['TABLE_NAME'].'` SELECT * FROM `'.$origDb.'`.`'.$table['TABLE_NAME'].'`;
+                ';
+            }
 
         return $sql;
     }
