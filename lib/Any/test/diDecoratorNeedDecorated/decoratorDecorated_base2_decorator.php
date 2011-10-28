@@ -1,9 +1,9 @@
 <?php
 
-class decoratorDecorated_base2_decorator implements decoratorDecorated_iBase2 {
+class decoratorDecorated_base2_decorator implements decoratorDecorated_iBase2, \de\any\di\iDecorateable {
 
-    public function __construct($parent) {
-        $this->parent = $parent;
+    public function setDecotaredClass($original) {
+        $this->parent = $original;
     }
 
     function getClassname() {

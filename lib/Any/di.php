@@ -1,34 +1,51 @@
 <?php
 namespace de\any;
+use \de\any\di\reflection\klass\standard as diReflectionClass;
 
 require_once __DIR__.'/DI/binder.php';
 require_once __DIR__.'/DI/ReflectionAnnotation.php';
 require_once __DIR__ . '/iDi.php';
 require_once __DIR__.'/DI/exception.php';
+require_once __DIR__.'/DI/reflection/iKlass.php';
+require_once __DIR__.'/DI/reflection/klass/standard.php';
+require_once __DIR__.'/DI/reflection/iMethod.php';
+require_once __DIR__.'/DI/reflection/method/standard.php';
+require_once __DIR__.'/DI/reflection/iParam.php';
+require_once __DIR__.'/DI/reflection/param/standard.php';
 require_once __DIR__.'/DI/iRunable.php';
+require_once __DIR__.'/DI/iCache.php';
+require_once __DIR__.'/DI/iDecorateable.php';
+require_once __DIR__.'/DI/iRepository.php';
+require_once __DIR__.'/DI/repository/standard.php';
+
 
 class di implements iDi {
 
     private $binderRepository = null;
     private $lock = array();
 
-    public function createInstanceFromClassname($classname) {
-        if(!class_exists($classname))
-            throw new Exception('class with classname '. $classname.' not found');
+    public function __construct() {
+        // default bindings
+        $this->bind('\de\any\iDi')->to($this);
+    }
 
-        $reflectionClass = new \ReflectionClass($classname);
+    public function createInstanceFromClassname($classname) {
+        $reflectionClass = new diReflectionClass($classname);
         return $this->createInstance($reflectionClass);
     }
 
-    private function createInstance(\ReflectionClass $reflection, $args=array()) {
+    private function createInstance(\de\any\di\reflection\iKlass $reflection, $args=array()) {
         if(!$reflection->hasMethod('__construct'))
             return $reflection->newInstance();
 
         $reflectionMethod = $reflection->getConstructor();
-        $annotationStrings = di\ReflectionAnnotation::parseMethodAnnotations($reflectionMethod);
 
-        $args = array_merge($args, $this->getInjectedMethodArgs($reflectionMethod, $annotationStrings));
-        return $reflection->newInstanceArgs($args);
+        if($reflectionMethod->getInject())
+            $args = array_merge($args, $this->getInjectedMethodArgs($reflectionMethod));
+
+        $instance = $reflection->newInstanceArgs($args);
+
+        return $instance;
     }
 
     private function getByBinding($binding, $args=array(), $decorated=false) {
@@ -36,15 +53,19 @@ class di implements iDi {
         if($binding->isShared() && $binding->getInstance())
             return $binding->getInstance();
 
-        $reflection = new \ReflectionClass($binding->getInterfaceImpl());
+        $reflection = new diReflectionClass($binding->getInterfaceImpl());
 
-        if(!$reflection->implementsInterface($binding->getInterfaceName()))
-            throw new \Exception($reflection->getName() .' must implement '. $binding->getInterfaceName());
+        if(!$binding->isRepository()) {
+            if(!$reflection->implementsInterface($binding->getInterfaceName()))
+                throw new \Exception($reflection->getClassname() .' must implement '. $binding->getInterfaceName());
+        }
 
-        if(isset($this->lock[$binding->getHashKey()]))
+        $hashKey = $binding->getHashKey();
+        
+        if(isset($this->lock[$hashKey]))
             throw new \de\any\di\exception\circular('a', 'b');
 
-        $this->lock[$binding->getHashKey()] = true;
+        $this->lock[$hashKey] = true;
 
         $instance = $this->createInstance($reflection, $args);
 
@@ -54,84 +75,73 @@ class di implements iDi {
         $this->injectSetters($instance, $reflection);
         $this->injectProperties($instance, $reflection);
 
-        unset($this->lock[$binding->getHashKey()]);
+        unset($this->lock[$hashKey]);
 
         if(!$decorated) {
             $decorators = $this->getBinderRepository()->getBindingDecorators($binding->getInterfaceName(), $binding->getConcern());
             if(count($decorators)) {
                 foreach($decorators as $decorator) {
-                    $instance = $this->getByBinding($decorator, array($instance), true);
+
+                    $decoratedInstance = $instance;
+
+                    $instance = $this->getByBinding($decorator, array($decoratedInstance), true);
+
+                    if(!($instance instanceof \de\any\di\iDecorateable))
+                        throw new \Exception('class '.get_class($instance).' must implement de\any\di\iDecorateable');
+
+                    $instance->setDecotaredClass($decoratedInstance);
                 }
             }
         }
 
         return $instance;
     }
-
+    
     public function get($interface, $concern='', $args=array()) {
         $binding = $this->getBinderRepository()->getBinding($interface, $concern);
-
         return $this->getByBinding($binding, $args);
     }
 
-    private function getInjectedMethodArgs(\ReflectionMethod $reflectionMethod, $annotationStrings) {
-
-        if(!isset($annotationStrings['inject']))
-                return array();
-
-        $annotations = $annotationStrings['inject'];
+    private function getInjectedMethodArgs(\de\any\di\reflection\iMethod $reflectionMethod) {
 
         $params = $reflectionMethod->getParameters();
 
-        $args = array();
-        for($i=0;count($params) > $i; $i++) {
-            $concern = (isset($annotations[$i])?$annotations[$i]:'');
-            $args[] = $this->get($params[$i]->getClass()->getName(), $concern);
-        }
+        if(!$params)
+            return array();
+
+       foreach($params as $param) {
+
+           if(!$param->getInject()) {
+               $args[] = null;
+               continue;
+           }
+
+           $args[] = $this->get($param->getInterface(), $param->getConcern());
+       }
 
         return $args;
     }
 
-    private function getInjectedPropertyArg(\ReflectionProperty $reflectionProperty) {
-        $annotationStrings = di\ReflectionAnnotation::parsePropertyAnnotations($reflectionProperty);
+    private function injectSetters($instance, \de\any\di\reflection\iKlass $reflection) {
+        $methods = $reflection->getSetterMethodsAnnotatedWith('inject');
 
-        $classname = di\ReflectionAnnotation::parsePropertyVarAnnotation($annotationStrings['var']);
+        if(!$methods)
+            return;
 
-        return $this->get($classname['class'], $classname['concern']);
-    }
-
-    private function injectSetters($instance, \ReflectionClass $reflection) {
-        foreach($reflection->getMethods() as $reflectionMethod) {
-
-            if($reflectionMethod->isConstructor() || $reflectionMethod->isDestructor() || $reflectionMethod->isStatic())
-                continue;
-
-            $annotationStrings = di\ReflectionAnnotation::parseMethodAnnotations($reflectionMethod);
-
-            if(!isset($annotationStrings['inject']))
-                continue;
-
-            $args = $this->getInjectedMethodArgs($reflectionMethod, $annotationStrings);
+        foreach($methods as $reflectionMethod) {
+            $args = $this->getInjectedMethodArgs($reflectionMethod);
             $reflectionMethod->invokeArgs($instance, $args);
         }
     }
 
-    private function injectProperties($instance, \ReflectionClass $reflection) {
-        foreach($reflection->getProperties() as $reflectionProperty) {
+    private function injectProperties($instance, \de\any\di\reflection\iKlass $reflection) {
+        $injProp = $reflection->getInjectProperties();
 
-            $annotationStrings = di\ReflectionAnnotation::parsePropertyAnnotations($reflectionProperty);
+        if(!$injProp)
+            return;
 
-            if(!isset($annotationStrings['var']))
-                continue;
-
-            if(count($annotationStrings['var']) !== 1) {
-                throw new di\exception\parse('multiple @var annotation is not supportet');
-            }
-
-            if(strpos($annotationStrings['var'][0], '!inject') === false)
-                continue;
-
-            $reflectionProperty->setValue($instance, $this->getInjectedPropertyArg($reflectionProperty));
+        foreach($injProp as $name => $reflectionProperty) {
+            $instance->$name = $this->get($reflectionProperty->getInterfaceName(), $reflectionProperty->getConcern());
         }
     }
 
@@ -150,13 +160,13 @@ class di implements iDi {
      */
     public function getBinderRepository() {
         if($this->binderRepository === null)
-            $this->binderRepository = new di\binder\repository();
+            $this->binderRepository = new di\binder\repository($this);
         
         return $this->binderRepository;
     }
 
     function run(di\iRunable $runable) {
-        $reflection = new \ReflectionClass(get_class($runable));
+        $reflection = new diReflectionClass(get_class($runable));
 
         $this->injectSetters($runable, $reflection);
         $this->injectProperties($runable, $reflection);
@@ -166,4 +176,12 @@ class di implements iDi {
         return $runable;
     }
 
+    function justInject($runable) {
+        $reflection = new diReflectionClass(get_class($runable));
+
+        $this->injectSetters($runable, $reflection);
+        $this->injectProperties($runable, $reflection);
+
+        return $runable;
+    }
 }

@@ -18,7 +18,6 @@ class xml {
         $this->simpleXml = new \SimpleXMLElement($string);
     }
 
-
     public function getBindings() {
         $buffer = array();
 
@@ -27,7 +26,9 @@ class xml {
 
         foreach($this->simpleXml as $v) {
             $binding = new binder($v['interface']->__toString());
-            $binding->to($v['to']->__toString());
+
+            if(isset($v['to']))
+                $binding->to($v['to']->__toString());
 
             if(isset($v['shared']))
                 if($v['shared']->__toString() == "true")
@@ -49,5 +50,4 @@ class xml {
 
         return $buffer;
     }
-
 }

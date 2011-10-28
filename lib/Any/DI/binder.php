@@ -14,9 +14,11 @@ class binder {
     private $decorated = false;
     private $instance;
     private $hashKey;
+    private $isRepository = null;
 
     function __construct($interfaceName) {
-        $this->interfaceName = $interfaceName;
+        $this->setInterfaceName($interfaceName);
+        $this->checkRepository();
     }
 
     private function toObject($obj) {
@@ -44,14 +46,14 @@ class binder {
     }
 
     public function getHashKey() {
-        if(!$this->hashKey)
+        if(!$this->hashKey) {
             $this->hashKey = $this->getInterfaceName().'|'.$this->getConcern();
+        }
 
         return $this->hashKey;
     }
 
-    public function setInterfaceImpl($interfaceImpl)
-    {
+    public function setInterfaceImpl($interfaceImpl) {
         $this->interfaceImpl = $interfaceImpl;
         return $this;
     }
@@ -61,6 +63,10 @@ class binder {
     }
 
     public function setInterfaceName($interfaceName) {
+
+        if(substr($interfaceName, 0, 1) != '\\')
+            $interfaceName = '\\'.$interfaceName;
+
         $this->dropHashKey();
         $this->interfaceName = $interfaceName;
         return $this;
@@ -129,6 +135,34 @@ class binder {
 
     public function getInstance() {
         return $this->instance;
+    }
+
+    public function checkRepository() {
+
+        if($this->isRepository != null)
+            return;
+
+        $interfaceName = $this->getInterfaceName();
+        $strlenInterfaceName = strlen($interfaceName);
+
+        if($strlenInterfaceName < 2)
+            return $this->setIsRepository(false);
+
+        if($interfaceName[$strlenInterfaceName -2] == '[' && $interfaceName[$strlenInterfaceName -1] == ']') {
+            $this->setInterfaceImpl('\de\any\di\repository\standard');
+            $this->setIsRepository(true);
+            return;
+        }
+
+        return $this->setIsRepository(false);
+    }
+
+    public function setIsRepository($isRepository) {
+        $this->isRepository = (bool)$isRepository;
+    }
+
+    public function isRepository() {
+        return $this->isRepository;
     }
 
 }
