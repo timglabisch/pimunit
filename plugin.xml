@@ -3,10 +3,10 @@
 		<plugin>
 			<pluginName>Pimunit</pluginName>
 			<pluginDescription><![CDATA[PHPUnit for Pimcore]]></pluginDescription>
-            <pluginNiceName>Pimunit (alpha, for Pimcore 1.4.0)</pluginNiceName>
+            <pluginNiceName>Pimunit (for Pimcore 1.4.2)</pluginNiceName>
             <pluginIcon>/plugins/Pimunit/static/img/pimunit.png</pluginIcon>
 			<pluginServer>plugins.anymotion.org</pluginServer>
-			<pluginVersion>0.4</pluginVersion>
+			<pluginVersion>0.5</pluginVersion>
             <pluginRevision>1</pluginRevision>
             <pluginBuildTimestamp>1300977922</pluginBuildTimestamp>
             <pluginIframeSrc></pluginIframeSrc>
