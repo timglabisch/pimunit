@@ -75,7 +75,7 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
         $sql .= implode(';', $initQuery);
 
          if(Pimcore_Version::$revision >= 1154) {
-           $sql .= file_get_contents(__DIR__.'/Sql/1157.sql');
+           $sql .= file_get_contents(__DIR__.'/../Sql/1157.sql');
         }
 
         // remove comments in SQL script
