@@ -6,12 +6,23 @@ class Models_Object_Class_CustomClassesTest extends Pimcore_Test_Case {
      * @db
      */
     public function testSaveGetCustomObect() {
+        $object = Object_Class::create();
+        $object->setName('test');
 
-        copy($this->getFixture('website/var/classes/definition_1.psf'),PIMCORE_CLASS_DIRECTORY.'/definition_1.psf');
+        $objectlayout = new Object_Class_Layout();
 
-        copy($this->getFixture('website/var/classes/Test.php'), PIMCORE_CLASS_DIRECTORY.'/Object/Test.php');
-        mkdir(PIMCORE_CLASS_DIRECTORY.'/Object/Test');
-        copy($this->getFixture('website/var/classes/Test/List.php'), PIMCORE_CLASS_DIRECTORY.'/Object/Test/List.php');
+        $inputfield = new Object_Class_Data_Textarea();
+        $inputfield->setTitle('title');
+        $inputfield->setName('InputField');
+
+        $objectlayout->addChild($inputfield);
+
+        $object->setLayoutDefinitions($objectlayout);
+        $object->setUserOwner(1);
+        $object->save();
+
+        $resource = $object->getResource();
+        unset($resource);
 
         $o = new Object_Test();
         $o->setKey('test');
