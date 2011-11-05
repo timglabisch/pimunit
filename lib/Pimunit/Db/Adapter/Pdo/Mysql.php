@@ -78,6 +78,9 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
            $sql .= file_get_contents(__DIR__.'/Sql/1157.sql');
         }
 
+        // remove comments in SQL script
+        $sql = preg_replace("/\s*(?!<\")\/\*[^\*]+\*\/(?!\")\s*/","", $sql);
+
         return $sql;
     }
 
