@@ -5,6 +5,9 @@ class Pimunit_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli {
     private $originalConfig;
     private $dbConnection;
 
+    /** @var Pimunit_Db_iSqlbuilder !inject */
+    public $sqlBuilder;
+
     /** @return \Mysqli */
     public function getConnection() {
 
@@ -32,6 +35,10 @@ class Pimunit_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli {
     }
 
     public function __construct($config) {
+        require_once __DIR__.'/../iSqlbuilder.php';
+        require_once __DIR__.'/../Sqlbuilder/Standard.php';
+
+        Pimcore_Test_Case::$di->justInject($this);
 
         $this->setOriginalConfig($config);
 
@@ -50,59 +57,12 @@ class Pimunit_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli {
         $this->verifIsMockDb();
     }
 
-    public function initPimcore() {
-
-        $sql = '';
-
-        $sql .= $this->installPimcoreSql();
-        $sql .= $this->restoreClassesSql();
-
-        $sql = preg_replace("/\s*(?!<\")\/\*[^\*]+\*\/(?!\")\s*/","",$sql);
-
-        foreach(explode(';', $sql) as $v) {
-            $v = trim($v);
-            
-            if(!$v)
-                continue;
-
-            $this->query(trim($v.';'));
-        }
-    }
-
-    public function installPimcoreSql() {
-
-        $sql = '';
-
-        // drop the old database
-        $initQuery = array(
-            file_get_contents(PIMCORE_PATH . '/modules/install/mysql/install.sql')
-        );
-
-        $sql .= implode(';', $initQuery);
-
-         if(Pimcore_Version::$revision >= 1154) {
-           $sql .= file_get_contents(__DIR__.'/Sql/1157.sql');
-        }
-
-        // remove comments in SQL script
-        $sql = preg_replace("/\s*(?!<\")\/\*[^\*]+\*\/(?!\")\s*/","", $sql);
-
-        return $sql;
-    }
-
-    public function restoreClassesSql() {
-        $sql = '';
-
-        // get original db name
+    function tables2Copy() {
         $origConfig = $this->getOriginalConfig();
         $origDb = $origConfig['dbname'];
 
-        $sql = '
-            DROP TABLE IF EXISTS `classes`;
-            CREATE TABLE `classes` (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) SELECT * FROM `'.$origDb.'`.`classes`;
-        ';
+        $buffer = array();
 
-        // insert objects
         $tables = $this->fetchAll('
             SELECT TABLE_NAME FROM
             INFORMATION_SCHEMA.TABLES
@@ -115,26 +75,34 @@ class Pimunit_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli {
             )
         ');
 
-        if(count($tables))
-            foreach ($tables as $table) {
+        foreach($tables as $v) {
+            $buffer[] = $v['TABLE_NAME'];
+        }
 
-                $sql .= '
-                    DROP TABLE IF EXISTS `'.$table['TABLE_NAME'].'`;
-                    CREATE TABLE `'.$table['TABLE_NAME'].'` (oo_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) SELECT * FROM `'.$origDb.'`.`'.$table['TABLE_NAME'].'`;
-                    TRUNCATE  `'.$table['TABLE_NAME'].'`;
-                ';
-            }
-
-        return $sql;
+        return $buffer;
     }
 
-    public function setOriginalConfig($originalConfig)
-    {
+    public function initPimcore() {
+        $sql = $this->sqlBuilder->installPimcoreSql();
+        $sql .= $this->sqlBuilder->restoreClassesSql($this->getOriginalConfig(), $this->_config['dbname'], $this->tables2Copy());
+
+        $this->sqlBuilder->removeComments($sql);
+
+        foreach(explode(';', $sql) as $v) {
+            $v = trim($v);
+            
+            if(!$v)
+                continue;
+
+            $this->query(trim($v.';'));
+        }
+    }
+
+    public function setOriginalConfig($originalConfig) {
         $this->originalConfig = $originalConfig;
     }
 
-    public function getOriginalConfig()
-    {
+    public function getOriginalConfig() {
         return $this->originalConfig;
     }
 

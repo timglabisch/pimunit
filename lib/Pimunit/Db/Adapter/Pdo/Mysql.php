@@ -5,6 +5,9 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
     private $originalConfig;
     private $dbConnection;
 
+    /** @var Pimunit_Db_iSqlbuilder !inject */
+    public $sqlBuilder;
+
     /** @return \PDO */
     public function getConnection() {
 
@@ -23,7 +26,7 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
      */
     public function deleteMockDb() {
         $this->verifIsMockDb();
-        $this->getConnection()->exec('DROP DATABASE '.$this->_config['dbname']);
+       $this->getConnection()->exec('DROP DATABASE '.$this->_config['dbname']);
     }
 
     public function verifIsMockDb() {
@@ -32,6 +35,10 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
     }
 
     public function __construct($config) {
+        require_once __DIR__.'/../../iSqlbuilder.php';
+        require_once __DIR__.'/../../Sqlbuilder/Standard.php';
+
+        Pimcore_Test_Case::$di->justInject($this);
 
         $this->setOriginalConfig($config);
 
@@ -44,60 +51,17 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
         $db = new PDO('mysql:host='.$config['host'], $config['username'], $config['password']);
         $q = 'CREATE DATABASE '.$config['dbname'].' DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;';
         $db->exec($q);
-        $this->rootdb = $db;
-
+        unset($db);
+        
         parent::__construct($config);
         $this->verifIsMockDb();
     }
 
-    public function initPimcore() {
-
-        $sql = '';
-
-        $sql .= $this->installPimcoreSql();
-        $sql .= $this->restoreClassesSql();
-
-        $this->getConnection()->exec($sql);
-    }
-
-    public function installPimcoreSql() {
-
-        $sql = '';
-
-        // drop the old database
-        $initQuery = array(
-            'DROP DATABASE IF EXISTS '.$this->_config['dbname'],
-            'CREATE DATABASE '.$this->_config['dbname'].' CHARACTER SET utf8',
-            'USE '.$this->_config['dbname'],
-            file_get_contents(PIMCORE_PATH . '/modules/install/mysql/install.sql')
-        );
-
-        $sql .= implode(';', $initQuery);
-
-         if(Pimcore_Version::$revision >= 1154) {
-           $sql .= file_get_contents(__DIR__.'/../Sql/1157.sql');
-        }
-
-        // remove comments in SQL script
-        $sql = preg_replace("/\s*(?!<\")\/\*[^\*]+\*\/(?!\")\s*/","", $sql);
-
-        return $sql;
-    }
-
-    public function restoreClassesSql() {
-        $sql = '';
-
-        // get original db name
+    function tables2Copy() {
         $origConfig = $this->getOriginalConfig();
         $origDb = $origConfig['dbname'];
 
-        $sql = '
-            DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`classes`;
-            CREATE TABLE `'.$this->_config['dbname'].'`.`classes` (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) SELECT * FROM `'.$origDb.'`.`classes`;
-        ';
-
-        // insert objects
-        $tables = $this->rootdb->prepare('
+        $tables = $this->fetchAll('
             SELECT TABLE_NAME FROM
             INFORMATION_SCHEMA.TABLES
             WHERE
@@ -108,29 +72,27 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
                 TABLE_NAME REGEXP \'object\_.+\_[0-9]+$\'
             )
         ');
-        $tables->execute();
 
-        $tables = $tables->fetchAll(PDO::FETCH_ASSOC);
+        foreach($tables as $v) {
+            $buffer[] = $v['TABLE_NAME'];
+        }
 
-        if(count($tables))
-            foreach ($tables as $table) {
-
-                $sql .= '
-                    DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`'.$table['TABLE_NAME'].'`;
-                    CREATE TABLE `'.$this->_config['dbname'].'`.`'.$table['TABLE_NAME'].'` (oo_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) like `'.$origDb.'`.`'.$table['TABLE_NAME'].'`;
-                ';
-            }
-
-        return $sql;
+        return $buffer;
     }
 
-    public function setOriginalConfig($originalConfig)
-    {
+    public function initPimcore() {
+        $sql = $this->sqlBuilder->installPimcoreSql();
+        $sql .= $this->sqlBuilder->restoreClassesSql($this->getOriginalConfig(), $this->_config['dbname'], $this->tables2Copy());
+        $sql = $this->sqlBuilder->removeComments($sql);
+    
+        $this->getConnection()->exec($sql);
+    }
+
+    public function setOriginalConfig($originalConfig) {
         $this->originalConfig = $originalConfig;
     }
 
-    public function getOriginalConfig()
-    {
+    public function getOriginalConfig() {
         return $this->originalConfig;
     }
 
