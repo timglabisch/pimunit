@@ -84,16 +84,13 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
     public function restoreClassesSql() {
         $sql = '';
 
-        // add custom classes
-        $classes = __DIR__.'/../../../../../../../website/var/classes';
-
         // get original db name
         $origConfig = $this->getOriginalConfig();
         $origDb = $origConfig['dbname'];
 
         $sql = '
             DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`classes`;
-            CREATE TABLE `'.$this->_config['dbname'].'`.`classes` SELECT * FROM `'.$origDb.'`.`classes`;
+            CREATE TABLE `'.$this->_config['dbname'].'`.`classes` (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) SELECT * FROM `'.$origDb.'`.`classes`;
         ';
 
         // insert objects
@@ -117,7 +114,7 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
 
                 $sql .= '
                     DROP TABLE IF EXISTS `'.$this->_config['dbname'].'`.`'.$table['TABLE_NAME'].'`;
-                    CREATE TABLE `'.$this->_config['dbname'].'`.`'.$table['TABLE_NAME'].'` SELECT * FROM `'.$origDb.'`.`'.$table['TABLE_NAME'].'`;
+                    CREATE TABLE `'.$this->_config['dbname'].'`.`'.$table['TABLE_NAME'].'` (oo_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) like `'.$origDb.'`.`'.$table['TABLE_NAME'].'`;
                 ';
             }
 
