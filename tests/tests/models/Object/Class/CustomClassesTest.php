@@ -22,7 +22,7 @@ class Models_Object_Class_CustomClassesTest extends Pimcore_Test_Case {
         $object->save();
 
         $resource = $object->getResource();
-        unset($resource);
+        $resource->__destruct();
 
         $o = new Object_Test();
         $o->setKey('test');
