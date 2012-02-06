@@ -125,7 +125,7 @@ class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
 
     /**
      * @param Zend_Controller_Request_Abstract $request
-     * @return Pimcore_Test_Case_Controller_Response | string
+     * @return Zend_Controller_Request_HttpTestCase | string
      */
     public function dispatch($request) {
 
@@ -135,11 +135,11 @@ class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
             return $this->dispatchRequest($r);
         }
 
-        if($request instanceof Zend_Controller_Response_HttpTestCase) {
+        if($request instanceof Zend_Controller_Request_HttpTestCase) {
             return $this->dispatchRequest($request);
         }
 
-        throw new \Exception('bad Argument, string or Zend_Controller_Request_Abstract required');
+        throw new \Exception('bad Argument, string or Zend_Controller_Request_HttpTestCase required');
     }
 
 }
