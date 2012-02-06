@@ -2,7 +2,7 @@
 
 class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
 
-    public function dispatch($uri) {
+    public function dispatchRequest(Zend_Controller_Request_Abstract $request) {
         $front = Zend_Controller_Front::getInstance();
         $front->resetInstance();
 
@@ -111,15 +111,27 @@ class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
         $front->getRouter()->addRoute('searchadmin', $routeSearchAdmin);
         $front->getRouter()->addRoute('webservice', $routeWebservice);
 
-        $request = new Zend_Controller_Request_HttpTestCase();
-        $request->setRequestUri($uri);
-
         $response = new Zend_Controller_Response_HttpTestCase();
 
         $front->throwExceptions(true);
         $front->dispatch($request, $response);
 
         return $response;
+    }
+
+    public function dispatch($request) {
+
+        if(is_string($request)) {
+            $r = new Zend_Controller_Request_HttpTestCase();
+            $r->setRequestUri($request);
+            return $this->dispatchRequest($r);
+        }
+
+        if($request instanceof Zend_Controller_Request_Abstract) {
+            return $this->dispatchRequest($request);
+        }
+
+        throw new \Exception('bad Argument, string or Zend_Controller_Request_Abstract required');
     }
 
 }
