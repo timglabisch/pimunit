@@ -14,7 +14,14 @@ require_once __DIR__.'/lib/Pimunit/Startup/Constants/Standard.php';
 $xml = new xml(file_get_contents(__DIR__.'/dependencies.xml'));
 
 $repository = new \de\any\di\binder\repository();
-$repository->addBindings($bindings = $xml->getBindings());
+$repository->addBindings($xml->getBindings());
+
+/*
+it is very important to unset the $xml global, if
+PHPUnit is configured to backup Globals, you will
+have trouble by serializing the SimpleXmlElement
+*/
+unset($xml);
 
 $di = new di();
 $di->setBinderRepository($repository);
