@@ -2,6 +2,10 @@
 
 class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
 
+    /**
+     * @param Zend_Controller_Request_Abstract $request
+     * @return Pimcore_Test_Case_Controller_Response
+     */
     public function dispatchRequest(Zend_Controller_Request_Abstract $request) {
         $front = Zend_Controller_Front::getInstance();
         $front->resetInstance();
@@ -116,9 +120,13 @@ class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
         $front->throwExceptions(true);
         $front->dispatch($request, $response);
 
-        return $response;
+        return new Pimcore_Test_Case_Controller_Response($response);
     }
 
+    /**
+     * @param Zend_Controller_Request_Abstract $request
+     * @return Pimcore_Test_Case_Controller_Response | string
+     */
     public function dispatch($request) {
 
         if(is_string($request)) {
@@ -127,7 +135,7 @@ class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
             return $this->dispatchRequest($r);
         }
 
-        if($request instanceof Zend_Controller_Request_Abstract) {
+        if($request instanceof Zend_Controller_Response_HttpTestCase) {
             return $this->dispatchRequest($request);
         }
 
