@@ -38,18 +38,11 @@ class Pimunit_Bootstrap implements di\iRunable {
 
     public function run() {
         $this->config->setPimunitRoot(__DIR__);
-
-
-
         $this->configurePhp();
-
         $this->includeStartupFiles();
-
         $this->definePimcoreConstants();
         $this->initShutdownFunction();
-
         $this->initPimcore();
-
         $this->changeDatabaseDriver();
         $this->initExternalLibs();
 
