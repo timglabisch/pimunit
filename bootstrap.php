@@ -27,17 +27,26 @@ class Pimunit_Bootstrap implements di\iRunable {
 
     /** @var Pimunit_Startup_iConstants !inject */
     public $config;
+    public $backupIncludePath;
 
     public function run() {
         $this->config->setPimunitRoot(__DIR__);
 
+
+
         $this->configurePhp();
+
         $this->includeStartupFiles();
+
         $this->definePimcoreConstants();
         $this->initShutdownFunction();
+
         $this->initPimcore();
+
         $this->changeDatabaseDriver();
         $this->initExternalLibs();
+
+
     }
 
     protected function initExternalLibs() {
@@ -47,6 +56,7 @@ class Pimunit_Bootstrap implements di\iRunable {
     protected function initShutdownFunction() {
         $di = $this->di;
         register_shutdown_function(function () use ($di) {
+            die();
             Pimcore_Resource_Mysql::get()->deleteMockDb();
             $di->get('Pimcore_Test_Icleanup')->rrmdir($di->get('Pimunit_Startup_iConstants')->getPimunitProc());
             die();
@@ -86,8 +96,22 @@ class Pimunit_Bootstrap implements di\iRunable {
         define('PIMCORE_ADMIN', true);
     }
 
+    protected function backupIncludePath() {
+        $this->backupIncludePath = get_include_path();
+    }
+
+    public function restoreDeletedInIncludePath() {
+        if(!$this->backupIncludePath)
+            return false;
+
+        set_include_path(implode(PATH_SEPARATOR, array_merge(explode(PATH_SEPARATOR, $this->backupIncludePath), explode(PATH_SEPARATOR, get_include_path()))));
+    }
+
     protected function initPimcore() {
+        $this->backupIncludePath();
         require_once $this->config->getPimunitRoot() . '/../../pimcore/config/startup.php';
+        $this->restoreDeletedInIncludePath();
+
         $pimcore = new Pimcore( );
         $pimcore->initConfiguration();
         $pimcore->setSystemRequirements();
