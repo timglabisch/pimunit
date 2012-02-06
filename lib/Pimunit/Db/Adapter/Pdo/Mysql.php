@@ -26,7 +26,7 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
      */
     public function deleteMockDb() {
         $this->verifIsMockDb();
-       $this->getConnection()->exec('DROP DATABASE '.$this->_config['dbname']);
+        $this->getConnection()->exec('DROP DATABASE '.$this->_config['dbname']);
     }
 
     public function verifIsMockDb() {
@@ -86,6 +86,96 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
         $sql = $this->sqlBuilder->removeComments($sql);
     
         $this->getConnection()->exec($sql);
+
+        if(Pimcore_Version::$revision >= 1499)
+            $this->addDefaultTableStructure();
+    }
+
+    public function addDefaultTableStructure() {
+        // insert data into database
+        $this->insert("assets", array(
+            "id" => 1,
+            "parentId" => 0,
+            "type" => "folder",
+            "filename" => "",
+            "path" => "/",
+            "creationDate" => time(),
+            "modificationDate" => time(),
+            "userOwner" => 1,
+            "userModification" => 1
+        ));
+
+        $this->insert("documents", array(
+            "id" => 1,
+            "parentId" => 0,
+            "type" => "page",
+            "key" => "",
+            "path" => "/",
+            "index" => 999999,
+            "published" => 1,
+            "creationDate" => time(),
+            "modificationDate" => time(),
+            "userOwner" => 1,
+            "userModification" => 1
+        ));
+
+        $this->insert("documents_page", array(
+            "id" => 1,
+            "controller" => "",
+            "action" => "",
+            "template" => "",
+            "title" => "",
+            "description" => "",
+            "keywords" => ""
+        ));
+
+        $this->insert("objects", array(
+            "o_id" => 1,
+            "o_parentId" => 0,
+            "o_type" => "folder",
+            "o_key" => "",
+            "o_path" => "/",
+            "o_index" => 999999,
+            "o_published" => 1,
+            "o_creationDate" => time(),
+            "o_modificationDate" => time(),
+            "o_userOwner" => 1,
+            "o_userModification" => 1
+        ));
+
+        $this->insert("users", array(
+            "parentId" => 0,
+            "name" => "system",
+            "admin" => 1,
+            "active" => 1
+        ));
+
+        $this->update("users",array("id" => 0), $this->quoteInto("name = ?", "system"));
+
+
+        $userPermissions = array(
+            array("key" => "assets"),
+            array("key" => "classes"),
+            array("key" => "clear_cache"),
+            array("key" => "clear_temp_files"),
+            array("key" => "document_types"),
+            array("key" => "documents"),
+            array("key" => "objects"),
+            array("key" => "plugins"),
+            array("key" => "predefined_properties"),
+            array("key" => "routes"),
+            array("key" => "seemode"),
+            array("key" => "system_settings"),
+            array("key" => "thumbnails"),
+            array("key" => "translations"),
+            array("key" => "redirects"),
+            array("key" => "glossary" ),
+            array("key" => "reports")
+        );
+
+        foreach ($userPermissions as $up) {
+            $this->insert("users_permission_definitions", $up);
+        }
     }
 
     public function setOriginalConfig($originalConfig) {

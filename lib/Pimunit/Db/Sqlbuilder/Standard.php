@@ -8,9 +8,9 @@ class Pimunit_Db_Sqlbuilder_Standard implements Pimunit_Db_iSqlbuilder  {
 
         $sql = implode(';', $initQuery);
 
-         if(Pimcore_Version::$revision >= 1154) {
+         if(Pimcore_Version::$revision >= 1154 && Pimcore_Version::$revision <= 1499) {
            $sql .= file_get_contents(__DIR__.'/1157.sql');
-        }
+         }
 
         return $sql;
     }
