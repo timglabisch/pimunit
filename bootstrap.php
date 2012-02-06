@@ -45,8 +45,6 @@ class Pimunit_Bootstrap implements di\iRunable {
         $this->initPimcore();
         $this->changeDatabaseDriver();
         $this->initExternalLibs();
-
-
     }
 
     protected function initExternalLibs() {
