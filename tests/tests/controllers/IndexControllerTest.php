@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__.'/../../../controllers/IndexController.php';
-
 class Pimunit_IndexControllerTest extends Pimcore_Test_Case_Controller {
 
     function testIndexAction() {
