@@ -8,9 +8,9 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     public function testDiSet() {
         $di = new di();
-        $di->bind('istd')->to('std1');
+        $di->bind('\diTest\istd')->to('\diTest\std1');
 
-        $this->assertInstanceOf('std1', $di->get('istd'));
+        $this->assertInstanceOf('\diTest\std1', $di->get('\diTest\istd'));
         return $di;
     }
 
@@ -18,34 +18,33 @@ class DITest extends \PHPUnit_Framework_TestCase {
      * @depends testDiSet
      */
     public function testDiOverwrite($di) {
-        $di->bind('istd')->to('std2');
+        $di->bind('\diTest\istd')->to('\diTest\std2');
 
-        $this->assertInstanceOf('std2', $di->get('istd'));
+        $this->assertInstanceOf('\diTest\std2', $di->get('\diTest\istd'));
     }
 
     public function testDIConcern() {
         $di = new di();
-        $di->bind('istd')->to('std1');
-        $di->bind('istd')->to('std2')->concern('abc');
+        $di->bind('\diTest\istd')->to('\diTest\std1');
+        $di->bind('\diTest\istd')->to('\diTest\std2')->concern('abc');
 
-        $this->assertInstanceOf('std2', $di->get('istd', 'abc'));#
-        $this->assertInstanceOf('std1', $di->get('istd'));
+        $this->assertInstanceOf('\diTest\std2', $di->get('\diTest\istd', 'abc'));#
+        $this->assertInstanceOf('\diTest\std1', $di->get('\diTest\istd'));
     }
     
 
     /**
-     * @expectedException Exception
+     * @expectedException \InvalidArgumentException
      */
     public function testInterfaceDoesNotExists() {
         $di = new di();
-        $di->bind('UNKNOWN')->to('std1');
+        $di->bind('UNKNOWN')->to('\diTest\std1');
 
-        $this->assertInstanceOf('std1', $di->get('UNKNOWN'));
+        $this->assertInstanceOf('\diTest\std1', $di->get('UNKNOWN'));
     }
 
-
     /**
-     * @expectedException Exception
+     * @expectedException \InvalidArgumentException
      */
     public function testBindingDoesNotExists() {
         $di = new di();
@@ -53,12 +52,12 @@ class DITest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \ReflectionException
      */
     public function testImplementationDoesNotExists() {
         $di = new di();
-        $di->bind('istd')->to('UNKNOWN');
-        $di->get('istd');
+        $di->bind('\diTest\istd')->to('UNKNOWN');
+        $di->get('\diTest\istd');
     }
 
     public function testBasicInjection() {
@@ -101,16 +100,16 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     public function testSharedDefault() {
        $di = new di();
-       $di->bind('istd')->to('std1');
+       $di->bind('\diTest\istd')->to('\diTest\std1');
 
-       $this->assertTrue($di->get('istd') !== $di->get('istd'));
+       $this->assertTrue($di->get('\diTest\istd') !== $di->get('\diTest\istd'));
     }
 
     public function testIsShared() {
        $di = new di();
-       $di->bind('istd')->to('std1')->shared(true);
+       $di->bind('\diTest\istd')->to('\diTest\std1')->shared(true);
 
-       $this->assertTrue($di->get('istd') === $di->get('istd'));
+       $this->assertTrue($di->get('\diTest\istd') === $di->get('\diTest\istd'));
     }
 
     function testConstructorInjection() {
@@ -133,30 +132,30 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     public function testDecorate() {
         $di = new di();
-        $di->bind('istd')->to('diDecorateStd1');
-        $di->bind('istd')->to('diDecorateDecorator1')->decorated(true);
+        $di->bind('\diTest\istd')->to('diDecorateStd1');
+        $di->bind('\diTest\istd')->to('diDecorateDecorator1')->decorated(true);
 
-        $this->assertEquals($di->get('istd')->foo(), 'foo, decorated1!');
+        $this->assertEquals($di->get('\diTest\istd')->foo(), 'foo, decorated1!');
     }
 
     public function testDecorateMultiple() {
         $di = new di();
-        $di->bind('istd')->to('diDecorateStd1');
-        $di->bind('istd')->to('diDecorateDecorator1')->decorated(true);
-        $di->bind('istd')->to('diDecorateDecorator2')->decorated(true);
+        $di->bind('\diTest\istd')->to('diDecorateStd1');
+        $di->bind('\diTest\istd')->to('diDecorateDecorator1')->decorated(true);
+        $di->bind('\diTest\istd')->to('diDecorateDecorator2')->decorated(true);
 
-        $this->assertEquals($di->get('istd')->foo(), 'foo, decorated1!, decorated2!');
+        $this->assertEquals($di->get('\diTest\istd')->foo(), 'foo, decorated1!, decorated2!');
     }
 
     public function testDecoratedNested() {
         $di = new di();
-        $di->bind('istd')->to('diDecorateStd1');
-        $di->bind('istd')->to('diDecorateDecorator1')->decorated(true);
-        $di->bind('istd')->to('diDecorateDecoratorNested1')->decorated(true);
+        $di->bind('\diTest\istd')->to('diDecorateStd1');
+        $di->bind('\diTest\istd')->to('diDecorateDecorator1')->decorated(true);
+        $di->bind('\diTest\istd')->to('diDecorateDecoratorNested1')->decorated(true);
         $di->bind('nested_inestedservice1')->to('nested_nestedservice1');
 
-        $this->assertInstanceOf('nested_inestedservice1', $di->get('istd')->getService());
-        $this->assertEquals($di->get('istd')->getService()->identify(), 'nested_nestedservice1');
+        $this->assertInstanceOf('nested_inestedservice1', $di->get('\diTest\istd')->getService());
+        $this->assertEquals($di->get('\diTest\istd')->getService()->identify(), 'nested_nestedservice1');
     }
 
     public function testDecoratedDecorator() {
@@ -171,22 +170,22 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     function testSharedNotDecorator() {
         $di = new di();
-        $di->bind('sharedDecorators_iBase1')->to('sharedDecorators_base1');
-        $di->bind('sharedDecorators_iBase1')->decoratedWith('sharedDecorators_base1_decorator');
-        $decorator = $di->get('sharedDecorators_iBase1')->getService();
+        $di->bind('\sharedDecorators\iBase1')->to('\sharedDecorators\base1');
+        $di->bind('\sharedDecorators\iBase1')->decoratedWith('\sharedDecorators\base1_decorator');
+        $decorator = $di->get('\sharedDecorators\iBase1')->getService();
 
-        $this->assertInstanceOf('sharedDecorators_base1_decorator', $decorator);
-        $this->assertTrue($di->get('sharedDecorators_iBase1')->getService() !== $decorator);
+        $this->assertInstanceOf('\sharedDecorators\base1_decorator', $decorator);
+        $this->assertTrue($di->get('\sharedDecorators\iBase1')->getService() !== $decorator);
     }
 
     function testSharedDecorator() {
         $di = new di();
-        $di->bind('sharedDecorators_iBase1')->to('sharedDecorators_base1');
-        $di->bind('sharedDecorators_iBase1')->decoratedWith('sharedDecorators_base1_decorator')->shared(true);
-        $decorator = $di->get('sharedDecorators_iBase1')->getService();
+        $di->bind('\sharedDecorators\iBase1')->to('\sharedDecorators\base1');
+        $di->bind('\sharedDecorators\iBase1')->decoratedWith('\sharedDecorators\base1_decorator')->shared(true);
+        $decorator = $di->get('\sharedDecorators\iBase1')->getService();
 
-        $this->assertInstanceOf('sharedDecorators_base1_decorator', $decorator);
-        $this->assertTrue($di->get('sharedDecorators_iBase1')->getService() === $decorator);
+        $this->assertInstanceOf('\sharedDecorators\base1_decorator', $decorator);
+        $this->assertTrue($di->get('\sharedDecorators\iBase1')->getService() === $decorator);
     }
 
     public function testSetBinderRepositoy() {
@@ -205,10 +204,10 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     public function testBindInstances() {
         $di = new di();
-        $std = new \std1();
-        $di->bind('istd')->to($std);
+        $std = new \diTest\std1();
+        $di->bind('\diTest\istd')->to($std);
 
-        $this->assertTrue($di->get('istd') === $std);
+        $this->assertTrue($di->get('\diTest\istd') === $std);
         return $di;
     }
 
@@ -216,11 +215,11 @@ class DITest extends \PHPUnit_Framework_TestCase {
      * @depends testBindInstances
      */
     public function testBindSharedInstances($di) {
-        $std = new \std1();
-        $di->bind('istd')->to($std)->shared(false);
+        $std = new \diTest\std1();
+        $di->bind('\diTest\istd')->to($std)->shared(false);
 
-        $this->assertTrue($di->get('istd') !== $std);
-        $this->assertInstanceOf('\std1', $di->get('istd'));
+        $this->assertTrue($di->get('\diTest\istd') !== $std);
+        $this->assertInstanceOf('\\diTest\std1', $di->get('\diTest\istd'));
     }
 
     public function testInjectDiItself() {
@@ -232,11 +231,11 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     public function testParam() {
         $di = new di();
-        $di->bind('istd')->to('diParam_standard');
-        $di->bind('iostd')->to('diParam_standard_injected');
+        $di->bind('\diTest\istd')->to('\diParam\standard');
+        $di->bind('\diTest\iostd')->to('\diParam\standard_injected');
 
-        $this->assertInstanceOf('diParam_standard', $di->get('istd'));
-        $this->assertInstanceOf('diParam_standard_injected', $di->get('istd')->service);
+        $this->assertInstanceOf('\diParam\standard', $di->get('\diTest\istd'));
+        $this->assertInstanceOf('\diParam\standard_injected', $di->get('\diTest\istd')->service);
         return $di;
     }
 
@@ -251,13 +250,13 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     public function testParamConcern() {
         $di = new di();
-        $di->bind('istd')->to('diParam_concern');
-        $di->bind('iostd')->to('diParam_standard_injected');
-        $di->bind('iostd')->to('ostd1')->concern('abc');
+        $di->bind('\diTest\istd')->to('\diParam\concern');
+        $di->bind('\diTest\iostd')->to('\diParam\standard_injected');
+        $di->bind('\diTest\iostd')->to('\diTest\ostd1')->concern('abc');
 
-        $this->assertInstanceOf('diParam_concern', $di->get('istd'));
-        $this->assertInstanceOf('diParam_standard_injected', $di->get('istd')->service);
-        $this->assertInstanceOf('ostd1', $di->get('istd')->service_concern);
+        $this->assertInstanceOf('\diParam\concern', $di->get('\diTest\istd'));
+        $this->assertInstanceOf('\diParam\standard_injected', $di->get('\diTest\istd')->service);
+        $this->assertInstanceOf('\diTest\ostd1', $di->get('\diTest\istd')->service_concern);
         return $di;
     }
 
@@ -291,30 +290,30 @@ class DITest extends \PHPUnit_Framework_TestCase {
      */
     public function testPropertyParseException() {
         $di= new di();
-        $di->bind('istd')->to('diPropertyParseException_std1');
-        $di->get('istd');
+        $di->bind('\diTest\istd')->to('\diPropertyParseException\std1');
+        $di->get('\diTest\istd');
     }
 
     public function testIgnoreAnnotationProperty() {
         $di = new di();
-        $di->bind('istd')->to('diTestIgnoreAnnotation_property');
-        $this->assertNull($di->get('istd')->basic);
-        $this->assertNull($di->get('istd')->author);
-        $this->assertNull($di->get('istd')->doctrine);
+        $di->bind('\diTest\istd')->to('diTestIgnoreAnnotation\property');
+        $this->assertNull($di->get('\diTest\istd')->basic);
+        $this->assertNull($di->get('\diTest\istd')->author);
+        $this->assertNull($di->get('\diTest\istd')->doctrine);
     }
 
     public function testIgnoreAnnotationMethod() {
         $di = new di();
-        $di->bind('istd')->to('diTestIgnoreAnnotation_method');
-        $this->assertTrue($di->get('istd')->basic());
-        $this->assertTrue($di->get('istd')->author());
-        $this->assertTrue($di->get('istd')->doctrine());
+        $di->bind('\diTest\istd')->to('diTestIgnoreAnnotation\method');
+        $this->assertTrue($di->get('\diTest\istd')->basic());
+        $this->assertTrue($di->get('\diTest\istd')->author());
+        $this->assertTrue($di->get('\diTest\istd')->doctrine());
     }
 
     public function testRunable() {
         ob_start();
         $di = new di();
-        $di->run(new \diRunable_Basic());
+        $di->run(new \diRunable\Basic());
 
         $this->assertEquals(ob_get_contents(), 'ok!');
         ob_end_clean();
@@ -322,68 +321,68 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     public function testRunableInjection() {
         $di = new di();
-        $di->bind('istd')->to('std1');
-        $di->bind('istd')->to('std2')->concern('std2');
-        $di->bind('iostd')->to('ostd1');
-        $di->bind('iostd')->to('ostd2')->concern('std2');
+        $di->bind('\diTest\istd')->to('\diTest\std1');
+        $di->bind('\diTest\istd')->to('\diTest\std2')->concern('std2');
+        $di->bind('\diTest\iostd')->to('\diTest\ostd1');
+        $di->bind('\diTest\iostd')->to('\diTest\ostd2')->concern('std2');
 
-        $runable = new \diRunable_Inject();
+        $runable = new \diRunable\Inject();
 
         $di->run($runable);
 
-        $this->assertInstanceOf('std1', $runable->std);
-        $this->assertInstanceOf('std2', $runable->std2);
-        $this->assertInstanceOf('ostd1', $runable->getIostd());
-        $this->assertInstanceOf('ostd2', $runable->getIostd2());
+        $this->assertInstanceOf('\diTest\std1', $runable->std);
+        $this->assertInstanceOf('\diTest\std2', $runable->std2);
+        $this->assertInstanceOf('\diTest\ostd1', $runable->getIostd());
+        $this->assertInstanceOf('\diTest\ostd2', $runable->getIostd2());
     }
 
     public function testBasicRepository() {
         $di = new di();
-        $this->assertTrue($di->get('istd[]') instanceof \de\any\di\repository\standard);
+        $this->assertTrue($di->get('\diTest\istd[]') instanceof \de\any\di\repository\standard);
      }
 
      public function testBasicRepository2() {
         $di = new di();
-        $di->bind('istd')->to('std1');
-        $this->assertEquals(0, count($di->get('istd[]')));
+        $di->bind('\diTest\istd')->to('\diTest\std1');
+        $this->assertEquals(0, count($di->get('\diTest\istd[]')));
      }
 
     public function testBasicRepository3() {
         $di = new di();
-        $di->bind('istd')->to('std1');
+        $di->bind('\diTest\istd')->to('\diTest\std1');
 
-        $repository = $di->get('istd[]');
-        $repository->append($di->get('istd'));
+        $repository = $di->get('\diTest\istd[]');
+        $repository->append($di->get('\diTest\istd'));
 
         $this->assertEquals(1, count($repository));
-        $this->assertEquals(0, count($di->get('istd[]')));
+        $this->assertEquals(0, count($di->get('\diTest\istd[]')));
      }
 
     public function testSharedRepository() {
         $di = new di();
-        $di->bind('istd[]')->to('\ArrayObject')->shared(true);
-        $di->bind('istd')->to('std1');
+        $di->bind('\diTest\istd[]')->to('\ArrayObject')->shared(true);
+        $di->bind('\diTest\istd')->to('\diTest\std1');
 
-        $di->get('istd[]')->append($di->get('istd'));
+        $di->get('\diTest\istd[]')->append($di->get('\diTest\istd'));
 
-        $this->assertEquals(1, count($di->get('istd[]')));
+        $this->assertEquals(1, count($di->get('\diTest\istd[]')));
 
-        $arr = $di->get('istd[]');
-        $this->assertInstanceOf('std1', $arr[0]);
+        $arr = $di->get('\diTest\istd[]');
+        $this->assertInstanceOf('\diTest\std1', $arr[0]);
      }
 
      public function testRepositoryConcerns() {
         $di = new di();
-        $di->bind('istd[]')->to('\ArrayObject');
-        $di->bind('istd[]')->to('\diRepositoryConcern_customArrayObject')->concern('abc');
+        $di->bind('\diTest\istd[]')->to('\ArrayObject');
+        $di->bind('\diTest\istd[]')->to('\diRepositoryConcern\customArrayObject')->concern('abc');
 
-        $this->assertInstanceOf('\ArrayObject', $di->get('istd[]'));
-        $this->assertInstanceOf('\diRepositoryConcern_customArrayObject', $di->get('istd[]', 'abc'));
+        $this->assertInstanceOf('\ArrayObject', $di->get('\diTest\istd[]'));
+        $this->assertInstanceOf('\diRepositoryConcern\customArrayObject', $di->get('\diTest\istd[]', 'abc'));
      }
 
      public function testRepositoryInjectBasic() {
         $di = new di();
-        $instance = new \diRepositoryInject_basic();
+        $instance = new \diRepositoryInject\basic();
         $di->justInject($instance);
 
         $this->assertInstanceOf('\de\any\di\repository\standard', $instance->repository);
@@ -391,7 +390,7 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
     public function testRepositoryBindBasic() {
         $di = new di();
-        $di->bind('istd[]')->to('\ArrayObject');
+        $di->bind('\diTest\istd[]')->to('\ArrayObject');
     }
 
     public function testDefaultSelfBinding() {
@@ -459,4 +458,54 @@ class DITest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($di->get('constructor_istd')->i3 instanceof \test\diCodingstyle\iInjected_in_namespace);
         $this->assertEquals($di->get('constructor_istd')->i4, null);
     }
+
+    public function testImplementationBindingGetInstance() {
+        $di = new di();
+        $this->assertInstanceOf('\diImmplementationBinding\impl', $di->get('\diImmplementationBinding\impl'));
+    }
+
+    public function testImplementationBindingOverwritePropertyBinding() {
+        $di = new di();
+        $di->bind('\diImmplementationBinding\impl')->to('\diImmplementationBinding\extends_impl')->setIsClass(true);
+        $this->assertInstanceOf('\diImmplementationBinding\impl', $di->get('\diImmplementationBinding\extends_impl'));
+    }
+
+    public function testImplementationBindingPropertyInjection() {
+        $di = new di();
+        $this->assertInstanceOf('\diImmplementationBinding\impl', $di->get('\diImmplementationBinding\property')->service);
+    }
+
+    public function testImplementationBindingConstructorInjection() {
+        $di = new di();
+        $this->assertInstanceOf('\diImmplementationBinding\impl', $di->get('\diImmplementationBinding\constructor')->service);
+    }
+
+    public function testImplementationBindingOverwriteConstructorBinding() {
+        $di = new di();
+        $di->bind('\diImmplementationBinding\impl')->to('\diImmplementationBinding\extends_impl')->setIsClass(true);
+        $this->assertInstanceOf('\diImmplementationBinding\extends_impl', $di->get('\diImmplementationBinding\constructor')->service);
+    }
+
+    public function testImplementationBindingSetterBinding() {
+        $di = new di();
+        $this->assertInstanceOf('\diImmplementationBinding\impl', $di->get('\diImmplementationBinding\setter')->service);
+    }
+
+    public function testImplementationBindingImplicitShared() {
+        $c = new \diImmplementationBinding\extends_stdClass();
+
+        $di = new di();
+        $di->bind('\stdClass')->to($c)->isClass(true);
+        $this->assertTrue($c === $di->get('\stdClass'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testImplementationBindingPropertyBadExtend() {
+        $di = new di();
+        $di->bind('\diImmplementationBinding\impl')->to('\diImmplementationBinding\impl2')->setIsClass(true);
+        $this->assertInstanceOf('\diImmplementationBinding\impl2', $di->get('\diImmplementationBinding\property')->service);
+    }
+
 }

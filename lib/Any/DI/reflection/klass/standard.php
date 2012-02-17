@@ -179,7 +179,7 @@ class standard implements \de\any\di\reflection\iKlass  {
             try {
                 $this->reflectionClass = new \ReflectionClass($this->getClassname());
             } catch(\ReflectionException $e) {
-                throw new \Exception('can\'t find class '.$this->getClassname());
+                throw new \ReflectionException('can\'t find class '.$this->getClassname());
             }
         }
 
@@ -187,22 +187,35 @@ class standard implements \de\any\di\reflection\iKlass  {
     }
 
     public function implementsInterface($interface) {
+
+        if(!interface_exists($interface))
+            throw new \InvalidArgumentException('interface '.$interface.' does not exists');
+
         return $this->getReflectionClass()->implementsInterface($interface);
     }
 
+    public function extendsFromClass($class) {
+
+        if(!class_exists($class))
+            throw new \InvalidArgumentException('class '.$class.' does not exists');
+
+        return $this->getReflectionClass()->isSubclassOf($class);
+    }
+
     public function setCache($cache) {
-        self::$cache = $cache;
+		// disabled for now
+        #self::$cache = $cache;
     }
 
     /**
      * @return \de\any\di\iCache
      */
     public function getCache() {
-        if(self::$cache === null) {
-
-            if(function_exists('apc_cache_info'))
+        if(!self::$cache) {
+			// disabled for now
+           /* if(function_exists('apc_cache_info'))
                 self::$cache = new \de\any\di\cache\apc();
-            else
+            else*/
                 self::$cache = new \de\any\di\cache\memory();
         }
 

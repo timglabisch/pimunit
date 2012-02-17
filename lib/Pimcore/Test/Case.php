@@ -19,6 +19,9 @@ class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
         return getcwd().'/fixtures/'.$path;
     }
 
+    /**
+     * @return Pimcore_Test_Isetup[]
+     */
     public function getSetups()
     {
         if($this->setups != null)

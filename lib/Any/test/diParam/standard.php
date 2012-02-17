@@ -1,5 +1,8 @@
 <?php
-class diParam_standard implements istd {
-    /** @var iostd !inject */
+
+namespace diParam;
+
+class standard implements \diTest\istd {
+    /** @var \diTest\iostd !inject */
     public $service;
 }

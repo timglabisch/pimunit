@@ -1,9 +1,12 @@
 <?php
-class diPropertyParseException_std1 implements istd {
+
+namespace diPropertyParseException;
+
+class std1 implements \diTest\istd {
 
    /**
-     * @var istd !inject
-     * @var istd2 !inject
+     * @var \diTest\istd !inject
+     * @var \diTest\istd2 !inject
      */
    public $foo;
 

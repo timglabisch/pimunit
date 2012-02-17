@@ -1,4 +1,7 @@
 <?php
-class ostd2 implements iostd {
+
+namespace diTest;
+
+class ostd2 implements \diTest\iostd {
 
 }

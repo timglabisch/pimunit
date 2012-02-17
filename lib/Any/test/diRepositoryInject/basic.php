@@ -1,8 +1,11 @@
 <?php
-class diRepositoryInject_basic {
+
+namespace diRepositoryInject;
+
+class basic {
 
     /**
-     * @var istd[] !inject
+     * @var \diTest\istd[] !inject
      */
     public $repository;
 }

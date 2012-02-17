@@ -1,4 +1,7 @@
 <?php
-class std1 implements istd {
+
+namespace diTest;
+
+class std1 implements \diTest\istd {
     
 }
