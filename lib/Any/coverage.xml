@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1329521311">
+  <project timestamp="1329521311">
+    <package name="de\any\di">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/ReflectionAnnotation.php">
+        <class name="ReflectionAnnotation" namespace="de\any\di">
+          <metrics methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="30" elements="34" coveredelements="34"/>
+        </class>
+        <line num="9" type="method" name="parseMethodAnnotations" crap="2" count="32"/>
+        <line num="10" type="stmt" count="32"/>
+        <line num="11" type="stmt" count="22"/>
+        <line num="12" type="stmt" count="22"/>
+        <line num="14" type="stmt" count="32"/>
+        <line num="17" type="method" name="parsePropertyAnnotations" crap="2" count="30"/>
+        <line num="18" type="stmt" count="30"/>
+        <line num="19" type="stmt" count="25"/>
+        <line num="20" type="stmt" count="25"/>
+        <line num="22" type="stmt" count="30"/>
+        <line num="25" type="method" name="parseAnnotations" crap="3" count="30"/>
+        <line num="26" type="stmt" count="30"/>
+        <line num="28" type="stmt" count="30"/>
+        <line num="29" type="stmt" count="22"/>
+        <line num="31" type="stmt" count="22"/>
+        <line num="32" type="stmt" count="22"/>
+        <line num="33" type="stmt" count="22"/>
+        <line num="34" type="stmt" count="22"/>
+        <line num="36" type="stmt" count="30"/>
+        <line num="39" type="method" name="parsePropertyVarAnnotation" crap="6" count="9"/>
+        <line num="40" type="stmt" count="9"/>
+        <line num="41" type="stmt" count="9"/>
+        <line num="43" type="stmt" count="9"/>
+        <line num="45" type="stmt" count="9"/>
+        <line num="47" type="stmt" count="9"/>
+        <line num="49" type="stmt" count="9"/>
+        <line num="50" type="stmt" count="9"/>
+        <line num="52" type="stmt" count="9"/>
+        <line num="54" type="stmt" count="9"/>
+        <line num="55" type="stmt" count="9"/>
+        <line num="57" type="stmt" count="9"/>
+        <line num="58" type="stmt" count="9"/>
+        <line num="60" type="stmt" count="7"/>
+        <line num="62" type="stmt" count="9"/>
+        <metrics loc="65" ncloc="65" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="30" elements="34" coveredelements="34"/>
+      </file>
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/binder.php">
+        <class name="binder" namespace="de\any\di">
+          <metrics methods="28" coveredmethods="28" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="65" elements="93" coveredelements="93"/>
+        </class>
+        <line num="20" type="method" name="__construct" crap="1" count="89"/>
+        <line num="21" type="stmt" count="89"/>
+        <line num="22" type="stmt" count="89"/>
+        <line num="23" type="stmt" count="89"/>
+        <line num="25" type="method" name="toObject" crap="1" count="66"/>
+        <line num="26" type="stmt" count="66"/>
+        <line num="27" type="stmt" count="66"/>
+        <line num="28" type="stmt" count="66"/>
+        <line num="29" type="stmt" count="66"/>
+        <line num="32" type="method" name="to" crap="2" count="76"/>
+        <line num="33" type="stmt" count="76"/>
+        <line num="34" type="stmt" count="76"/>
+        <line num="36" type="stmt" count="59"/>
+        <line num="37" type="stmt" count="59"/>
+        <line num="40" type="method" name="concern" crap="1" count="25"/>
+        <line num="41" type="stmt" count="25"/>
+        <line num="42" type="stmt" count="25"/>
+        <line num="45" type="method" name="dropHashKey" crap="1" count="89"/>
+        <line num="46" type="stmt" count="89"/>
+        <line num="47" type="stmt" count="89"/>
+        <line num="49" type="method" name="getHashKey" crap="2" count="67"/>
+        <line num="50" type="stmt" count="67"/>
+        <line num="51" type="stmt" count="66"/>
+        <line num="52" type="stmt" count="66"/>
+        <line num="54" type="stmt" count="67"/>
+        <line num="57" type="method" name="setInterfaceImpl" crap="1" count="71"/>
+        <line num="58" type="stmt" count="71"/>
+        <line num="59" type="stmt" count="71"/>
+        <line num="62" type="method" name="getInterfaceImpl" crap="1" count="62"/>
+        <line num="63" type="stmt" count="62"/>
+        <line num="66" type="method" name="setInterfaceName" crap="2" count="89"/>
+        <line num="68" type="stmt" count="89"/>
+        <line num="69" type="stmt" count="89"/>
+        <line num="71" type="stmt" count="89"/>
+        <line num="72" type="stmt" count="89"/>
+        <line num="73" type="stmt" count="89"/>
+        <line num="76" type="method" name="getInterfaceName" crap="1" count="90"/>
+        <line num="77" type="stmt" count="90"/>
+        <line num="80" type="method" name="setConcern" crap="1" count="32"/>
+        <line num="81" type="stmt" count="32"/>
+        <line num="82" type="stmt" count="32"/>
+        <line num="83" type="stmt" count="32"/>
+        <line num="86" type="method" name="getConcern" crap="1" count="70"/>
+        <line num="87" type="stmt" count="70"/>
+        <line num="90" type="method" name="setArguments" crap="1" count="2"/>
+        <line num="92" type="stmt" count="2"/>
+        <line num="93" type="stmt" count="2"/>
+        <line num="96" type="method" name="getArguments" crap="1" count="1"/>
+        <line num="97" type="stmt" count="1"/>
+        <line num="100" type="method" name="setIsShared" crap="1" count="70"/>
+        <line num="101" type="stmt" count="70"/>
+        <line num="102" type="stmt" count="70"/>
+        <line num="105" type="method" name="shared" crap="1" count="10"/>
+        <line num="106" type="stmt" count="10"/>
+        <line num="109" type="method" name="isShared" crap="1" count="64"/>
+        <line num="110" type="stmt" count="64"/>
+        <line num="113" type="method" name="decorated" crap="1" count="8"/>
+        <line num="114" type="stmt" count="8"/>
+        <line num="117" type="method" name="setIsDecorated" crap="1" count="15"/>
+        <line num="118" type="stmt" count="15"/>
+        <line num="119" type="stmt" count="15"/>
+        <line num="122" type="method" name="isDecorated" crap="1" count="69"/>
+        <line num="123" type="stmt" count="69"/>
+        <line num="126" type="method" name="decoratedWith" crap="1" count="5"/>
+        <line num="127" type="stmt" count="5"/>
+        <line num="128" type="stmt" count="5"/>
+        <line num="129" type="stmt" count="5"/>
+        <line num="132" type="method" name="setInstance" crap="1" count="66"/>
+        <line num="133" type="stmt" count="66"/>
+        <line num="134" type="stmt" count="66"/>
+        <line num="137" type="method" name="getInstance" crap="1" count="10"/>
+        <line num="138" type="stmt" count="10"/>
+        <line num="141" type="method" name="checkIsRepository" crap="5" count="89"/>
+        <line num="143" type="stmt" count="89"/>
+        <line num="144" type="stmt" count="89"/>
+        <line num="146" type="stmt" count="89"/>
+        <line num="147" type="stmt" count="89"/>
+        <line num="149" type="stmt" count="89"/>
+        <line num="150" type="stmt" count="89"/>
+        <line num="152" type="stmt" count="89"/>
+        <line num="153" type="stmt" count="15"/>
+        <line num="154" type="stmt" count="15"/>
+        <line num="157" type="stmt" count="86"/>
+        <line num="160" type="method" name="setIsRepository" crap="1" count="89"/>
+        <line num="161" type="stmt" count="89"/>
+        <line num="162" type="stmt" count="89"/>
+        <line num="165" type="method" name="isRepository" crap="1" count="59"/>
+        <line num="166" type="stmt" count="59"/>
+        <line num="169" type="method" name="setIsClass" crap="1" count="7"/>
+        <line num="170" type="stmt" count="7"/>
+        <line num="171" type="stmt" count="7"/>
+        <line num="174" type="method" name="isClass" crap="1" count="57"/>
+        <line num="175" type="stmt" count="57"/>
+        <metrics loc="178" ncloc="178" classes="1" methods="28" coveredmethods="28" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="65" elements="93" coveredelements="93"/>
+      </file>
+    </package>
+    <package name="de\any\di\binder\parser">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/binder/parser/xml.php">
+        <class name="xml" namespace="de\any\di\binder\parser">
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="22" elements="24" coveredelements="24"/>
+        </class>
+        <line num="17" type="method" name="__construct" crap="1" count="3"/>
+        <line num="18" type="stmt" count="3"/>
+        <line num="19" type="stmt" count="3"/>
+        <line num="21" type="method" name="getBindings" crap="9" count="3"/>
+        <line num="22" type="stmt" count="3"/>
+        <line num="24" type="stmt" count="3"/>
+        <line num="25" type="stmt" count="3"/>
+        <line num="27" type="stmt" count="3"/>
+        <line num="28" type="stmt" count="3"/>
+        <line num="30" type="stmt" count="3"/>
+        <line num="31" type="stmt" count="3"/>
+        <line num="33" type="stmt" count="3"/>
+        <line num="34" type="stmt" count="3"/>
+        <line num="35" type="stmt" count="3"/>
+        <line num="37" type="stmt" count="3"/>
+        <line num="39" type="stmt" count="3"/>
+        <line num="40" type="stmt" count="3"/>
+        <line num="41" type="stmt" count="3"/>
+        <line num="43" type="stmt" count="3"/>
+        <line num="45" type="stmt" count="3"/>
+        <line num="46" type="stmt" count="3"/>
+        <line num="48" type="stmt" count="3"/>
+        <line num="49" type="stmt" count="3"/>
+        <line num="51" type="stmt" count="3"/>
+        <metrics loc="53" ncloc="50" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="22" elements="24" coveredelements="24"/>
+      </file>
+    </package>
+    <package name="de\any\di\binder">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/binder/repository.php">
+        <class name="repository" namespace="de\any\di\binder">
+          <metrics methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="48" coveredstatements="48" elements="55" coveredelements="55"/>
+        </class>
+        <line num="12" type="method" name="addBinding" crap="1" count="69"/>
+        <line num="13" type="stmt" count="69"/>
+        <line num="14" type="stmt" count="69"/>
+        <line num="15" type="stmt" count="69"/>
+        <line num="17" type="method" name="addBindings" crap="2" count="2"/>
+        <line num="18" type="stmt" count="2"/>
+        <line num="19" type="stmt" count="2"/>
+        <line num="20" type="stmt" count="2"/>
+        <line num="22" type="method" name="knowBindings" crap="5" count="65"/>
+        <line num="23" type="stmt" count="65"/>
+        <line num="24" type="stmt" count="65"/>
+        <line num="26" type="stmt" count="64"/>
+        <line num="27" type="stmt" count="64"/>
+        <line num="29" type="stmt" count="64"/>
+        <line num="30" type="stmt" count="64"/>
+        <line num="32" type="stmt" count="64"/>
+        <line num="33" type="stmt" count="64"/>
+        <line num="35" type="stmt" count="8"/>
+        <line num="36" type="stmt" count="64"/>
+        <line num="38" type="stmt" count="64"/>
+        <line num="39" type="stmt" count="64"/>
+        <line num="40" type="stmt" count="64"/>
+        <line num="42" type="method" name="interfaceIsARepository" crap="3" count="15"/>
+        <line num="43" type="stmt" count="15"/>
+        <line num="46" type="method" name="interfaceIsAClassBinding" crap="1" count="8"/>
+        <line num="47" type="stmt" count="8"/>
+        <line num="56" type="method" name="getBinding" crap="5" count="64"/>
+        <line num="57" type="stmt" count="64"/>
+        <line num="59" type="stmt" count="64"/>
+        <line num="60" type="stmt" count="64"/>
+        <line num="62" type="stmt" count="64"/>
+        <line num="64" type="stmt" count="15"/>
+        <line num="65" type="stmt" count="7"/>
+        <line num="66" type="stmt" count="7"/>
+        <line num="67" type="stmt" count="7"/>
+        <line num="68" type="stmt" count="7"/>
+        <line num="69" type="stmt" count="7"/>
+        <line num="70" type="stmt" count="8"/>
+        <line num="71" type="stmt" count="7"/>
+        <line num="72" type="stmt" count="7"/>
+        <line num="73" type="stmt" count="7"/>
+        <line num="74" type="stmt" count="7"/>
+        <line num="75" type="stmt" count="7"/>
+        <line num="76" type="stmt" count="7"/>
+        <line num="77" type="stmt" count="7"/>
+        <line num="79" type="stmt" count="1"/>
+        <line num="81" type="stmt" count="14"/>
+        <line num="83" type="stmt" count="63"/>
+        <line num="92" type="method" name="getBindingDecorators" crap="3" count="52"/>
+        <line num="93" type="stmt" count="52"/>
+        <line num="95" type="stmt" count="52"/>
+        <line num="96" type="stmt" count="52"/>
+        <line num="98" type="stmt" count="52"/>
+        <line num="99" type="stmt" count="52"/>
+        <line num="101" type="stmt" count="52"/>
+        <metrics loc="103" ncloc="91" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="48" coveredstatements="48" elements="55" coveredelements="55"/>
+      </file>
+    </package>
+    <package name="de\any\di\cache">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/cache/apc.php">
+        <class name="apc" namespace="de\any\di\cache">
+          <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="5" coveredelements="0"/>
+        </class>
+        <line num="6" type="method" name="fetch" crap="2" count="0"/>
+        <line num="7" type="stmt" count="0"/>
+        <line num="10" type="method" name="store" crap="2" count="0"/>
+        <line num="11" type="stmt" count="0"/>
+        <line num="12" type="stmt" count="0"/>
+        <metrics loc="14" ncloc="14" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="5" coveredelements="0"/>
+      </file>
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/cache/memory.php">
+        <class name="memory" namespace="de\any\di\cache">
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+        </class>
+        <line num="8" type="method" name="fetch" crap="2" count="56"/>
+        <line num="9" type="stmt" count="56"/>
+        <line num="10" type="stmt" count="56"/>
+        <line num="12" type="stmt" count="40"/>
+        <line num="15" type="method" name="store" crap="1" count="56"/>
+        <line num="16" type="stmt" count="56"/>
+        <line num="17" type="stmt" count="56"/>
+        <metrics loc="19" ncloc="19" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
+      </file>
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/cache/void.php">
+        <class name="void" namespace="de\any\di\cache">
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+        </class>
+        <line num="6" type="method" name="fetch" crap="1" count="1"/>
+        <line num="7" type="stmt" count="1"/>
+        <line num="10" type="method" name="store" crap="1" count="1"/>
+        <line num="12" type="stmt" count="1"/>
+        <metrics loc="14" ncloc="14" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </file>
+    </package>
+    <package name="de\any\di\exception">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/exception/circular.php">
+        <class name="circular" namespace="de\any\di\exception">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="8" type="method" name="__construct" crap="1" count="2"/>
+        <line num="9" type="stmt" count="2"/>
+        <line num="10" type="stmt" count="2"/>
+        <metrics loc="14" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+    </package>
+    <package name="de\any\di\reflection\klass">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/reflection/klass/standard.php">
+        <class name="standard" namespace="de\any\di\reflection\klass">
+          <metrics methods="16" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="102" coveredstatements="101" elements="118" coveredelements="116"/>
+        </class>
+        <line num="14" type="method" name="__construct" crap="1" count="66"/>
+        <line num="15" type="stmt" count="66"/>
+        <line num="16" type="stmt" count="66"/>
+        <line num="18" type="method" name="newInstance" crap="1" count="55"/>
+        <line num="19" type="stmt" count="55"/>
+        <line num="20" type="stmt" count="55"/>
+        <line num="23" type="method" name="newInstanceArgs" crap="8" count="29"/>
+        <line num="25" type="stmt" count="29"/>
+        <line num="27" type="stmt" count="29"/>
+        <line num="30" type="stmt" count="29"/>
+        <line num="31" type="stmt" count="12"/>
+        <line num="33" type="stmt" count="17"/>
+        <line num="34" type="stmt" count="11"/>
+        <line num="36" type="stmt" count="6"/>
+        <line num="37" type="stmt" count="1"/>
+        <line num="39" type="stmt" count="5"/>
+        <line num="40" type="stmt" count="1"/>
+        <line num="42" type="stmt" count="4"/>
+        <line num="43" type="stmt" count="1"/>
+        <line num="45" type="stmt" count="3"/>
+        <line num="46" type="stmt" count="1"/>
+        <line num="48" type="stmt" count="2"/>
+        <line num="49" type="stmt" count="1"/>
+        <line num="53" type="stmt" count="1"/>
+        <line num="56" type="method" name="setClassname" crap="1" count="66"/>
+        <line num="57" type="stmt" count="66"/>
+        <line num="58" type="stmt" count="66"/>
+        <line num="60" type="method" name="hasMethod" crap="1" count="54"/>
+        <line num="61" type="stmt" count="54"/>
+        <line num="63" type="stmt" count="54"/>
+        <line num="66" type="method" name="getMethods" crap="4" count="54"/>
+        <line num="67" type="stmt" count="54"/>
+        <line num="68" type="stmt" count="54"/>
+        <line num="70" type="stmt" count="54"/>
+        <line num="71" type="stmt" count="35"/>
+        <line num="73" type="stmt" count="35"/>
+        <line num="75" type="stmt" count="35"/>
+        <line num="77" type="stmt" count="22"/>
+        <line num="78" type="stmt" count="22"/>
+        <line num="80" type="stmt" count="22"/>
+        <line num="81" type="stmt" count="22"/>
+        <line num="83" type="stmt" count="22"/>
+        <line num="84" type="stmt" count="35"/>
+        <line num="86" type="stmt" count="35"/>
+        <line num="87" type="stmt" count="35"/>
+        <line num="88" type="stmt" count="54"/>
+        <line num="90" type="stmt" count="54"/>
+        <line num="93" type="method" name="getSetterMethodsAnnotatedWith" crap="9" count="55"/>
+        <line num="95" type="stmt" count="55"/>
+        <line num="97" type="stmt" count="55"/>
+        <line num="99" type="stmt" count="55"/>
+        <line num="101" type="stmt" count="55"/>
+        <line num="102" type="stmt" count="33"/>
+        <line num="103" type="stmt" count="33"/>
+        <line num="105" type="stmt" count="31"/>
+        <line num="107" type="stmt" count="31"/>
+        <line num="108" type="stmt" count="31"/>
+        <line num="110" type="stmt" count="11"/>
+        <line num="111" type="stmt" count="11"/>
+        <line num="113" type="stmt" count="11"/>
+        <line num="114" type="stmt" count="11"/>
+        <line num="116" type="stmt" count="11"/>
+        <line num="117" type="stmt" count="55"/>
+        <line num="119" type="stmt" count="55"/>
+        <line num="120" type="stmt" count="55"/>
+        <line num="121" type="stmt" count="55"/>
+        <line num="123" type="stmt" count="55"/>
+        <line num="126" type="method" name="getInjectProperties" crap="7" count="55"/>
+        <line num="127" type="stmt" count="55"/>
+        <line num="128" type="stmt" count="55"/>
+        <line num="130" type="stmt" count="55"/>
+        <line num="131" type="stmt" count="54"/>
+        <line num="133" type="stmt" count="30"/>
+        <line num="135" type="stmt" count="30"/>
+        <line num="136" type="stmt" count="30"/>
+        <line num="138" type="stmt" count="11"/>
+        <line num="139" type="stmt" count="1"/>
+        <line num="142" type="stmt" count="10"/>
+        <line num="143" type="stmt" count="10"/>
+        <line num="145" type="stmt" count="9"/>
+        <line num="147" type="stmt" count="9"/>
+        <line num="148" type="stmt" count="9"/>
+        <line num="150" type="stmt" count="9"/>
+        <line num="151" type="stmt" count="53"/>
+        <line num="153" type="stmt" count="53"/>
+        <line num="154" type="stmt" count="53"/>
+        <line num="155" type="stmt" count="54"/>
+        <line num="157" type="stmt" count="54"/>
+        <line num="160" type="method" name="getClassname" crap="1" count="64"/>
+        <line num="161" type="stmt" count="64"/>
+        <line num="164" type="method" name="setReflectionClass" crap="1" count="1"/>
+        <line num="165" type="stmt" count="1"/>
+        <line num="166" type="stmt" count="1"/>
+        <line num="168" type="method" name="getConstructor" crap="1" count="21"/>
+        <line num="169" type="stmt" count="21"/>
+        <line num="171" type="stmt" count="21"/>
+        <line num="177" type="method" name="getReflectionClass" crap="3" count="58"/>
+        <line num="178" type="stmt" count="58"/>
+        <line num="180" type="stmt" count="57"/>
+        <line num="181" type="stmt" count="57"/>
+        <line num="182" type="stmt" count="1"/>
+        <line num="184" type="stmt" count="56"/>
+        <line num="186" type="stmt" count="57"/>
+        <line num="189" type="method" name="implementsInterface" crap="2" count="43"/>
+        <line num="191" type="stmt" count="43"/>
+        <line num="192" type="stmt" count="43"/>
+        <line num="194" type="stmt" count="42"/>
+        <line num="197" type="method" name="extendsFromClass" crap="2" count="2"/>
+        <line num="199" type="stmt" count="2"/>
+        <line num="200" type="stmt" count="2"/>
+        <line num="202" type="stmt" count="2"/>
+        <line num="205" type="method" name="setCache" crap="2" count="0"/>
+        <line num="208" type="stmt" count="0"/>
+        <line num="213" type="method" name="getCache" crap="2" count="55"/>
+        <line num="214" type="stmt" count="55"/>
+        <line num="219" type="stmt" count="1"/>
+        <line num="220" type="stmt" count="1"/>
+        <line num="222" type="stmt" count="55"/>
+        <metrics loc="224" ncloc="209" classes="1" methods="16" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="102" coveredstatements="101" elements="118" coveredelements="116"/>
+      </file>
+    </package>
+    <package name="de\any\di\reflection\method">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/reflection/method/standard.php">
+        <class name="standard" namespace="de\any\di\reflection\method">
+          <metrics methods="9" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="58" elements="67" coveredelements="67"/>
+        </class>
+        <line num="0" type="stmt" count="1"/>
+        <line num="10" type="method" name="__construct" crap="1" count="31"/>
+        <line num="11" type="stmt" count="31"/>
+        <line num="12" type="stmt" count="31"/>
+        <line num="14" type="method" name="getParameters" crap="1" count="20"/>
+        <line num="15" type="stmt" count="20"/>
+        <line num="18" type="method" name="setParameters" crap="1" count="23"/>
+        <line num="19" type="stmt" count="23"/>
+        <line num="20" type="stmt" count="23"/>
+        <line num="23" type="method" name="invokeArgs" crap="8" count="24"/>
+        <line num="24" type="stmt" count="24"/>
+        <line num="26" type="stmt" count="24"/>
+        <line num="29" type="stmt" count="24"/>
+        <line num="30" type="stmt" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="32" type="stmt" count="23"/>
+        <line num="33" type="stmt" count="14"/>
+        <line num="34" type="stmt" count="14"/>
+        <line num="35" type="stmt" count="9"/>
+        <line num="36" type="stmt" count="3"/>
+        <line num="37" type="stmt" count="3"/>
+        <line num="38" type="stmt" count="6"/>
+        <line num="39" type="stmt" count="2"/>
+        <line num="40" type="stmt" count="2"/>
+        <line num="41" type="stmt" count="4"/>
+        <line num="42" type="stmt" count="1"/>
+        <line num="43" type="stmt" count="1"/>
+        <line num="44" type="stmt" count="3"/>
+        <line num="45" type="stmt" count="1"/>
+        <line num="46" type="stmt" count="1"/>
+        <line num="47" type="stmt" count="2"/>
+        <line num="48" type="stmt" count="1"/>
+        <line num="49" type="stmt" count="1"/>
+        <line num="50" type="stmt" count="1"/>
+        <line num="51" type="stmt" count="1"/>
+        <line num="52" type="stmt" count="1"/>
+        <line num="53" type="stmt" count="1"/>
+        <line num="55" type="stmt" count="24"/>
+        <line num="57" type="method" name="setMethodName" crap="1" count="31"/>
+        <line num="58" type="stmt" count="31"/>
+        <line num="59" type="stmt" count="31"/>
+        <line num="61" type="method" name="getMethodName" crap="1" count="24"/>
+        <line num="62" type="stmt" count="24"/>
+        <line num="66" type="method" name="setParamsByReflectionMethod" crap="5" count="23"/>
+        <line num="67" type="stmt" count="23"/>
+        <line num="69" type="stmt" count="23"/>
+        <line num="71" type="stmt" count="23"/>
+        <line num="73" type="stmt" count="23"/>
+        <line num="75" type="stmt" count="22"/>
+        <line num="76" type="stmt" count="12"/>
+        <line num="77" type="stmt" count="12"/>
+        <line num="80" type="stmt" count="13"/>
+        <line num="81" type="stmt" count="13"/>
+        <line num="83" type="stmt" count="13"/>
+        <line num="84" type="stmt" count="13"/>
+        <line num="85" type="stmt" count="13"/>
+        <line num="86" type="stmt" count="13"/>
+        <line num="87" type="stmt" count="2"/>
+        <line num="90" type="stmt" count="13"/>
+        <line num="92" type="stmt" count="13"/>
+        <line num="93" type="stmt" count="23"/>
+        <line num="95" type="stmt" count="23"/>
+        <line num="96" type="stmt" count="23"/>
+        <line num="98" type="method" name="setInject" crap="1" count="23"/>
+        <line num="99" type="stmt" count="23"/>
+        <line num="100" type="stmt" count="23"/>
+        <line num="102" type="method" name="getInject" crap="1" count="21"/>
+        <line num="103" type="stmt" count="21"/>
+        <metrics loc="105" ncloc="105" classes="1" methods="9" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="58" elements="67" coveredelements="67"/>
+      </file>
+    </package>
+    <package name="de\any\di\reflection\param">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/reflection/param/standard.php">
+        <class name="standard" namespace="de\any\di\reflection\param">
+          <metrics methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="17" coveredelements="17"/>
+        </class>
+        <line num="10" type="method" name="setConcern" crap="1" count="13"/>
+        <line num="11" type="stmt" count="13"/>
+        <line num="12" type="stmt" count="13"/>
+        <line num="14" type="method" name="getConcern" crap="1" count="20"/>
+        <line num="15" type="stmt" count="20"/>
+        <line num="18" type="method" name="setInterface" crap="2" count="13"/>
+        <line num="19" type="stmt" count="13"/>
+        <line num="21" type="stmt" count="13"/>
+        <line num="22" type="stmt" count="13"/>
+        <line num="23" type="stmt" count="13"/>
+        <line num="25" type="method" name="getInterface" crap="1" count="20"/>
+        <line num="26" type="stmt" count="20"/>
+        <line num="29" type="method" name="setInject" crap="1" count="13"/>
+        <line num="30" type="stmt" count="13"/>
+        <line num="31" type="stmt" count="13"/>
+        <line num="34" type="method" name="getInject" crap="1" count="20"/>
+        <line num="35" type="stmt" count="20"/>
+        <metrics loc="36" ncloc="36" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="17" coveredelements="17"/>
+      </file>
+    </package>
+    <package name="de\any">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/di.php">
+        <class name="di" namespace="de\any">
+          <metrics methods="13" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="89" coveredstatements="89" elements="102" coveredelements="102"/>
+        </class>
+        <line num="27" type="method" name="__construct" crap="1" count="63"/>
+        <line num="29" type="stmt" count="63"/>
+        <line num="30" type="stmt" count="63"/>
+        <line num="32" type="method" name="createInstanceFromClassname" crap="1" count="1"/>
+        <line num="33" type="stmt" count="1"/>
+        <line num="34" type="stmt" count="1"/>
+        <line num="37" type="method" name="createInstance" crap="3" count="54"/>
+        <line num="38" type="stmt" count="54"/>
+        <line num="39" type="stmt" count="54"/>
+        <line num="41" type="stmt" count="21"/>
+        <line num="43" type="stmt" count="21"/>
+        <line num="44" type="stmt" count="21"/>
+        <line num="46" type="stmt" count="21"/>
+        <line num="48" type="stmt" count="21"/>
+        <line num="51" type="method" name="getByBinding" crap="15" count="60"/>
+        <line num="53" type="stmt" count="60"/>
+        <line num="54" type="stmt" count="60"/>
+        <line num="56" type="stmt" count="56"/>
+        <line num="58" type="stmt" count="56"/>
+        <line num="59" type="stmt" count="43"/>
+        <line num="60" type="stmt" count="41"/>
+        <line num="61" type="stmt" count="41"/>
+        <line num="63" type="stmt" count="54"/>
+        <line num="64" type="stmt" count="2"/>
+        <line num="65" type="stmt" count="2"/>
+        <line num="66" type="stmt" count="1"/>
+        <line num="68" type="stmt" count="54"/>
+        <line num="70" type="stmt" count="54"/>
+        <line num="71" type="stmt" count="54"/>
+        <line num="73" type="stmt" count="54"/>
+        <line num="75" type="stmt" count="54"/>
+        <line num="77" type="stmt" count="54"/>
+        <line num="78" type="stmt" count="54"/>
+        <line num="80" type="stmt" count="54"/>
+        <line num="81" type="stmt" count="54"/>
+        <line num="83" type="stmt" count="50"/>
+        <line num="85" type="stmt" count="50"/>
+        <line num="86" type="stmt" count="50"/>
+        <line num="87" type="stmt" count="50"/>
+        <line num="88" type="stmt" count="6"/>
+        <line num="90" type="stmt" count="6"/>
+        <line num="92" type="stmt" count="6"/>
+        <line num="94" type="stmt" count="6"/>
+        <line num="95" type="stmt" count="6"/>
+        <line num="97" type="stmt" count="6"/>
+        <line num="98" type="stmt" count="6"/>
+        <line num="99" type="stmt" count="6"/>
+        <line num="100" type="stmt" count="50"/>
+        <line num="102" type="stmt" count="50"/>
+        <line num="105" type="method" name="get" crap="1" count="61"/>
+        <line num="106" type="stmt" count="61"/>
+        <line num="107" type="stmt" count="60"/>
+        <line num="110" type="method" name="getInjectedMethodArgs" crap="4" count="20"/>
+        <line num="112" type="stmt" count="20"/>
+        <line num="114" type="stmt" count="20"/>
+        <line num="115" type="stmt" count="20"/>
+        <line num="117" type="stmt" count="20"/>
+        <line num="119" type="stmt" count="20"/>
+        <line num="120" type="stmt" count="1"/>
+        <line num="121" type="stmt" count="1"/>
+        <line num="124" type="stmt" count="20"/>
+        <line num="125" type="stmt" count="20"/>
+        <line num="127" type="stmt" count="20"/>
+        <line num="130" type="method" name="injectSetters" crap="3" count="55"/>
+        <line num="131" type="stmt" count="55"/>
+        <line num="133" type="stmt" count="55"/>
+        <line num="134" type="stmt" count="55"/>
+        <line num="136" type="stmt" count="16"/>
+        <line num="137" type="stmt" count="16"/>
+        <line num="138" type="stmt" count="16"/>
+        <line num="139" type="stmt" count="16"/>
+        <line num="140" type="stmt" count="16"/>
+        <line num="142" type="method" name="injectProperties" crap="3" count="55"/>
+        <line num="143" type="stmt" count="55"/>
+        <line num="145" type="stmt" count="54"/>
+        <line num="146" type="stmt" count="54"/>
+        <line num="148" type="stmt" count="15"/>
+        <line num="149" type="stmt" count="15"/>
+        <line num="150" type="stmt" count="12"/>
+        <line num="151" type="stmt" count="12"/>
+        <line num="153" type="method" name="bind" crap="1" count="65"/>
+        <line num="154" type="stmt" count="65"/>
+        <line num="155" type="stmt" count="65"/>
+        <line num="156" type="stmt" count="65"/>
+        <line num="159" type="method" name="setBinderRepository" crap="1" count="1"/>
+        <line num="160" type="stmt" count="1"/>
+        <line num="161" type="stmt" count="1"/>
+        <line num="166" type="method" name="getBinderRepository" crap="2" count="66"/>
+        <line num="167" type="stmt" count="66"/>
+        <line num="168" type="stmt" count="66"/>
+        <line num="170" type="stmt" count="66"/>
+        <line num="173" type="method" name="run" crap="1" count="2"/>
+        <line num="174" type="stmt" count="2"/>
+        <line num="176" type="stmt" count="2"/>
+        <line num="177" type="stmt" count="2"/>
+        <line num="179" type="stmt" count="2"/>
+        <line num="181" type="stmt" count="2"/>
+        <line num="184" type="method" name="justInject" crap="1" count="1"/>
+        <line num="185" type="stmt" count="1"/>
+        <line num="187" type="stmt" count="1"/>
+        <line num="188" type="stmt" count="1"/>
+        <line num="190" type="stmt" count="1"/>
+        <metrics loc="191" ncloc="186" classes="1" methods="13" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="89" coveredstatements="89" elements="102" coveredelements="102"/>
+      </file>
+    </package>
+    <package name="de\any\di\reflection\klass\standard\test">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/DI/reflection/klass/standard/params.php">
+        <class name="params" namespace="de\any\di\reflection\klass\standard\test">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="9" coveredelements="9"/>
+        </class>
+        <line num="0" type="stmt" count="1"/>
+        <line num="14" type="method" name="__construct" crap="1" count="8"/>
+        <line num="15" type="stmt" count="8"/>
+        <line num="16" type="stmt" count="8"/>
+        <line num="17" type="stmt" count="8"/>
+        <line num="18" type="stmt" count="8"/>
+        <line num="19" type="stmt" count="8"/>
+        <line num="20" type="stmt" count="8"/>
+        <line num="21" type="stmt" count="8"/>
+        <line num="22" type="stmt" count="8"/>
+        <metrics loc="22" ncloc="22" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="9" coveredelements="9"/>
+      </file>
+    </package>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/bootstrap.php">
+      <line num="5" type="stmt" count="0"/>
+      <line num="6" type="stmt" count="0"/>
+      <line num="7" type="stmt" count="0"/>
+      <line num="8" type="stmt" count="0"/>
+      <line num="9" type="stmt" count="0"/>
+      <line num="10" type="stmt" count="0"/>
+      <line num="11" type="stmt" count="0"/>
+      <line num="12" type="stmt" count="0"/>
+      <line num="13" type="stmt" count="0"/>
+      <line num="14" type="stmt" count="0"/>
+      <line num="15" type="stmt" count="0"/>
+      <line num="16" type="stmt" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="19" type="stmt" count="0"/>
+      <line num="20" type="stmt" count="0"/>
+      <metrics loc="20" ncloc="20" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="0" elements="16" coveredelements="0"/>
+    </file>
+    <package name="test\codingstyle">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diCodingstyle/annotations.php">
+        <class name="annotations" namespace="test\codingstyle">
+          <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="2" elements="6" coveredelements="3"/>
+        </class>
+        <line num="21" type="method" name="injectI3" crap="1" count="1"/>
+        <line num="22" type="stmt" count="1"/>
+        <line num="23" type="stmt" count="1"/>
+        <line num="29" type="method" name="injectI4" crap="2" count="0"/>
+        <line num="30" type="stmt" count="0"/>
+        <line num="31" type="stmt" count="0"/>
+        <metrics loc="32" ncloc="20" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="2" elements="6" coveredelements="3"/>
+      </file>
+    </package>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diCodingstyle/namespace.php">
+      <class name="constructor_namespace" namespace="global" fullPackage="constructor">
+        <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+      </class>
+      <line num="16" type="method" name="injectI3" crap="1" count="6"/>
+      <line num="17" type="stmt" count="6"/>
+      <line num="18" type="stmt" count="6"/>
+      <line num="23" type="method" name="__construct" crap="1" count="6"/>
+      <line num="24" type="stmt" count="6"/>
+      <line num="25" type="stmt" count="6"/>
+      <metrics loc="26" ncloc="18" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diConstructor/std1.php">
+      <class name="constructor_std1" namespace="global" fullPackage="constructor">
+        <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="8" type="method" name="__construct" crap="1" count="2"/>
+      <line num="9" type="stmt" count="2"/>
+      <line num="10" type="stmt" count="2"/>
+      <line num="12" type="method" name="getService" crap="1" count="2"/>
+      <line num="13" type="stmt" count="2"/>
+      <metrics loc="15" ncloc="12" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diDecorateTest/decorator1.php">
+      <class name="diDecorateDecorator1" namespace="global">
+        <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="6" type="method" name="setDecotaredClass" crap="1" count="3"/>
+      <line num="7" type="stmt" count="3"/>
+      <line num="8" type="stmt" count="3"/>
+      <line num="10" type="method" name="foo" crap="1" count="2"/>
+      <line num="11" type="stmt" count="2"/>
+      <metrics loc="13" ncloc="13" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diDecorateTest/decorator2.php">
+      <class name="diDecorateDecorator2" namespace="global">
+        <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="6" type="method" name="setDecotaredClass" crap="1" count="1"/>
+      <line num="7" type="stmt" count="1"/>
+      <line num="8" type="stmt" count="1"/>
+      <line num="10" type="method" name="foo" crap="1" count="1"/>
+      <line num="11" type="stmt" count="1"/>
+      <metrics loc="13" ncloc="13" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diDecorateTest/decoratorNested1.php">
+      <class name="diDecorateDecoratorNested1" namespace="global">
+        <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+      </class>
+      <line num="6" type="method" name="setDecotaredClass" crap="1" count="1"/>
+      <line num="7" type="stmt" count="1"/>
+      <line num="8" type="stmt" count="1"/>
+      <line num="13" type="method" name="setService" crap="1" count="1"/>
+      <line num="14" type="stmt" count="1"/>
+      <line num="15" type="stmt" count="1"/>
+      <line num="17" type="method" name="getService" crap="1" count="1"/>
+      <line num="18" type="stmt" count="1"/>
+      <metrics loc="20" ncloc="17" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diDecorateTest/std1.php">
+      <class name="diDecorateStd1" namespace="global">
+        <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="4" type="method" name="foo" crap="1" count="2"/>
+      <line num="5" type="stmt" count="2"/>
+      <metrics loc="7" ncloc="7" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diDecoratorNeedDecorated/decoratorDecorated_base1.php">
+      <class name="decoratorDecorated_base1" namespace="global" fullPackage="decoratorDecorated">
+        <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="5" type="method" name="getClassname" crap="1" count="1"/>
+      <line num="6" type="stmt" count="1"/>
+      <metrics loc="8" ncloc="8" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diDecoratorNeedDecorated/decoratorDecorated_base1_decorator.php">
+      <class name="decoratorDecorated_base1_decorator" namespace="global" fullPackage="decoratorDecorated.base1">
+        <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+      </class>
+      <line num="5" type="method" name="setDecotaredClass" crap="1" count="1"/>
+      <line num="6" type="stmt" count="1"/>
+      <line num="7" type="stmt" count="1"/>
+      <line num="12" type="method" name="setDecoratorDecorated_iBase2" crap="1" count="1"/>
+      <line num="13" type="stmt" count="1"/>
+      <line num="14" type="stmt" count="1"/>
+      <line num="16" type="method" name="getClassname" crap="1" count="1"/>
+      <line num="17" type="stmt" count="1"/>
+      <metrics loc="19" ncloc="16" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diDecoratorNeedDecorated/decoratorDecorated_base2.php">
+      <class name="decoratorDecorated_base2" namespace="global" fullPackage="decoratorDecorated">
+        <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="4" type="method" name="getClassname" crap="1" count="1"/>
+      <line num="5" type="stmt" count="1"/>
+      <metrics loc="7" ncloc="7" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diDecoratorNeedDecorated/decoratorDecorated_base2_decorator.php">
+      <class name="decoratorDecorated_base2_decorator" namespace="global" fullPackage="decoratorDecorated.base2">
+        <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="5" type="method" name="setDecotaredClass" crap="1" count="1"/>
+      <line num="6" type="stmt" count="1"/>
+      <line num="7" type="stmt" count="1"/>
+      <line num="9" type="method" name="getClassname" crap="1" count="1"/>
+      <line num="10" type="stmt" count="1"/>
+      <metrics loc="12" ncloc="12" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <package name="de\any\di\test\example\basics">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diExampels/basics/logger.php">
+        <class name="logger" namespace="de\any\di\test\example\basics">
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+        </class>
+        <line num="8" type="method" name="log" crap="1" count="1"/>
+        <line num="9" type="stmt" count="1"/>
+        <line num="10" type="stmt" count="1"/>
+        <line num="12" type="method" name="getLog" crap="1" count="1"/>
+        <line num="13" type="stmt" count="1"/>
+        <metrics loc="14" ncloc="14" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </file>
+    </package>
+    <package name="de\any\di\test\example\getterInjection\diC">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diExampels/getterInjection/diC/Mailer.php">
+        <class name="MailService" namespace="de\any\di\test\example\getterInjection\diC">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+        </class>
+        <line num="6" type="method" name="sendTo" crap="1" count="1"/>
+        <line num="7" type="stmt" count="1"/>
+        <metrics loc="8" ncloc="8" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </file>
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diExampels/getterInjection/diC/Registration.php">
+        <class name="RegistrationService" namespace="de\any\di\test\example\getterInjection\diC">
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+        </class>
+        <line num="8" type="method" name="sendDOIMail" crap="1" count="1"/>
+        <line num="9" type="stmt" count="1"/>
+        <line num="10" type="stmt" count="1"/>
+        <line num="15" type="method" name="setMailService" crap="1" count="1"/>
+        <line num="16" type="stmt" count="1"/>
+        <line num="17" type="stmt" count="1"/>
+        <metrics loc="17" ncloc="14" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+      </file>
+    </package>
+    <package name="de\any\di\test\example\getterInjection\withoutDiC">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diExampels/getterInjection/withoutDiC/Mailer.php">
+        <class name="MailService" namespace="de\any\di\test\example\getterInjection\withoutDiC">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+        </class>
+        <line num="6" type="method" name="sendTo" crap="1" count="1"/>
+        <line num="7" type="stmt" count="1"/>
+        <metrics loc="8" ncloc="8" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </file>
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diExampels/getterInjection/withoutDiC/Registration.php">
+        <class name="RegistrationService" namespace="de\any\di\test\example\getterInjection\withoutDiC">
+          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+        </class>
+        <line num="8" type="method" name="sendDOIMail" crap="1" count="1"/>
+        <line num="9" type="stmt" count="1"/>
+        <line num="10" type="stmt" count="1"/>
+        <line num="12" type="method" name="setMailService" crap="1" count="2"/>
+        <line num="14" type="stmt" count="2"/>
+        <line num="15" type="stmt" count="2"/>
+        <line num="17" type="method" name="getMailService" crap="2" count="3"/>
+        <line num="19" type="stmt" count="3"/>
+        <line num="20" type="stmt" count="3"/>
+        <line num="22" type="stmt" count="3"/>
+        <metrics loc="23" ncloc="23" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+      </file>
+    </package>
+    <package name="test\diExamples\repository">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diExampels/repository/customRepository.php">
+        <class name="customRepository" namespace="test\diExamples\repository">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+        </class>
+        <line num="0" type="stmt" count="1"/>
+        <line num="5" type="method" name="count" crap="1" count="1"/>
+        <line num="6" type="stmt" count="1"/>
+        <metrics loc="7" ncloc="7" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </file>
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diExampels/repository/user.php">
+        <class name="user" namespace="test\diExamples\repository">
+          <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="5" coveredelements="0"/>
+        </class>
+        <line num="7" type="method" name="setName" crap="2" count="0"/>
+        <line num="8" type="stmt" count="0"/>
+        <line num="9" type="stmt" count="0"/>
+        <line num="11" type="method" name="getName" crap="2" count="0"/>
+        <line num="12" type="stmt" count="0"/>
+        <metrics loc="13" ncloc="13" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="5" coveredelements="0"/>
+      </file>
+    </package>
+    <package name="diImmplementationBinding">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diImplementationBinding/constructor.php">
+        <class name="constructor" namespace="diImmplementationBinding">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="13" type="method" name="__construct" crap="1" count="2"/>
+        <line num="14" type="stmt" count="2"/>
+        <line num="15" type="stmt" count="2"/>
+        <metrics loc="16" ncloc="13" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diImplementationBinding/setter.php">
+        <class name="setter" namespace="diImmplementationBinding">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="13" type="method" name="foo" crap="1" count="1"/>
+        <line num="14" type="stmt" count="1"/>
+        <line num="15" type="stmt" count="1"/>
+        <metrics loc="16" ncloc="13" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+    </package>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diNestedTest/nestedservice1.php">
+      <class name="nested_nestedservice1" namespace="global" fullPackage="nested">
+        <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="4" type="method" name="identify" crap="1" count="1"/>
+      <line num="5" type="stmt" count="1"/>
+      <metrics loc="7" ncloc="7" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diNestedTest/object.php">
+      <class name="nested_object" namespace="global" fullPackage="nested">
+        <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </class>
+      <line num="10" type="method" name="setNestedService1" crap="1" count="1"/>
+      <line num="11" type="stmt" count="1"/>
+      <line num="12" type="stmt" count="1"/>
+      <line num="14" type="method" name="getNestedService1" crap="1" count="1"/>
+      <line num="15" type="stmt" count="1"/>
+      <metrics loc="18" ncloc="15" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diNestedTest/object_concern.php">
+      <class name="nested_objectConcern" namespace="global" fullPackage="nested">
+        <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+      </class>
+      <line num="11" type="method" name="setNestedService1_double" crap="1" count="1"/>
+      <line num="12" type="stmt" count="1"/>
+      <line num="13" type="stmt" count="1"/>
+      <line num="14" type="stmt" count="1"/>
+      <line num="16" type="method" name="getNestedService1" crap="1" count="1"/>
+      <line num="17" type="stmt" count="1"/>
+      <line num="20" type="method" name="getNestedService1_2" crap="1" count="1"/>
+      <line num="21" type="stmt" count="1"/>
+      <metrics loc="23" ncloc="19" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diNestedTest/object_double.php">
+      <class name="nested_objectDouble" namespace="global" fullPackage="nested">
+        <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="9" coveredelements="9"/>
+      </class>
+      <line num="12" type="method" name="setNestedService1_double" crap="1" count="1"/>
+      <line num="13" type="stmt" count="1"/>
+      <line num="14" type="stmt" count="1"/>
+      <line num="15" type="stmt" count="1"/>
+      <line num="16" type="stmt" count="1"/>
+      <line num="18" type="method" name="getNestedService1" crap="1" count="1"/>
+      <line num="19" type="stmt" count="1"/>
+      <line num="22" type="method" name="getNestedService1_2" crap="1" count="1"/>
+      <line num="23" type="stmt" count="1"/>
+      <metrics loc="25" ncloc="21" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="9" coveredelements="9"/>
+    </file>
+    <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diNestedTest/object_double2.php">
+      <class name="nested_objectDouble2" namespace="global" fullPackage="nested">
+        <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+      </class>
+      <line num="11" type="method" name="setNestedService1_double" crap="1" count="1"/>
+      <line num="12" type="stmt" count="1"/>
+      <line num="13" type="stmt" count="1"/>
+      <line num="14" type="stmt" count="1"/>
+      <line num="16" type="method" name="getNestedService1" crap="1" count="1"/>
+      <line num="17" type="stmt" count="1"/>
+      <line num="20" type="method" name="getNestedService1_2" crap="1" count="1"/>
+      <line num="21" type="stmt" count="1"/>
+      <metrics loc="23" ncloc="19" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+    </file>
+    <package name="diRunable">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diRunable/basic.php">
+        <class name="Basic" namespace="diRunable">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="7" type="method" name="run" crap="1" count="1"/>
+        <line num="8" type="stmt" count="1"/>
+        <line num="9" type="stmt" count="1"/>
+        <metrics loc="10" ncloc="10" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diRunable/inject.php">
+        <class name="Inject" namespace="diRunable">
+          <metrics methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="12" coveredelements="12"/>
+        </class>
+        <line num="19" type="method" name="injectIostd" crap="1" count="1"/>
+        <line num="20" type="stmt" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <line num="26" type="method" name="injectIostd2" crap="1" count="1"/>
+        <line num="27" type="stmt" count="1"/>
+        <line num="28" type="stmt" count="1"/>
+        <line num="30" type="method" name="getIostd" crap="1" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="34" type="method" name="getIostd2" crap="1" count="1"/>
+        <line num="35" type="stmt" count="1"/>
+        <line num="38" type="method" name="run" crap="1" count="1"/>
+        <line num="40" type="stmt" count="1"/>
+        <metrics loc="41" ncloc="33" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="12" coveredelements="12"/>
+      </file>
+    </package>
+    <package name="sharedDecorators">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diSharedDecorators/base1_decorator.php">
+        <class name="base1_decorator" namespace="sharedDecorators" fullPackage="base1">
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+        </class>
+        <line num="9" type="method" name="setDecotaredClass" crap="1" count="2"/>
+        <line num="10" type="stmt" count="2"/>
+        <line num="11" type="stmt" count="2"/>
+        <line num="13" type="method" name="getService" crap="1" count="2"/>
+        <line num="14" type="stmt" count="2"/>
+        <metrics loc="17" ncloc="17" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </file>
+    </package>
+    <package name="diTestIgnoreAnnotation">
+      <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/test/diTestIgnoreAnnotation/method.php">
+        <class name="method" namespace="diTestIgnoreAnnotation">
+          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+        </class>
+        <line num="7" type="method" name="basic" crap="1" count="1"/>
+        <line num="8" type="stmt" count="1"/>
+        <line num="12" type="method" name="author" crap="1" count="1"/>
+        <line num="13" type="stmt" count="1"/>
+        <line num="20" type="method" name="doctrine" crap="1" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <metrics loc="22" ncloc="16" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
+      </file>
+    </package>
+    <metrics files="43" loc="1538" ncloc="1436" classes="42" methods="151" coveredmethods="145" conditionals="0" coveredconditionals="0" statements="553" coveredstatements="528" elements="704" coveredelements="673"/>
+  </project>
+</coverage>
