@@ -124,8 +124,8 @@ class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
     }
 
     /**
-     * @param Zend_Controller_Request_Abstract $request
-     * @return Zend_Controller_Request_HttpTestCase | string
+     * @param Zend_Controller_Request_Abstract | string $request
+     * @return Pimcore_Test_Case_Controller_Response
      */
     public function dispatch($request) {
 

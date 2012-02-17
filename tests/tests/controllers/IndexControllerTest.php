@@ -18,4 +18,8 @@ class Pimunit_IndexControllerTest extends Pimcore_Test_Case_Controller {
         $this->assertEquals($resp->getController()->view->foo, 'pimunit!');
     }
 
+    public function testStartDocument() {
+        $this->assertEquals($this->dispatch('/')->getController()->document->getId(), 1);
+    }
+
 }
