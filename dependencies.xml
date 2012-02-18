@@ -3,6 +3,8 @@
       di:schemaLocation="http://anydi/mapping.xsd"
       xmlns:di="mapping.xsd">
 
+    <bind interface="Pimunit_iBootstrap" to="Pimunit_Bootstrap_Bootstrap"/>
+
     <bind interface="Pimunit_iStartup" to="Pimunit_Startup_Standard" shared="true"/>
     <bind interface="Pimunit_Startup_iConstants" to="Pimunit_Startup_Constants_Standard" shared="true"/>
     <bind interface="Pimcore_Test_Isetup" to="Pimcore_Test_Setup_Db" concern="db" shared="false"/>
