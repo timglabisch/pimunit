@@ -4,6 +4,9 @@ class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
     /** @var \de\any\iDi */
     public static $di;
 
+    /** @var Pimcore_Test_Isetup[] */
+    public $setupRepository;
+
     private $setups = null;
 
     public function flushIOCache()
@@ -22,23 +25,17 @@ class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
     /**
      * @return Pimcore_Test_Isetup[]
      */
-    public function getSetups()
+    public function getAndInitializedSetupRepository()
     {
-        if($this->setups != null)
-            return $this->setups;
+        $this->setupRepository = self::$di->get('Pimcore_Test_Isetup[]');
 
-        return array(
-            self::$di->get('Pimcore_Test_Isetup', 'db'),
-            self::$di->get('Pimcore_Test_Isetup', 'memory'),
-            self::$di->get('Pimcore_Test_Isetup', 'fixture')
-        );
+        $this->setupRepository->offsetSet('db', self::$di->get('Pimcore_Test_Isetup', 'db'));
+        $this->setupRepository->offsetSet('memory', self::$di->get('Pimcore_Test_Isetup', 'memory'));
+        $this->setupRepository->offsetSet('fixture', self::$di->get('Pimcore_Test_Isetup', 'fixture'));
+
+        return $this->setupRepository;
     }
 
-    public function setSetups(array $setups)
-    {
-        $this->setups = $setups;
-    }
-    
     /**
      * @return mixed|Zend_Db_Adapter_Abstract
      */
@@ -49,7 +46,7 @@ class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
 
     public function setUp()
     {
-        foreach($this->getSetups() as $setup)
+        foreach($this->getAndInitializedSetupRepository() as $setup)
         {
             $setup->setTest($this);
 
@@ -62,7 +59,7 @@ class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
 
     public function tearDown()
     {
-        foreach($this->getSetups() as $setup)
+        foreach($this->getAndInitializedSetupRepository() as $setup)
         {
             $setup->setTest($this);
 

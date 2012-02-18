@@ -97,30 +97,33 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
         $mockDb->expects($this->once())
                ->method('GetIsEnable')
                ->will($this->returnValue(false));
-
         $mockDb->expects($this->never())
                ->method('setUp');
+
+        $mockFixture = $this->getMock('Pimcore_Test_Setup_Db');
+        $mockFixture->expects($this->once())
+            ->method('GetIsEnable')
+            ->will($this->returnValue(false));
+        $mockFixture->expects($this->never())
+            ->method('setUp');
 
         $mockMem = $this->getMock('Pimcore_Test_Setup_Memory');
         $mockMem->expects($this->once())
                ->method('GetIsEnable')
                ->will($this->returnValue(true));
-
         $mockMem->expects($this->once())
                ->method('setUp');
 
-        $old_startups = $this->getSetups();
+        $backupDi = self::$di;
 
-        $this->setSetups(
-            array(
-                $mockDb,
-                $mockMem
-                )
-        );
+        self::$di = new de\any\di();
+        self::$di->bind('Pimcore_Test_Isetup')->to($mockDb)->concern('db');
+        self::$di->bind('Pimcore_Test_Isetup')->to($mockMem)->concern('memory');
+        self::$di->bind('Pimcore_Test_Isetup')->to($mockFixture)->concern('fixture');
 
         $this->setUp();
 
-        $this->setSetups($old_startups);
+        self::$di = $backupDi;
     }
 
     /**
@@ -131,37 +134,54 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
 
         $mockDb = $this->getMock('Pimcore_Test_Setup_Db');
         $mockDb->expects($this->once())
-               ->method('GetIsEnable')
-               ->will($this->returnValue(true));
-
+            ->method('GetIsEnable')
+            ->will($this->returnValue(true));
         $mockDb->expects($this->once())
-               ->method('setUp');
+            ->method('setUp');
+
+        $mockFixture = $this->getMock('Pimcore_Test_Setup_Db');
+        $mockFixture->expects($this->once())
+            ->method('GetIsEnable')
+            ->will($this->returnValue(true));
+        $mockFixture->expects($this->once())
+            ->method('setUp');
 
         $mockMem = $this->getMock('Pimcore_Test_Setup_Memory');
         $mockMem->expects($this->once())
-               ->method('GetIsEnable')
-               ->will($this->returnValue(true));
+            ->method('GetIsEnable')
+            ->will($this->returnValue(true));
+        $mockMem->expects($this->once())
+            ->method('setUp');
 
-        $mockMem2 = $this->getMock('Pimcore_Test_Setup_Memory');
-        $mockMem2->expects($this->once())
-               ->method('GetIsEnable')
-               ->will($this->returnValue(false));
+        // custom ...
+        $mockCustom = $this->getMock('Pimcore_Test_Setup_Memory');
+        $mockCustom->expects($this->once())
+            ->method('GetIsEnable')
+            ->will($this->returnValue(true));
+        $mockCustom->expects($this->once())
+            ->method('setUp');
 
-        $mockMem2->expects($this->never())
-               ->method('setUp');
+        // custom ...
+        $mockCustom2 = $this->getMock('Pimcore_Test_Setup_Memory');
+        $mockCustom2->expects($this->once())
+            ->method('GetIsEnable')
+            ->will($this->returnValue(false));
+        $mockCustom2->expects($this->never())
+            ->method('setUp');
 
-        $old_startups = $this->getSetups();
+        $backupDi = self::$di;
 
-        $this->setSetups(
-            array(
-                $mockDb,
-                $mockMem,
-                $mockMem2
-                )
-        );
+        self::$di = new de\any\di();
+        self::$di->bind('Pimcore_Test_Isetup[]')->shared(true);
+        self::$di->bind('Pimcore_Test_Isetup')->to($mockDb)->concern('db');
+        self::$di->bind('Pimcore_Test_Isetup')->to($mockMem)->concern('memory');
+        self::$di->bind('Pimcore_Test_Isetup')->to($mockFixture)->concern('fixture');
+
+        self::$di->get('Pimcore_Test_Isetup[]')->append($mockCustom);
+        self::$di->get('Pimcore_Test_Isetup[]')->append($mockCustom2);
 
         $this->setUp();
 
-        $this->setSetups($old_startups);
+        self::$di = $backupDi;
     }
 }
