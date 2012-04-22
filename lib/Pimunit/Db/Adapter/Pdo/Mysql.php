@@ -90,19 +90,8 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
         $sql .= $this->sqlBuilder->restoreClassesSql($this->getOriginalConfig(), $this->_config['dbname'], $this->tables2Copy());
         $sql = $this->sqlBuilder->removeComments($sql);
 
-        foreach(explode(';', $sql) as $v) {
-            $v = trim($v);
-
-            if(!$v)
-                continue;
-            try {
-            $this->query(trim($v.';'));
-            } catch(\Exception $e) {
-                echo 'Exception on Query: '.$v."\n with message".$e->getMessage()."\n----------------------\n";
-                die();
-            }
-        }
-
+        $this->query($sql);
+        
         $this->getConnection()->exec($sql);
 
         if(Pimcore_Version::$revision >= 1499)
