@@ -1,13 +1,13 @@
 Fixture1:
   Document_Page:
-    key : Testdokument
-    title : Testdokument
+    key : testdokument
+    title : testdokument
     path: test
     parentId : 1
 
 Fixture2:
   Document_Page:
-    key : Testdokument2
-    title : Testdokument2
+    key : testdokument2
+    title : testdokument2
     path: test2
     parentId : 1

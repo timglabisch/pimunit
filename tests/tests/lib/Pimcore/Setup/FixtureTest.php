@@ -18,12 +18,12 @@ class Pimcore_Test_Setup_FixtureTest extends Pimcore_Test_Case
     public function testLoadFixture()
     {
         $document = Document_Page::getById(2);
-        $this->assertEquals($document->getKey(), 'Testdokument');
+        $this->assertEquals($document->getKey(), 'testdokument');
 
         unset($document);
 
-        $document = Document_Page::getByPath('/Testdokument');
-        $this->assertEquals($document->getKey(), 'Testdokument');
+        $document = Document_Page::getByPath('/testdokument');
+        $this->assertEquals($document->getKey(), 'testdokument');
     }
 
      /**
@@ -33,11 +33,11 @@ class Pimcore_Test_Setup_FixtureTest extends Pimcore_Test_Case
      */
     public function testLoadMultiple()
     {
-        $document = Document_Page::getByPath('/Testdokument');
-        $this->assertEquals($document->getKey(), 'Testdokument');
+        $document = Document_Page::getByPath('/testdokument');
+        $this->assertEquals($document->getKey(), 'testdokument');
 
-        $document = Document_Page::getByPath('/Testdokument4');
-        $this->assertEquals($document->getKey(), 'Testdokument4');
+        $document = Document_Page::getByPath('/testdokument4');
+        $this->assertEquals($document->getKey(), 'testdokument4');
     }
 
 }

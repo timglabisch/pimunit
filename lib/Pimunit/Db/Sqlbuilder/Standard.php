@@ -16,7 +16,7 @@ class Pimunit_Db_Sqlbuilder_Standard implements Pimunit_Db_iSqlbuilder  {
     }
 
     public function restoreClassesSql($origConfig, $newDb, $tables) {
-      
+
         $origDb = $origConfig['dbname'];
 
         $sql = '
@@ -50,7 +50,6 @@ class Pimunit_Db_Sqlbuilder_Standard implements Pimunit_Db_iSqlbuilder  {
             "userOwner" => 1,
             "userModification" => 1
         ));
-
         $db->insert("documents", array(
             "id" => 1,
             "parentId" => 0,
@@ -64,7 +63,6 @@ class Pimunit_Db_Sqlbuilder_Standard implements Pimunit_Db_iSqlbuilder  {
             "userOwner" => 1,
             "userModification" => 1
         ));
-
         $db->insert("documents_page", array(
             "id" => 1,
             "controller" => "",
@@ -74,7 +72,6 @@ class Pimunit_Db_Sqlbuilder_Standard implements Pimunit_Db_iSqlbuilder  {
             "description" => "",
             "keywords" => ""
         ));
-
         $db->insert("objects", array(
             "o_id" => 1,
             "o_parentId" => 0,
@@ -89,13 +86,13 @@ class Pimunit_Db_Sqlbuilder_Standard implements Pimunit_Db_iSqlbuilder  {
             "o_userModification" => 1
         ));
 
+
         $db->insert("users", array(
             "parentId" => 0,
             "name" => "system",
             "admin" => 1,
             "active" => 1
         ));
-
         $db->update("users",array("id" => 0), $db->quoteInto("name = ?", "system"));
 
 
