@@ -80,7 +80,15 @@ class Pimunit_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli {
     }
 
     public function initPimcore() {
-        $sql = $this->sqlBuilder->installPimcoreSql();
+
+        /*
+        * in version 1.4.5 there is a bug in the install script, so tree_locks isnt dropped
+        * by defult
+        */
+
+        $sql = 'DROP TABLE IF EXISTS `tree_locks`;';
+
+        $sql .= $this->sqlBuilder->installPimcoreSql();
         $sql .= $this->sqlBuilder->restoreClassesSql($this->getOriginalConfig(), $this->_config['dbname'], $this->tables2Copy());
 
         $sql = $this->sqlBuilder->removeComments($sql);

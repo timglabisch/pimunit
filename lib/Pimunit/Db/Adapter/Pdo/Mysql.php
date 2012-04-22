@@ -91,7 +91,7 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
         $sql = $this->sqlBuilder->removeComments($sql);
 
         $this->query($sql);
-        
+
         $this->getConnection()->exec($sql);
 
         if(Pimcore_Version::$revision >= 1499)
