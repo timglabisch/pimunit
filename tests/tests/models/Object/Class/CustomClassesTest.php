@@ -2,6 +2,17 @@
 
 class Models_Object_Class_CustomClassesTest extends Pimcore_Test_Case {
 
+    public function testOriginalObjectWorks() {
+
+        $this->markTestSkipped('require special website');
+
+        $object = new Object_Pimunit();
+        $object->setKey('pimunit');
+        $object->setPath('/');
+        $object->setPublished(true);
+        $this->assertTrue(count($object->getClass()->getFieldDefinitions()) > 0);
+    }
+
     /**
      * @db
      */
