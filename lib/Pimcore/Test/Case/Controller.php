@@ -1,6 +1,6 @@
 <?php
 
-class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
+abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
 
     /**
      * @param Zend_Controller_Request_Abstract $request
