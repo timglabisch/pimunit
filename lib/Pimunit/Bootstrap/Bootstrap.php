@@ -85,6 +85,10 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
         $pimcore->initConfiguration();
         $pimcore->setSystemRequirements();
         $pimcore->initAutoloader();
+
+        $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->setFallbackAutoloader(true);
+
         $pimcore->initLogger();
         $pimcore->initModules();
         $pimcore->initPlugins();
