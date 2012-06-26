@@ -15,7 +15,7 @@ class Pimunit_Db_Sqlbuilder_Standard implements Pimunit_Db_iSqlbuilder  {
         return $sql;
     }
 
-    public function restoreClassesSql($origConfig, $newDb, $tables) {
+    public function restoreClassesSql($origConfig, $newDb, array $tables = array()) {
 
         $origDb = $origConfig['dbname'];
 
@@ -24,16 +24,35 @@ class Pimunit_Db_Sqlbuilder_Standard implements Pimunit_Db_iSqlbuilder  {
             CREATE TABLE `classes` (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) SELECT * FROM `'.$origDb.'`.`classes`;
         ';
 
-        if(count($tables))
-            foreach ($tables as $table) {
+        if(! count($tables)) {
+            return $sql;
+        }
+        
+        // first create the tables ...
+        foreach ($tables as $table) {
+            if ($table['TABLE_TYPE'] === 'VIEW') {
+                continue;
+            }
+            
+            $sql .= '
+                DROP TABLE IF EXISTS `'.$table['TABLE_NAME'].'`;
+                CREATE TABLE `'.$newDb.'`.`'.$table['TABLE_NAME'].'` (oo_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) SELECT * FROM `'.$origDb.'`.`'.$table['TABLE_NAME'].'`;
+                TRUNCATE  `'.$table['TABLE_NAME'].'`;
+            ';
+        }
 
-                $sql .= '
-                    DROP TABLE IF EXISTS `'.$table.'`;
-                    CREATE TABLE `'.$newDb.'`.`'.$table.'` (oo_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY) SELECT * FROM `'.$origDb.'`.`'.$table.'`;
-                    TRUNCATE  `'.$table.'`;
-                ';
+        // ... then the views
+        foreach ($tables as $table) {
+            if ($table['TABLE_TYPE'] !== 'VIEW') {
+                continue;
             }
 
+            $sql .= '
+                DROP VIEW IF EXISTS `'.$table['TABLE_NAME'].'`;
+                CREATE VIEW `'.$newDb.'`.`'.$table['TABLE_NAME'].'` AS '.$table['VIEW_DEFINITION'].';
+            ';
+        }
+        
         return $sql;
     }
 

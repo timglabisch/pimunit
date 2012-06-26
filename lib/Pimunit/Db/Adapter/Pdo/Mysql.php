@@ -59,22 +59,19 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
         $origDb = $origConfig['dbname'];
 
         $tables = $this->fetchAll('
-            SELECT TABLE_NAME FROM
+            SELECT TABLES.TABLE_NAME, TABLES.TABLE_TYPE, REPLACE(VIEWS.VIEW_DEFINITION, "`'.$origDb.'`.", "") AS VIEW_DEFINITION FROM
             INFORMATION_SCHEMA.TABLES
+            LEFT JOIN INFORMATION_SCHEMA.VIEWS USING (TABLE_SCHEMA, TABLE_NAME)
             WHERE
             TABLE_SCHEMA = "'.$origDb.'"
-            AND TABLE_TYPE = "BASE TABLE"
+            AND TABLE_TYPE IN ("BASE TABLE", "VIEW")
             AND
             (
-                TABLE_NAME REGEXP \'object\_.+\_[0-9]+$\'
+                TABLE_NAME REGEXP \'object(\_.+)?\_[0-9]+$\'
             )
         ');
 
-        foreach($tables as $v) {
-            $buffer[] = $v['TABLE_NAME'];
-        }
-
-        return $buffer;
+        return $tables;
     }
 
     public function initPimcore() {
@@ -107,3 +104,4 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
     }
 
 }
+
