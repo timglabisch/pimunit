@@ -3,12 +3,24 @@
 abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
 
     /**
+     * This method is called after a test is executed.
+     * 
+     * @return void
+     */
+    public function tearDown()
+    {
+        Zend_Controller_Front::getInstance()
+            ->resetInstance();
+        
+        parent::tearDown();
+    }
+
+    /**
      * @param Zend_Controller_Request_Abstract $request
      * @return Pimcore_Test_Case_Controller_Response
      */
     public function dispatchRequest(Zend_Controller_Request_Abstract $request) {
         $front = Zend_Controller_Front::getInstance();
-        $front->resetInstance();
 
         $front->setDispatcher(new Pimunit_Controller_Dispatcher_Standard());
 
