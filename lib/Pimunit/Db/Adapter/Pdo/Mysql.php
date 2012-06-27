@@ -68,6 +68,8 @@ class Pimunit_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
             AND
             (
                 TABLE_NAME REGEXP \'object(\_.+)?\_[0-9]+$\'
+                OR
+                TABLE_NAME = "objects"
             )
         ');
 
