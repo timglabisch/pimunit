@@ -100,7 +100,7 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
         $reflector->setAccessible(true);
         $reflector->setValue($dbClass, true);
 
-        Zend_Registry::get("pimcore_config_system")->database->params->adapterNamespace = 'Pimunit_Db_Adapter';
+        Zend_Registry::get("pimcore_config_system")->database->params->adapterNamespace = 'Pimunit_Db_Adapter_Standard';
 
     }
 }
