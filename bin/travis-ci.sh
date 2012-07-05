@@ -2,6 +2,7 @@
 mkdir /tmp/.pimunit
 cp -R . /tmp/.pimunit
 rm -rf .??*
+ls
 git clone https://github.com/pimcore/pimcore .
 mv plugins_example plugins
 mkdir plugins/Pimsolr
