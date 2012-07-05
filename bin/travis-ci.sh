@@ -20,3 +20,7 @@ chmod -R 777 plugins/Pimunit/var
 # install Pimcore Plugin
 mkdir plugins/Plugin
 cp -R /tmp/pimcore_plugin plugins/Plugin
+
+# configure php
+# enable short open tags
+cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/short_open_tag = Off/short_open_tag = On/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
