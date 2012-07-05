@@ -6,3 +6,5 @@ php:
 
 before_script:
   - ./bin/travis-ci.sh
+  
+script: "phpunit -c /plugins/Pimunit/phpunit.xml"
