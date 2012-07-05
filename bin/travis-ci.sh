@@ -9,6 +9,7 @@ git clone https://github.com/pimcore/pimcore /tmp/pimcore
 cp -R /tmp/pimcore/pimcore pimcore
 cp -R /tmp/pimcore/website_example website
 cp /tmp/pimcore/index.php index.php
+mkdir plugins
 chmod -R 777 website/var
 
 # install Pimunit
@@ -16,6 +17,6 @@ mkdir plugins/Pimunit
 hg clone https://bitbucket.org/timg/pimunit plugins/Pimunit
 chmod -R 777 /plugins/Pimunit/var
 
-# install pimunit
+# install Pimcore Plugin
 mkdir plugins/Test
 cp /tmp/pimcore_plugin plugins/Plugin
