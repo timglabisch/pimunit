@@ -17,6 +17,8 @@ mkdir plugins/Pimunit
 hg clone https://bitbucket.org/timg/pimunit plugins/Pimunit
 chmod -R 777 plugins/Pimunit/var
 
+cp plugins/Pimunit/bin/travis-ci/config/system.xml website/var/config/system.xml
+
 # install Pimcore Plugin
 mkdir plugins/Plugin
 cp -R /tmp/pimcore_plugin plugins/Plugin
@@ -27,4 +29,3 @@ cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/
 
 # db
 mysql -e 'create database pimcore;'
-cp "plugins/Pimunit/bin/travis-ci/config/system.xml" website/var/config/system.xml
