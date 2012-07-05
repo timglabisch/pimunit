@@ -25,6 +25,9 @@ cp -R /tmp/pimcore_plugin plugins/Plugin
 # enable short open tags
 cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/short_open_tag = Off/short_open_tag = On/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
+# disable magic quotes
+cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+
 # db
 mysql -e 'create database pimcore;'
 cp plugins/Pimunit/bin/travis-ci/config/system.xml website/var/config/system.xml
