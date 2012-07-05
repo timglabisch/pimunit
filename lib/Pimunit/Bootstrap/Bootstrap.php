@@ -12,10 +12,7 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
         $this->config->setPimunitRoot($rootDir);
         $this->configurePhp();
         $this->includeStartupFiles();
-        $this->definePimcoreConstants();
-        
-        Pimcore_ExtensionManager::enable('plugin', 'Pimunit');
-        
+        $this->definePimcoreConstants();        
         $this->initShutdownFunction();
         $this->initPimcore();
         $this->changeDatabaseDriver();
@@ -88,6 +85,8 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
         $pimcore->initConfiguration();
         $pimcore->setSystemRequirements();
         $pimcore->initAutoloader();
+        
+        Pimcore_ExtensionManager::enable('plugin', 'Pimunit');
 
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->setFallbackAutoloader(true);
