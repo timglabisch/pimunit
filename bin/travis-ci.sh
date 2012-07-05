@@ -19,4 +19,4 @@ chmod -R 777 plugins/Pimunit/var
 
 # install Pimcore Plugin
 mkdir plugins/Plugin
-cp /tmp/pimcore_plugin plugins/Plugin
+cp -R /tmp/pimcore_plugin plugins/Plugin
