@@ -4,7 +4,7 @@ mkdir /tmp/pimcore_plugin
 cp -R * /tmp/pimcore_plugin
 rm -rf *
 
-# install pimcore
+echo "# install pimcore"
 git clone https://github.com/pimcore/pimcore /tmp/pimcore
 cp -R /tmp/pimcore/pimcore pimcore
 cp -R /tmp/pimcore/website_example website
@@ -27,6 +27,8 @@ cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/
 
 echo "# disable magic quotes"
 cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_runtime = On/magic_quotes_runtime = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_sybase = On/magic_quotes_sybase = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
 echo "# db"
 mysql -e 'create database pimcore;'
