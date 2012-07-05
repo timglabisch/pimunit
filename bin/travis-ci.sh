@@ -1,12 +1,12 @@
 # install pimcore and handel current directory as Plugin Directory 
-mkdir ~/.pimunit
-mv ./* ~/.pimunit
+mkdir /tmp/.pimunit
+mv ./* /tmp/.pimunit
 git clone https://github.com/pimcore/pimcore pimcore
 mv -f pimcore/* .
 mv plugins_example plugins
 mkdir plugins/Pimsolr
 mv website_example website
-mv ~/.pimunit/* plugins/Pimsolr/
+mv /tmp/.pimunit/* plugins/Pimsolr/
 chmod -R 777 website/var
 
 # install Pimunit
