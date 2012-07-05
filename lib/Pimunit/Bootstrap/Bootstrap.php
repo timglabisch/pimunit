@@ -95,9 +95,6 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
     }
 
     protected function changeDatabaseDriver() {
-        
-        var_dump(PIMCORE_CONFIGURATION_DIRECTORY);
-        
         $dbClass = Zend_Registry::get("pimcore_config_system")->database->params;
         $reflector = new ReflectionProperty(get_class($dbClass), '_allowModifications');
         $reflector->setAccessible(true);
