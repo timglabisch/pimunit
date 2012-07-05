@@ -28,3 +28,6 @@ cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/
 # db
 mysql -e 'create database pimcore;'
 cp plugins/Pimunit/bin/travis-ci/config/system.xml website/var/config/system.xml
+
+# activate Pimunit
+cp plugins/Pimunit/bin/travis-ci/config/extensions.xml website/var/config/extensions.xml
