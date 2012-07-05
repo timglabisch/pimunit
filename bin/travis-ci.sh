@@ -1,6 +1,7 @@
 # install pimcore and handel current directory as Plugin Directory 
 mkdir /tmp/.pimunit
-mv ./* /tmp/.pimunit
+cp . /tmp/.pimunit
+rm -rf ./*
 git clone https://github.com/pimcore/pimcore .
 mv plugins_example plugins
 mkdir plugins/Pimsolr
