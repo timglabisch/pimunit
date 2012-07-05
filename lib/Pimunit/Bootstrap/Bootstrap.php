@@ -13,6 +13,9 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
         $this->configurePhp();
         $this->includeStartupFiles();
         $this->definePimcoreConstants();
+        
+        Pimcore_ExtensionManager::enable('plugin', 'Pimunit');
+        
         $this->initShutdownFunction();
         $this->initPimcore();
         $this->changeDatabaseDriver();
