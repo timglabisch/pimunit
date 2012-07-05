@@ -15,7 +15,7 @@ chmod -R 777 website/var
 # install Pimunit
 mkdir plugins/Pimunit
 hg clone https://bitbucket.org/timg/pimunit plugins/Pimunit
-chmod -R 777 /plugins/Pimunit/var
+chmod -R 777 plugins/Pimunit/var
 
 # install Pimcore Plugin
 mkdir plugins/Plugin
