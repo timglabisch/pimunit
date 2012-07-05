@@ -14,7 +14,7 @@ chmod -R 777 website/var
 
 # install Pimunit
 mkdir plugins/Pimunit
-git clone https://github.com/timglabisch/pimunit
+git clone https://github.com/timglabisch/pimunit plugins/Pimunit
 chmod -R 777 plugins/Pimunit/var
 
 # install Pimcore Plugin
