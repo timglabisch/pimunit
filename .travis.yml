@@ -7,4 +7,4 @@ php:
 before_script:
   - ./bin/travis-ci.sh
   
-script: "phpunit -c plugins/Pimunit/phpunit.xml"
+script: "cd plugins/Pimunit && phpunit -c phpunit.xml"
