@@ -18,5 +18,5 @@ hg clone https://bitbucket.org/timg/pimunit plugins/Pimunit
 chmod -R 777 /plugins/Pimunit/var
 
 # install Pimcore Plugin
-mkdir plugins/Test
+mkdir plugins/Plugin
 cp /tmp/pimcore_plugin plugins/Plugin
