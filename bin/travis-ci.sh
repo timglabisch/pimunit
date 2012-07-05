@@ -12,25 +12,25 @@ cp /tmp/pimcore/index.php index.php
 mkdir plugins
 chmod -R 777 website/var
 
-# install Pimunit
+echo "# install Pimunit"
 mkdir plugins/Pimunit
 git clone https://github.com/timglabisch/pimunit plugins/Pimunit
 chmod -R 777 plugins/Pimunit/var
 
-# install Pimcore Plugin
+echo "# install Pimcore Plugin"
 mkdir plugins/Plugin
 cp -R /tmp/pimcore_plugin plugins/Plugin
 
-# configure php
-# enable short open tags
+echo "# configure php"
+echo "# enable short open tags"
 cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/short_open_tag = Off/short_open_tag = On/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
-# disable magic quotes
+echo "# disable magic quotes"
 cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
-# db
+echo "# db"
 mysql -e 'create database pimcore;'
 cp plugins/Pimunit/bin/travis-ci/config/system.xml website/var/config/system.xml
 
-# activate Pimunit
+echo "# activate Pimunit"
 cp plugins/Pimunit/bin/travis-ci/config/extensions.xml website/var/config/extensions.xml
