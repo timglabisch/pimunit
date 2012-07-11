@@ -34,7 +34,7 @@ mysql -e 'create database pimcore;'
 cp plugins/Pimunit/bin/travis-ci/config/system.xml website/var/config/system.xml
 
 # install basic database
-mysql --force --one-database pimcore -e < pimcore/blob/master/pimcore/modules/install/mysql/install.sql
+mysql --force --one-database pimcore -e < pimcore/modules/install/mysql/install.sql
 
 echo "# activate Pimunit"
 cp plugins/Pimunit/bin/travis-ci/config/extensions.xml website/var/config/extensions.xml
