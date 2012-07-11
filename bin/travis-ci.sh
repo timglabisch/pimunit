@@ -27,14 +27,16 @@ cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/
 
 echo "# disable magic quotes"
 cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | grep magic_quotes_gpc
+cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc =Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc= Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc=Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
 echo "# db"
 mysql -e 'create database pimcore;'
 cp plugins/Pimunit/bin/travis-ci/config/system.xml website/var/config/system.xml
 
 # install basic database
-mysql --force --one-database pimcore -e < pimcore/modules/install/mysql/install.sql
+mysql --force --one-database pimcore < pimcore/modules/install/mysql/install.sql
 
 echo "# activate Pimunit"
 cp plugins/Pimunit/bin/travis-ci/config/extensions.xml website/var/config/extensions.xml
