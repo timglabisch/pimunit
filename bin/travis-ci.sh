@@ -29,7 +29,7 @@ echo "# disable magic quotes"
 cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
 
-echo `cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | grep magic_quotes_gpc`
+echo cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | grep magic_quotes_gpc
 
 echo "# db"
 mysql -e 'create database pimcore;'
