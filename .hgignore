@@ -1,3 +1,0 @@
-glob:*.git
-glob:lib/Any/.idea/*
-glob:.pimcore_extension_revision
