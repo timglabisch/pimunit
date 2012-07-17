@@ -17,10 +17,6 @@ mkdir plugins/Pimunit
 git clone https://github.com/timglabisch/pimunit plugins/Pimunit
 chmod -R 777 plugins/Pimunit/var
 
-echo "# install Pimcore Plugin"
-mkdir plugins/Plugin
-cp -R /tmp/pimcore_plugin plugins/Plugin
-
 echo "# configure php"
 echo "# enable short open tags"
 cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/short_open_tag = Off/short_open_tag = On/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
@@ -38,3 +34,7 @@ mysql --force --one-database pimcore < pimcore/modules/install/mysql/install.sql
 
 echo "# activate Pimunit"
 cp plugins/Pimunit/bin/travis-ci/config/extensions.xml website/var/config/extensions.xml
+
+echo "# install Pimcore Plugin"
+mkdir plugins/Plugin
+cp -R /tmp/pimcore_plugin plugins/Plugin
