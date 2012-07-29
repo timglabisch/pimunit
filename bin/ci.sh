@@ -78,6 +78,16 @@ while true ; do
 	esac
 done
 
+if [ $ENV_PHP_CONFIGURE = 1 ]; then
+	echo "# configure php"
+	echo "# enable short open tags"
+	cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/short_open_tag = Off/short_open_tag = On/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+
+	echo "# disable magic quotes"
+	cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+	echo "magic_quotes_gpc = Off" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+fi
+
 echo "# install pimcore and handel current directory as Plugin/Website Directory and move everything to an temporary Directory"
 if [ -d /tmp/pimcore ]; then
 	rm -rf /tmp/pimcore
@@ -111,20 +121,7 @@ fi
 if [ $PIMCORE_INSTALL_TYPE = "Website" ]; then
 	echo "# install Pimcore Website"
 	rm -rf website/*
-	cp -R /tmp/pimcore_plugin website/
-fi
-
-echo "# configure file Permissions"
-chmod -R 777 website/var
-
-if [ $ENV_PHP_CONFIGURE = 1 ]; then
-	echo "# configure php"
-	echo "# enable short open tags"
-	cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/short_open_tag = Off/short_open_tag = On/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-
-	echo "# disable magic quotes"
-	cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-	echo "magic_quotes_gpc = Off" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+	cp -R /tmp/pimcore_plugin website
 fi
 
 if [ $PIMUNIT_INSTALL = 1 ]; then
@@ -143,3 +140,6 @@ sed -i "s/%MYSQL_USERNAME%/$MYSQL_USERNAME/g" website/var/config/system.xml
 sed -i "s/%MYQL_PASSWORD%/$MYQL_PASSWORD/g" website/var/config/system.xml
 sed -i "s/%MYSQL_DATABASE%/$MYSQL_DATABASE/g" website/var/config/system.xml
 sed -i "s/%MYSQL_PORT%/$MYSQL_PORT/g" website/var/config/system.xml
+
+echo "# configure file Permissions"
+chmod -R 777 website/var
