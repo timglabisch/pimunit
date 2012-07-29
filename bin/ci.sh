@@ -56,28 +56,36 @@ PIMUNIT_INSTALL=1;
 PIMCORE_DATABASE_DRIVER="Pdo_Mysql"
 ENV_PHP_CONFIGURE=0
 
+# make options available in the bash
+TEMP=`getopt -o :: --long website,plugin,plugin-name:,mysql-user:,mysql-pass:,mysql-host:,mysql-port:,mysql-database:,mysql-database:,pimcore-git-repository:,pimcore-git-branch:,pimunit-git-repo:,pimunit-git-branch:,pimunit-skip-install:,pimcore-database-driver:,travis-ci \
+     -n 'example.bash' -- "$@"`
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+eval set -- "$TEMP"
+
 while true ; do
 	case "$1" in
-		--website) set PIMCORE_INSTALL_TYPE="Website"; shift 1;;
-		--plugin) set PIMCORE_INSTALL_TYPE="Plugin"; shift 1;;
-		--plugin-name) set PLUGIN_NAME=$2; shift 2;;
-		--mysql-user) set MYSQL_USERNAME=$2; shift 2;;
-		--mysql-pass) set MYSQL_PASSWORD=$2; shift 2;;
-		--mysql-host) set MYSQL_HOST=$2; shift 2;;
-		--mysql-port) set MYSQL_PORT=$2; shift 2;;
-		--mysql-database) set MYSQL_DATABASE=$2; shift 2;;
-		--pimcore-git-repo) set PIMCORE_GIT_REPOSIOTRY=$2; shift 2;;
-		--pimcore-git-branch) set PIMCORE_GIT_REPOSIOTRY_BRANCH=$2; shift 2;;
-		--pimunit-git-repo) set PIMUNIT_GIT_REPOSIOTRY=$2; shift 2;;
-		--pimunit-git-branch) set PIMUNIT_GIT_REPOSIOTRY_BRANCH=$2; shift 2;;
-		--pimunit-skip-install) set PIMUNIT_INSTALL=0; shift 1;;
-		--pimcore-database-driver) set PIMCORE_DATABASE_DRIVER=$2; shift 2;;
-		--travis-ci) set ENV_PHP_CONFIGURE=1; set MYSQL_USERNAME="root"  shift 1;;
+		--website) export PIMCORE_INSTALL_TYPE="Website"; shift 1;;
+		--plugin) export PIMCORE_INSTALL_TYPE="Plugin"; shift 1;;
+		--plugin-name) export PLUGIN_NAME=$2; shift 2;;
+		--mysql-user) export MYSQL_USERNAME=$2; shift 2;;
+		--mysql-pass) export MYSQL_PASSWORD=$2; shift 2;;
+		--mysql-host) export MYSQL_HOST=$2; shift 2;;
+		--mysql-port) export MYSQL_PORT=$2; shift 2;;
+		--mysql-database) export MYSQL_DATABASE=$2; shift 2;;
+		--pimcore-git-repository) export PIMCORE_GIT_REPOSIOTRY=$2; shift 2;;
+		--pimcore-git-branch) export PIMCORE_GIT_REPOSIOTRY_BRANCH=$2; shift 2;;
+		--pimunit-git-repo) export PIMUNIT_GIT_REPOSIOTRY=$2; shift 2;;
+		--pimunit-git-branch) export PIMUNIT_GIT_REPOSIOTRY_BRANCH=$2; shift 2;;
+		--pimunit-skip-install) export PIMUNIT_INSTALL=0; shift 1;;
+		--pimcore-database-driver) export PIMCORE_DATABASE_DRIVER=$2; shift 2;;
+		--travis-ci) export ENV_PHP_CONFIGURE=1; export MYSQL_USERNAME="root"; shift 1;;
 		--) shift; break;;
-		*) shift; break;;
 	esac
 done
 
+# real skript starts here x)
 if [ $ENV_PHP_CONFIGURE = 1 ]; then
 	echo "# configure php"
 	echo "# enable short open tags"
