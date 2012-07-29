@@ -129,7 +129,7 @@ sed -i "s/%MYSQL_PORT%/$MYSQL_PORT/g" website/var/config/system.xml
 echo "# configure file Permissions"
 chmod -R 777 website/var
 
-if [ $ENV_PHP_CONFIGURE = "Website" ]; then
+if [ $ENV_PHP_CONFIGURE = 1 ]; then
 	echo "# configure php"
 	echo "# enable short open tags"
 	cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/short_open_tag = Off/short_open_tag = On/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
