@@ -57,7 +57,7 @@ PIMCORE_DATABASE_DRIVER="Pdo_Mysql"
 ENV_PHP_CONFIGURE=0
 
 # make options available in the bash
-TEMP=`getopt -o :: --long website,plugin,plugin-name:,mysql-user:,mysql-pass:,mysql-host:,mysql-port:,mysql-database:,mysql-database:,pimcore-git-repository:,pimcore-git-branch:,pimunit-git-repo:,pimunit-git-branch:,pimunit-skip-install:,pimcore-database-driver:,travis-ci \
+TEMP=`getopt -o :: --long website,plugin,plugin-name:,mysql-user:,mysql-pass:,mysql-host:,mysql-port:,mysql-database:,mysql-database:,pimcore-git-repository:,pimcore-git-branch:,pimunit-git-repo:,pimunit-git-branch:,pimunit-skip-install,pimcore-database-driver:,travis-ci \
      -n 'example.bash' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
