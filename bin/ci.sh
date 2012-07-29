@@ -114,18 +114,6 @@ if [ $PIMCORE_INSTALL_TYPE = "Website" ]; then
 	cp -R /tmp/pimcore_plugin website/
 fi
 
-echo "# copy configurations"
-cp plugins/Pimunit/bin/fixtures/config/system.xml website/var/config/system.xml
-cp plugins/Pimunit/bin/fixtures/config/extensions.xml website/var/config/extensions.xml
-
-echo "# customize configuration"
-sed -i "s/%PIMCORE_DATABASE_DRIVER%/$PIMCORE_DATABASE_DRIVER/g" website/var/config/system.xml
-sed -i "s/%MYSQL_HOST%/$MYSQL_HOST/g" website/var/config/system.xml
-sed -i "s/%MYSQL_USERNAME%/$MYSQL_USERNAME/g" website/var/config/system.xml
-sed -i "s/%MYQL_PASSWORD%/$MYQL_PASSWORD/g" website/var/config/system.xml
-sed -i "s/%MYSQL_DATABASE%/$MYSQL_DATABASE/g" website/var/config/system.xml
-sed -i "s/%MYSQL_PORT%/$MYSQL_PORT/g" website/var/config/system.xml
-
 echo "# configure file Permissions"
 chmod -R 777 website/var
 
@@ -145,3 +133,13 @@ if [ $PIMUNIT_INSTALL = 1 ]; then
 	git clone -b $PIMUNIT_GIT_REPOSIOTRY_BRANCH $PIMUNIT_GIT_REPOSIOTRY plugins/Pimunit
 	chmod -R 777 plugins/Pimunit/var
 fi
+
+echo "# copy configurations and customize configuration"
+cp plugins/Pimunit/bin/fixtures/config/system.xml website/var/config/system.xml
+cp plugins/Pimunit/bin/fixtures/config/extensions.xml website/var/config/extensions.xml
+sed -i "s/%PIMCORE_DATABASE_DRIVER%/$PIMCORE_DATABASE_DRIVER/g" website/var/config/system.xml
+sed -i "s/%MYSQL_HOST%/$MYSQL_HOST/g" website/var/config/system.xml
+sed -i "s/%MYSQL_USERNAME%/$MYSQL_USERNAME/g" website/var/config/system.xml
+sed -i "s/%MYQL_PASSWORD%/$MYQL_PASSWORD/g" website/var/config/system.xml
+sed -i "s/%MYSQL_DATABASE%/$MYSQL_DATABASE/g" website/var/config/system.xml
+sed -i "s/%MYSQL_PORT%/$MYSQL_PORT/g" website/var/config/system.xml
