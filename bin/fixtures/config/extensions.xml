@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<zend-config xmlns:zf="http://framework.zend.com/xml/zend-config-xml/1.0/">
+  <plugin>
+    <Pimunit>1</Pimunit>
+  </plugin>
+  <brick>
+    <sample>1</sample>
+  </brick>
+</zend-config>
