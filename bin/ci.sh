@@ -41,8 +41,8 @@ then
 fi
 
 # define defaults
-MYSQL_USER='ci'
-MYSQL_PW=''
+MYSQL_USERNAME='ci'
+MYSQL_PASSWORD=''
 MYSQL_HOST='127.0.0.1'
 MYSQL_PORT='3306'
 MYSQL_DATABASE='CI_Pimcore'
@@ -52,14 +52,16 @@ PIMCORE_GIT_REPOSIOTRY="https://github.com/pimcore/pimcore"
 PIMCORE_GIT_REPOSIOTRY_BRANCH="master"
 PIMUNIT_GIT_REPOSIOTRY="https://github.com/timglabisch/pimunit"
 PIMUNIT_GIT_REPOSIOTRY_BRANCH="master"
+PIMCORE_DATABASE_DRIVER="Pdo_Mysql"
+ENV_PHP_CONFIGURE=0
 
 while true ; do
 	case "$1" in
 		--website) set PIMCORE_INSTALL_TYPE="Website"; shift 1;;
 		--plugin) set PIMCORE_INSTALL_TYPE="Plugin"; shift 1;;
 		--plugin-name) set PLUGIN_NAME=$2; shift 2;;
-		--mysql-user) set MYSQL_USER=$2; shift 2;;
-		--mysql-pass) set MYSQL_PW=$2; shift 2;;
+		--mysql-user) set MYSQL_USERNAME=$2; shift 2;;
+		--mysql-pass) set MYSQL_PASSWORD=$2; shift 2;;
 		--mysql-host) set MYSQL_HOST=$2; shift 2;;
 		--mysql-port) set MYSQL_PORT=$2; shift 2;;
 		--mysql-database) set MYSQL_DATABASE=$2; shift 2;;
@@ -67,7 +69,10 @@ while true ; do
 		--pimcore-git-branch) set PIMCORE_GIT_REPOSIOTRY_BRANCH=$2; shift 2;;
 		--pimunit-git-repo) set PIMUNIT_GIT_REPOSIOTRY=$2; shift 2;;
 		--pimunit-git-branch) set PIMUNIT_GIT_REPOSIOTRY_BRANCH=$2; shift 2;;
+		--pimcore-database-driver) set PIMCORE_DATABASE_DRIVER=$2; shift 2;;
+		--travis-ci) set ENV_PHP_CONFIGURE=1; set MYSQL_USERNAME="root"  shift 1;;
 		--) shift; break;;
+		*) shift; break;;
 	esac
 done
 
@@ -84,8 +89,7 @@ cp -R * /tmp/pimcore_plugin
 rm -rf *
 
 echo "# install pimcore"
-git clone $PIMCORE_GIT_REPOSIOTRY /tmp/pimcore
-git checkout -b $PIMCORE_GIT_REPOSIOTRY_BRANCH /tmp/pimcore
+git clone -b $PIMCORE_GIT_REPOSIOTRY_BRANCH $PIMCORE_GIT_REPOSIOTRY /tmp/pimcore
 cp -R /tmp/pimcore/pimcore pimcore
 cp -R /tmp/pimcore/website_example website
 cp /tmp/pimcore/index.php index.php
@@ -93,30 +97,47 @@ mkdir plugins
 
 echo "# install Pimunit"
 mkdir plugins/Pimunit
-git clone $PIMUNIT_GIT_REPOSIOTRY plugins/Pimunit
-git checkout -b $PIMUNIT_GIT_REPOSIOTRY_BRANCH plugins/Pimunit
+git clone -b $PIMUNIT_GIT_REPOSIOTRY_BRANCH $PIMUNIT_GIT_REPOSIOTRY plugins/Pimunit
 
 echo "# db"
-mysql -e "drop database if exists $MYSQL_DATABASE;"
-mysql -e "create database $MYSQL_DATABASE;"
-mysql --force --one-database $MYSQL_DATABASE < pimcore/modules/install/mysql/install.sql
+mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --port=$MYSQL_PORT -e "drop database if exists $MYSQL_DATABASE;"
+mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --port=$MYSQL_PORT -e "create database $MYSQL_DATABASE;"
+mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --port=$MYSQL_PORT --force --one-database $MYSQL_DATABASE < pimcore/modules/install/mysql/install.sql
 
-if [ PIMCORE_INSTALL_TYPE = "Plugin" ]; then
+if [ $PIMCORE_INSTALL_TYPE = "Plugin" ]; then
 	echo "# install Pimcore Plugin"
 	mkdir plugins/$PLUGIN_NAME
 	cp -R /tmp/pimcore_plugin plugins/$PLUGIN_NAME
 fi
 
-if [ PIMCORE_INSTALL_TYPE = "Website" ]; then
+if [ $PIMCORE_INSTALL_TYPE = "Website" ]; then
 	echo "# install Pimcore Website"
 	rm -rf website/*
 	cp -R /tmp/pimcore_plugin website/
 fi
 
 echo "# copy configurations"
-cp plugins/Pimunit/bin/travis-ci/config/system.xml website/var/config/system.xml
-cp plugins/Pimunit/bin/travis-ci/config/extensions.xml website/var/config/extensions.xml
+cp plugins/Pimunit/bin/fixtures/config/system.xml website/var/config/system.xml
+cp plugins/Pimunit/bin/fixtures/config/extensions.xml website/var/config/extensions.xml
+
+echo "# customize configuration"
+sed -i "s/%PIMCORE_DATABASE_DRIVER%/$PIMCORE_DATABASE_DRIVER/g" website/var/config/system.xml
+sed -i "s/%MYSQL_HOST%/$MYSQL_HOST/g" website/var/config/system.xml
+sed -i "s/%MYSQL_USERNAME%/$MYSQL_USERNAME/g" website/var/config/system.xml
+sed -i "s/%MYQL_PASSWORD%/$MYQL_PASSWORD/g" website/var/config/system.xml
+sed -i "s/%MYSQL_DATABASE%/$MYSQL_DATABASE/g" website/var/config/system.xml
+sed -i "s/%MYSQL_PORT%/$MYSQL_PORT/g" website/var/config/system.xml
 
 echo "# configure file Permissions"
 chmod -R 777 website/var
 chmod -R 777 plugins/Pimunit/var
+
+if [ $ENV_PHP_CONFIGURE = "Website" ]; then
+	echo "# configure php"
+	echo "# enable short open tags"
+	cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/short_open_tag = Off/short_open_tag = On/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+
+	echo "# disable magic quotes"
+	cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+	echo "magic_quotes_gpc = Off" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+fi
