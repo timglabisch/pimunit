@@ -123,7 +123,7 @@ mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --port=$M
 if [ $PIMCORE_INSTALL_TYPE = "Plugin" ]; then
 	echo "# install Pimcore Plugin"
 	mkdir plugins/$PLUGIN_NAME
-	cp -R /tmp/pimcore_plugin plugins/$PLUGIN_NAME
+	cp -R /tmp/pimcore_plugin/* plugins/$PLUGIN_NAME
 fi
 
 if [ $PIMCORE_INSTALL_TYPE = "Website" ]; then
@@ -139,7 +139,7 @@ if [ $PIMUNIT_INSTALL = 1 ]; then
 	chmod -R 777 plugins/Pimunit/var
 fi
 
-echo "# copy configurations and customize configuration"
+echo "# copy and customize configuration"
 cp plugins/Pimunit/bin/fixtures/config/system.xml website/var/config/system.xml
 cp plugins/Pimunit/bin/fixtures/config/extensions.xml website/var/config/extensions.xml
 sed -i "s/%PIMCORE_DATABASE_DRIVER%/$PIMCORE_DATABASE_DRIVER/g" website/var/config/system.xml
