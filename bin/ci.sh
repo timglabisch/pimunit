@@ -52,6 +52,7 @@ PIMCORE_GIT_REPOSIOTRY="https://github.com/pimcore/pimcore"
 PIMCORE_GIT_REPOSIOTRY_BRANCH="master"
 PIMUNIT_GIT_REPOSIOTRY="https://github.com/timglabisch/pimunit"
 PIMUNIT_GIT_REPOSIOTRY_BRANCH="master"
+PIMUNIT_INSTALL=1;
 PIMCORE_DATABASE_DRIVER="Pdo_Mysql"
 ENV_PHP_CONFIGURE=0
 
@@ -69,6 +70,7 @@ while true ; do
 		--pimcore-git-branch) set PIMCORE_GIT_REPOSIOTRY_BRANCH=$2; shift 2;;
 		--pimunit-git-repo) set PIMUNIT_GIT_REPOSIOTRY=$2; shift 2;;
 		--pimunit-git-branch) set PIMUNIT_GIT_REPOSIOTRY_BRANCH=$2; shift 2;;
+		--pimunit-skip-install) set PIMUNIT_INSTALL=0; shift 1;;
 		--pimcore-database-driver) set PIMCORE_DATABASE_DRIVER=$2; shift 2;;
 		--travis-ci) set ENV_PHP_CONFIGURE=1; set MYSQL_USERNAME="root"  shift 1;;
 		--) shift; break;;
@@ -94,10 +96,6 @@ cp -R /tmp/pimcore/pimcore pimcore
 cp -R /tmp/pimcore/website_example website
 cp /tmp/pimcore/index.php index.php
 mkdir plugins
-
-echo "# install Pimunit"
-mkdir plugins/Pimunit
-git clone -b $PIMUNIT_GIT_REPOSIOTRY_BRANCH $PIMUNIT_GIT_REPOSIOTRY plugins/Pimunit
 
 echo "# db"
 mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --port=$MYSQL_PORT -e "drop database if exists $MYSQL_DATABASE;"
@@ -130,7 +128,6 @@ sed -i "s/%MYSQL_PORT%/$MYSQL_PORT/g" website/var/config/system.xml
 
 echo "# configure file Permissions"
 chmod -R 777 website/var
-chmod -R 777 plugins/Pimunit/var
 
 if [ $ENV_PHP_CONFIGURE = "Website" ]; then
 	echo "# configure php"
@@ -140,4 +137,11 @@ if [ $ENV_PHP_CONFIGURE = "Website" ]; then
 	echo "# disable magic quotes"
 	cat `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` | sed -e "s/magic_quotes_gpc = On/magic_quotes_gpc = Off/ig" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 	echo "magic_quotes_gpc = Off" > `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+fi
+
+if [ $PIMUNIT_INSTALL = 1 ]; then
+	echo "# install Pimunit"
+	mkdir plugins/Pimunit
+	git clone -b $PIMUNIT_GIT_REPOSIOTRY_BRANCH $PIMUNIT_GIT_REPOSIOTRY plugins/Pimunit
+	chmod -R 777 plugins/Pimunit/var
 fi
