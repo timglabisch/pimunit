@@ -1,4 +1,3 @@
-
 # commandline args
 usage()
 {
@@ -116,9 +115,9 @@ cp /tmp/pimcore/index.php index.php
 mkdir plugins
 
 echo "# db"
-mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --port=$MYSQL_PORT -e "drop database if exists $MYSQL_DATABASE;"
-mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --port=$MYSQL_PORT -e "create database $MYSQL_DATABASE;"
-mysql --host=$MYSQL_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD --port=$MYSQL_PORT --force --one-database $MYSQL_DATABASE < pimcore/modules/install/mysql/install.sql
+mysql --host=$MYSQL_HOST --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --port=$MYSQL_PORT -e "drop database if exists $MYSQL_DATABASE;"
+mysql --host=$MYSQL_HOST --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --port=$MYSQL_PORT -e "create database $MYSQL_DATABASE;"
+mysql --host=$MYSQL_HOST --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --port=$MYSQL_PORT --force --one-database $MYSQL_DATABASE < pimcore/modules/install/mysql/install.sql
 
 if [ $PIMCORE_INSTALL_TYPE = "Plugin" ]; then
 	echo "# install Pimcore Plugin"
