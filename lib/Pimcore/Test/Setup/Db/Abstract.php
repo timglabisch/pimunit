@@ -10,7 +10,7 @@ class Pimcore_Test_Setup_Db_Abstract {
     public $cleanup;
     
     protected function getDb() {
-        return Pimcore_Resource_Mysql::get();
+        return Pimcore_Resource_Mysql::getConnection();
     }
 
     public function setUpDatabase() {
