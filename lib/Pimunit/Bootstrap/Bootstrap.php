@@ -26,7 +26,7 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
     protected function initShutdownFunction() {
         $di = $this->di;
         register_shutdown_function(function () use ($di) {
-            Pimcore_Resource_Mysql::get()->deleteMockDb();
+            Pimcore_Resource_Mysql::getConnection()->deleteMockDb();
             $di->get('Pimcore_Test_Icleanup')->rrmdir($di->get('Pimunit_Startup_iConstants')->getPimunitProc());
             die();
         });
