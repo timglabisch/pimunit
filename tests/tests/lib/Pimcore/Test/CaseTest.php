@@ -184,4 +184,12 @@ class Pimcore_Test_CaseTest extends Pimcore_Test_Case {
 
         self::$di = $backupDi;
     }
+
+   /**
+     * @group db
+     */
+    function testDatabaseDriver() {
+        $this->assertTrue(Pimcore_Resource_Mysql::getConnection()->getResource() instanceof Pimunit_Db_Adapter_Standard_Mysqli || Pimcore_Resource_Mysql::getConnection()->getResource() instanceof Pimunit_Db_Adapter_Standard_Pdo_Mysql);
+        $this->assertTrue(Pimcore_Resource_Mysql::get()->getResource() instanceof Pimunit_Db_Adapter_Standard_Mysqli || Pimcore_Resource_Mysql::getConnection()->getResource() instanceof Pimunit_Db_Adapter_Standard_Pdo_Mysql);
+    }
 }
