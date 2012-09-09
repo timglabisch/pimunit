@@ -17,13 +17,4 @@
 
 === Manual ===
 
-[[http://pimunit.ainfach.de|Manual]]
-
-[[http://pimunit.ainfach.de/installation|Installation]]
-
-[[http://pimunit.ainfach.de/writing-tests|Writing Tests]]
-
-[[http://pimunit.ainfach.de/test-types|Test Types]]
-
-
-[[install|Pimunit installation]] (watch Screencast in HD+ at [[http://www.vimeo.com/25106181|Vimeo]] or [[http://ainfach.de/pimcore/pimunit-install.avi|Download Full-HD]]) 
+look at http://pimunit.ainfach.de
