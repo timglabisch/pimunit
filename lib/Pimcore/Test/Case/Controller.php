@@ -132,6 +132,9 @@ abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
         $front->throwExceptions(true);
         $front->dispatch($request, $response);
 
+        // reset, this allows you to dispatch multiple times
+        Zend_Controller_Front::getInstance()->resetInstance();
+
         return new Pimcore_Test_Case_Controller_Response($response);
     }
 

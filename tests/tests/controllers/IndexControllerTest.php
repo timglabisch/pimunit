@@ -22,4 +22,19 @@ class Pimunit_IndexControllerTest extends Pimcore_Test_Case_Controller {
         $this->assertEquals($this->dispatch('/')->getController()->document->getId(), 1);
     }
 
+    public function testStartDocumentMultiple() {
+        $this->assertEquals($this->dispatch('/')->getController()->document->getId(), 1);
+        $this->assertEquals($this->dispatch('/')->getController()->document->getId(), 1);
+    }
+
+    function testIndexActionMultiple() {
+        $resp = $this->dispatch('/plugin/Pimunit/index/index');
+        $this->assertEquals($resp->getResponse()->getBody(), 'Hallo Welt!');
+        $this->assertEquals($resp->getController()->view->foo, 'pimunit!');
+
+        $resp = $this->dispatch('/plugin/Pimunit/index/index');
+        $this->assertEquals($resp->getResponse()->getBody(), 'Hallo Welt!');
+        $this->assertEquals($resp->getController()->view->foo, 'pimunit!');
+    }
+
 }
