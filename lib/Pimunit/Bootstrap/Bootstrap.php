@@ -85,8 +85,6 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
         $pimcore->initConfiguration();
         $pimcore->setSystemRequirements();
         $pimcore->initAutoloader();
-        
-        Pimcore_ExtensionManager::enable('plugin', 'Pimunit');
 
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->setFallbackAutoloader(true);
@@ -103,6 +101,5 @@ class Pimunit_Bootstrap_Bootstrap implements Pimunit_iBootstrap {
         $reflector->setValue($dbClass, true);
 
         Zend_Registry::get("pimcore_config_system")->database->params->adapterNamespace = 'Pimunit_Db_Adapter_Standard';
-
     }
 }
