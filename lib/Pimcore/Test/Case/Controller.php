@@ -157,4 +157,42 @@ abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
         throw new \Exception('bad Argument, string or Zend_Controller_Request_HttpTestCase required');
     }
 
+    /**
+     * @param $controller
+     * @param null $action
+     * @param null $module
+     * @return Pimcore_Test_Case_Controller_Response
+     * @todo TEST!
+     */
+    public function dispatchController($controller, $action=null, $module=null) {
+        $r = new \Zend_Controller_Request_HttpTestCase();
+
+        // use the default route
+        $r->setRequestUri('/');
+
+        // controller
+        $r->setParam('controller', $controller);
+        $r->setControllerKey($controller);
+        $r->setControllerName($controller);
+        $_REQUEST['controller'] = $controller;
+
+        // action
+        if($action !== null) {
+            $r->setParam('action', $action);
+            $r->setActionKey($action);
+            $r->setActionName($action);
+            $_REQUEST['action'] = $action;
+        }
+
+        // module
+        if($module !== null) {
+            $r->setParam('module', $module);
+            $r->setModuleKey($module);
+            $r->setModuleName($module);
+            $_REQUEST['module'] = $module;
+        }
+
+        return $this->dispatch($r);
+    }
+
 }
