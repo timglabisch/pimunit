@@ -19,10 +19,12 @@ abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
      * @param Zend_Controller_Request_Abstract $request
      * @return Pimcore_Test_Case_Controller_Response
      */
-    public function dispatchRequest(Zend_Controller_Request_Abstract $request) {
+    public function dispatchRequest(Zend_Controller_Request_Abstract $request, $hooks = array()) {
         $front = Zend_Controller_Front::getInstance();
 
-        $front->setDispatcher(new Pimunit_Controller_Dispatcher_Standard());
+        $dispatcher = new Pimunit_Controller_Dispatcher_Standard();
+        $dispatcher->setHooks($hooks);
+        $front->setDispatcher($dispatcher);
 
         Zend_Controller_Action_HelperBroker::addHelper(new Pimcore_Controller_Action_Helper_ViewRenderer());
         Zend_Controller_Action_HelperBroker::addHelper(new Pimcore_Controller_Action_Helper_Json());
@@ -142,16 +144,16 @@ abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
      * @param Zend_Controller_Request_Abstract | string $request
      * @return Pimcore_Test_Case_Controller_Response
      */
-    public function dispatch($request) {
+    public function dispatch($request, $hooks=array()) {
 
         if(is_string($request)) {
             $r = new Zend_Controller_Request_HttpTestCase();
             $r->setRequestUri($request);
-            return $this->dispatchRequest($r);
+            return $this->dispatchRequest($r, $hooks);
         }
 
         if($request instanceof Zend_Controller_Request_HttpTestCase) {
-            return $this->dispatchRequest($request);
+            return $this->dispatchRequest($request, $hooks);
         }
 
         throw new \Exception('bad Argument, string or Zend_Controller_Request_HttpTestCase required');
@@ -164,7 +166,7 @@ abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
      * @return Pimcore_Test_Case_Controller_Response
      * @todo TEST!
      */
-    public function dispatchController($controller, $action=null, $module=null) {
+    public function dispatchController($controller, $action=null, $module=null, $hooks=array()) {
         $r = new \Zend_Controller_Request_HttpTestCase();
 
         // use the default route
@@ -192,7 +194,7 @@ abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
             $_REQUEST['module'] = $module;
         }
 
-        return $this->dispatch($r);
+        return $this->dispatch($r, $hooks);
     }
 
 }

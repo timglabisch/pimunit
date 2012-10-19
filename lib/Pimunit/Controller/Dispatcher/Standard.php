@@ -2,6 +2,31 @@
 
 class Pimunit_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Standard {
 
+    protected $hooks = array();
+
+    public function setHooks(array $arrayOfCallables) {
+        foreach($arrayOfCallables as $v)
+            if(!is_callable($v))
+                throw new \Exception('invalid Arg');
+
+        $this->hooks = $arrayOfCallables;
+    }
+
+    public function hasHook($hookname) {
+        return isset($this->hooks[$hookname]);
+    }
+
+    /**
+     * @param $hookname
+     * @return Callable
+     */
+    public function getHook($hookname) {
+        if(!$this->hasHook($hookname))
+            return false;
+
+        return $this->hooks[$hookname];
+    }
+
     public function dispatch(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response)
     {
         $this->setResponse($response);
@@ -27,13 +52,31 @@ class Pimunit_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_
         /**
          * Load the controller class file
          */
-
         $className = $this->loadClass($className);
+
+
         /**
          * Instantiate controller with request, response, and invocation
          * arguments; throw exception if it's not an action controller
          */
-        $controller = new $className($request, $this->getResponse(), $this->getParams());
+
+        if($this->hasHook('createControllerInstance.pre')) {
+            $hookLambda = $this->getHook('createControllerInstance.pre');
+            $hookLambda($this, $className, $request);
+        }
+
+        if($this->hasHook('createControllerInstance')) {
+            $hookLambda = $this->getHook('createControllerInstance');
+            $controller = $hookLambda($className, $request, $this);
+        } else {
+            $controller = new $className($request, $this->getResponse(), $this->getParams());
+        }
+
+        if($this->hasHook('createControllerInstance.post')) {
+            $hookLambda = $this->getHook('createControllerInstance.post');
+            $hookLambda($this, $controller, $className, $request);
+        }
+
         if (!($controller instanceof Zend_Controller_Action_Interface) &&
             !($controller instanceof Zend_Controller_Action)) {
             require_once 'Zend/Controller/Dispatcher/Exception.php';
@@ -60,8 +103,19 @@ class Pimunit_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_
             ob_start();
         }
 
+        if($this->hasHook('dispatchAction.pre')) {
+            $hookLambda = $this->getHook('dispatchAction.pre');
+            $hookLambda($this, $controller, $action);
+        }
+
         try {
-            $controller->dispatch($action);
+            if($this->hasHook('dispatchAction')) {
+                $hookLambda = $this->getHook('dispatchAction');
+                $hookLambda($this, $controller, $action);
+            } else {
+                $controller->dispatch($action);
+            }
+
         } catch (Exception $e) {
             // Clean output buffer on error
             $curObLevel = ob_get_level();
@@ -74,15 +128,15 @@ class Pimunit_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_
             throw $e;
         }
 
+        if($this->hasHook('dispatchAction.post')) {
+            $hookLambda = $this->getHook('dispatchAction.post');
+            $hookLambda($this, $controller, $action);
+        }
+
         if (empty($disableOb)) {
             $content = ob_get_clean();
             $response->appendBody($content);
         }
-
-        // just this is different from zends default implementation:
-
-        // Destroy the page controller instance and reflection objects
-        //$controller = null;
 
         $response->controllerImpl = $controller;
     }
