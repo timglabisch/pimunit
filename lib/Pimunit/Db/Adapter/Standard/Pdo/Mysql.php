@@ -79,11 +79,13 @@ class Pimunit_Db_Adapter_Standard_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql {
     public function initPimcore() {
 
         /*
-         * in version 1.4.5 there is a bug in the install script, so tree_locks isnt dropped
-         * by defult
-         */
-
+             * in version 1.4.5 there is a bug in the install script, so tree_locks isnt dropped
+             * by defult
+             */
         $sql = 'DROP TABLE IF EXISTS `tree_locks`;';
+
+        // in version 1.4.8 tree_locks was renamed to locks
+        $sql .= 'DROP TABLE IF EXISTS `locks`;';
 
         $sql .= $this->sqlBuilder->installPimcoreSql();
         $sql .= $this->sqlBuilder->restoreClassesSql($this->getOriginalConfig(), $this->_config['dbname'], $this->tables2Copy());

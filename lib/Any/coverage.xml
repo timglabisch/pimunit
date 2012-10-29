@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1329527038">
-  <project timestamp="1329527038">
+<coverage generated="1344977352">
+  <project timestamp="1344977352">
     <package name="de\any\di">
       <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/ReflectionAnnotation.php">
         <class name="ReflectionAnnotation" namespace="de\any\di">
@@ -253,24 +253,24 @@
         <class name="memory" namespace="de\any\di\cache">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
         </class>
-        <line num="8" type="method" name="fetch" crap="2" count="56"/>
-        <line num="9" type="stmt" count="56"/>
-        <line num="10" type="stmt" count="56"/>
-        <line num="12" type="stmt" count="40"/>
-        <line num="15" type="method" name="store" crap="1" count="56"/>
-        <line num="16" type="stmt" count="56"/>
-        <line num="17" type="stmt" count="56"/>
+        <line num="8" type="method" name="fetch" crap="2" count="55"/>
+        <line num="9" type="stmt" count="55"/>
+        <line num="10" type="stmt" count="55"/>
+        <line num="12" type="stmt" count="39"/>
+        <line num="15" type="method" name="store" crap="1" count="55"/>
+        <line num="16" type="stmt" count="55"/>
+        <line num="17" type="stmt" count="55"/>
         <metrics loc="19" ncloc="19" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="7" coveredelements="7"/>
       </file>
       <file name="/var/www/pimcore-current/plugins/Pimunit/lib/Any/DI/cache/void.php">
         <class name="void" namespace="de\any\di\cache">
-          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+          <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
         </class>
-        <line num="6" type="method" name="fetch" crap="1" count="1"/>
-        <line num="7" type="stmt" count="1"/>
-        <line num="10" type="method" name="store" crap="1" count="1"/>
-        <line num="12" type="stmt" count="1"/>
-        <metrics loc="14" ncloc="14" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+        <line num="6" type="method" name="fetch" crap="2" count="0"/>
+        <line num="7" type="stmt" count="0"/>
+        <line num="10" type="method" name="store" crap="2" count="0"/>
+        <line num="12" type="stmt" count="0"/>
+        <metrics loc="14" ncloc="14" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
       </file>
     </package>
     <package name="de\any\di\exception">
@@ -1001,6 +1001,6 @@
         <metrics loc="22" ncloc="16" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
       </file>
     </package>
-    <metrics files="43" loc="1538" ncloc="1436" classes="42" methods="151" coveredmethods="145" conditionals="0" coveredconditionals="0" statements="553" coveredstatements="528" elements="704" coveredelements="673"/>
+    <metrics files="43" loc="1538" ncloc="1436" classes="42" methods="151" coveredmethods="143" conditionals="0" coveredconditionals="0" statements="553" coveredstatements="526" elements="704" coveredelements="669"/>
   </project>
 </coverage>
