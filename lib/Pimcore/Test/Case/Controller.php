@@ -35,15 +35,15 @@ abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
 
         if (Pimcore_Tool::useFrontendOutputFilters(new Zend_Controller_Request_Http())) {
 
-            if(class_exists('Pimcore_Controller_Plugin_Less', true))
+            if(Pimcore_Version::$revision > 2300)
                 $front->registerPlugin(new Pimcore_Controller_Plugin_Less(), 799);
 
-            # there is a bug in the autoloader in version 1.4.8 the autoloader
-            # thinks it has the class Pimcore_Controller_Plugin_Robotstxt but fails while loading
-            # if(class_exists('Pimcore_Controller_Plugin_Robotstxt', true))
-            #     $front->registerPlugin(new Pimcore_Controller_Plugin_Robotstxt(), 795);
+             if(Pimcore_Version::$revision < 2110)
+                 $front->registerPlugin(new Pimcore_Controller_Plugin_Robotstxt(), 795);
 
-            $front->registerPlugin(new Pimcore_Controller_Plugin_CommonFilesFilter(), 795);
+            if(Pimcore_Version::$revision > 2300)
+                $front->registerPlugin(new Pimcore_Controller_Plugin_CommonFilesFilter(), 795);
+
             $front->registerPlugin(new Pimcore_Controller_Plugin_WysiwygAttributes(), 796);
             $front->registerPlugin(new Pimcore_Controller_Plugin_Webmastertools(), 797);
             $front->registerPlugin(new Pimcore_Controller_Plugin_Analytics(), 798);
@@ -51,7 +51,10 @@ abstract class Pimcore_Test_Case_Controller extends Pimcore_Test_Case {
             $front->registerPlugin(new Pimcore_Controller_Plugin_JavascriptMinify(), 801);
             $front->registerPlugin(new Pimcore_Controller_Plugin_ImageDataUri(), 803);
             $front->registerPlugin(new Pimcore_Controller_Plugin_TagManagement(), 804);
-            $front->registerPlugin(new Pimcore_Controller_Plugin_Targeting(), 805);
+
+            if(Pimcore_Version::$revision > 2300)
+                $front->registerPlugin(new Pimcore_Controller_Plugin_Targeting(), 805);
+
             $front->registerPlugin(new Pimcore_Controller_Plugin_HttpErrorLog(), 850);
             $front->registerPlugin(new Pimcore_Controller_Plugin_Cache(), 901); // for caching
         }
