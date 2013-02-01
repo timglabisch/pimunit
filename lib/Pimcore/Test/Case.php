@@ -19,7 +19,10 @@ class Pimcore_Test_Case extends Pimcore_Test_Case_Abstract {
         if(file_exists(getcwd().'/tests/fixtures/'.$path))
             return getcwd().'/tests/fixtures/'.$path;
 
-        return getcwd().'/fixtures/'.$path;
+        if(file_exists(getcwd().'/fixtures/'.$path))
+            return getcwd().'/fixtures/'.$path;
+
+        return getcwd().'/'.$path;
     }
 
     /**
